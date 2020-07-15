@@ -1,0 +1,17 @@
+:root{
+   --colorPrimary:rgb(248, 38, 38);
+   --colorBlack:black;
+   --colorGrey:#5c5c5c;
+}
+.App {
+
+}
+
+.container{
+  margin: 0 5rem;
+}
+
+
+
+
+
