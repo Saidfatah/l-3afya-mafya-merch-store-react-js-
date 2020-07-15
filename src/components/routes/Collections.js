@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Contact() {
+function Collections() {
     return (
         <div>
-            contact
+            collections
         </div>
     )
 }
 
-export default Contact
+export default Collections

@@ -1,0 +1,15 @@
+.navBar{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.navBar__left{
+flex: 1;
+}
+.navBar__middle{
+flex: 3;
+}
+.navBar__right{
+    flex: 1;
+}

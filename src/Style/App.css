@@ -4,7 +4,11 @@
    --colorGrey:#5c5c5c;
 }
 .App {
+  font-family: "Century Gothic",sans-serif;
 
+}
+body{
+  font-family: "Century Gothic",sans-serif;
 }
 
 .container{
