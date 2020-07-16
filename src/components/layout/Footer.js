@@ -12,10 +12,10 @@ function Footer() {
                       <div className="footer__block">
                         <h2>CONNECT</h2>
                          <div className="social">
-                           <a href="https://twitter.com/home"><i class="fab fa-twitter"></i></a>
-                           <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
-                           <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
-                           <a href="https://www.youtube.com/"><i class="fab fa-youtube"></i></a>
+                           <a href="https://twitter.com/home"><i className="fab fa-twitter"></i></a>
+                           <a href="https://www.facebook.com/"><i className="fab fa-facebook-f"></i></a>
+                           <a href="https://www.instagram.com/"><i className="fab fa-instagram"></i></a>
+                           <a href="https://www.youtube.com/"><i className="fab fa-youtube"></i></a>
                          </div>
                       </div>
                       <div className="footer__block">

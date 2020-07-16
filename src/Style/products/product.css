@@ -1,0 +1,55 @@
+.card{
+    width: 300px;
+    height: 400px;
+    background-color: blue;
+}
+
+.card:hover .card__image2{
+    opacity: 1;
+}
+
+
+
+.card__image{
+    height:100%;
+    width: 100%;
+    background-color: black;
+    position: relative;
+}
+.card__image2 ,.card__image2{
+    position: absolute;
+
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+  
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.card__image2{
+    opacity: 0;
+}
+.card__image img{
+    width: 100%;
+}
+
+.card__info,.card__buttons{
+    position: relative;
+    z-index: 9;
+}
+
+
+.card__buttons{
+    display: flex;
+    overflow: hidden;
+}
+.card_button{
+    position: relative;
+    top: 100%;
+    padding: 1rem 1.5rem;
+    flex: 1;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    text-align: center;
+}
