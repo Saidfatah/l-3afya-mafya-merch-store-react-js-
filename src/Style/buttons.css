@@ -1,8 +1,11 @@
 .btn{
     padding: .75rem 2rem ;
+    color: #fff;
     background-color: transparent;
     border: 1px solid #000;
     position: relative;
+    z-index: 1;
+    cursor: pointer;
 }
 .btn::before{
     content: '';
@@ -12,16 +15,12 @@
     width: 100%;
     top: 0;
     left: 0;
-    background-color: red;
-   transition: all .5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-   transform-origin: left center;
+    background-color: var(--colorGrey);
+    transition: all .5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    transform-origin: left center;
 }
-
 .btn:hover::before{
    width: 0;
 }
 
 
- .btn:not([disabled])::before {
-
- }

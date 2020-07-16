@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
   
 function Navbar(props) {
     return (
-        <div className="navBar container">
+        <div className="navBar">
              
              <div className="navBar__left">
                  <Link className="navBar__Link" to="/shop">SHOP</Link>
@@ -13,8 +13,8 @@ function Navbar(props) {
                  <Link className="navBar__Link" to="/contact">CONTACT</Link>
             </div>
             <div className="navBar__middle">
-                <Link className="navBar__Link" to="/">
-                    <img  src={logo}/>
+                <Link className="navBar__Link noborder" to="/">
+                    <img className="navBar__logo" src={logo}/>
                 </Link>
             </div>
             <div className="navBar__right">

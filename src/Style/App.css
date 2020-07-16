@@ -1,3 +1,7 @@
+*{
+  margin:0 ;
+  padding:0;
+}
 :root{
    --colorPrimary:rgb(248, 38, 38);
    --colorBlack:black;
@@ -15,7 +19,22 @@ body{
   margin: 0 5rem;
 }
 
+.flexHorizontalCenter{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
 
+.textCenter{
+  text-align: center;
+}
+a{
+  text-decoration: none;
+}
 
-
-
+input{
+  padding: .75rem 2rem ;
+  margin-bottom: 1rem ;
+  border: 1px solid #fff;
+  background: transparent;
+}
