@@ -21,27 +21,43 @@ var mime = {
     js: 'application/javascript'
 };
 
-app.get('/images/:productTitle',  (req, res)=> {
+app.get('/images/1/:productTitle',  (req, res)=> {
     const productTitle= req.params.productTitle
     const file = path.join(Imagesdir, '/'+productTitle);
-
-    fs.readdir(file,  (err, files) =>{
+    fs.readdir(file,(err, files) =>{
         if (err) return console.log('Unable to scan directory: ' + err)
-             const type = mime[files[0].split('.')[1]] 
-           
-             console.log(file+'/'+files[0])
-             var s = fs.createReadStream(file+'/'+files[0])
-             s.on('open', ()=>{
-                 res.set('Content-Type', type)
-                 s.pipe(res)
-             });
-             s.on('error', () =>{
-                 res.set('Content-Type', 'text/plain')
-                 res.status(404).end('Not found')
-             })
+        const type = mime[files[0].split('.')[1]] 
+        var s = fs.createReadStream(file+'/'+files[0])
+        s.on('open', ()=>{
+            res.set('Content-Type', type)
+            s.pipe(res)
+        });
+        s.on('error', () =>{
+            res.set('Content-Type', 'text/plain')
+            res.status(404).end('Not found')
+        })
     })
- 
+});
 
+
+
+app.get('/images/2/:productTitle',  (req, res)=> {
+    const productTitle= req.params.productTitle
+    const file = path.join(Imagesdir, '/'+productTitle);
+    fs.readdir(file,(err, files) =>{
+        if (err) return console.log('Unable to scan directory: ' + err)
+        const type = mime[files[0].split('.')[1]] 
+        console.log(file+'/'+files[1])
+        var s = fs.createReadStream(file+'/'+files[1])
+        s.on('open', ()=>{
+            res.set('Content-Type', type)
+            s.pipe(res)
+        });
+        s.on('error', () =>{
+            res.set('Content-Type', 'text/plain')
+            res.status(404).end('Not found')
+        })
+    })
 });
 
 app.listen(4000,  ()=> {

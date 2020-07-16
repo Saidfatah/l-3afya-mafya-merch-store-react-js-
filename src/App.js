@@ -3,6 +3,7 @@ import './Style/App.css';
 import './Style/layoutStyles/hero.css';
 import './Style/layoutStyles/navbar.css';
 import './Style/layoutStyles/footer.css';
+import './Style/products/product.css';
 import './Style/buttons.css';
 import { BrowserRouter as Router,Switch,Route} from "react-router-dom";
 import Navbar from './components/layout/Navbar'
