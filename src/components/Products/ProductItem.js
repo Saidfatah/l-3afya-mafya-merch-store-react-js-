@@ -1,12 +1,12 @@
 import React,{useEffect,createRef} from 'react'
 import axios from 'axios'
-import img from '../../'
+
 function ProductItem(props) {
-    const img1 = React.createRef();
-    const img2 = React.createRef();
+    const img1 = createRef();
+    const img2 = createRef();
     const {title,price,images}=props.product
 
-    React.useEffect(() => {
+    useEffect(() => {
         axios.get('http://localhost:4000/images/1/'+title,
         {responseType: 'arraybuffer',headers: {'Accept': 'image/jpeg'}})
         .then(res=>{
