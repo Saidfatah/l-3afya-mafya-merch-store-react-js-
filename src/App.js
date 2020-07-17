@@ -17,7 +17,7 @@ import Account from './components/routes/Account'
 import Home from './components/routes/Home'
 import Collections from './components/routes/Collections'
 import SideBar from './components/layout/SideBar'
-
+import Provider from './Context/ProductsProvider'
 
 function App() {
   return (
@@ -25,13 +25,15 @@ function App() {
        <Router>
           <Navbar/>
           <Switch>
-              <Route exact path="/"> <Home /></Route>
-              <Route path="/account"><Account /></Route>
-              <Route path="/collections"><Collections /></Route>
-              <Route path="/contact"><Contact /></Route>
-              <Route path="/shop">   <Shop /></Route>
-              <Route path="/policy"> <PrivacyPolicy /></Route>
-              <Route path="/search"> <Search /></Route>
+            <Provider>
+               <Route exact path="/"> <Home /></Route>
+               <Route path="/collections"><Collections /></Route>
+               <Route path="/contact"><Contact /></Route>
+               <Route path="/shop">   <Shop /></Route>
+               <Route path="/policy"> <PrivacyPolicy /></Route>
+               <Route path="/account"><Account /></Route>
+               <Route path="/search"> <Search /></Route>
+            </Provider>
           </Switch>
           <Footer/>
        </Router>  
