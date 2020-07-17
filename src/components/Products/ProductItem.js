@@ -1,33 +1,22 @@
-import React,{useEffect,createRef} from 'react'
+import React,{useEffect,createRef,useContext} from 'react'
+import {MyContext} from '../../Context/ProductsProvider'
 import axios from 'axios'
 
 function ProductItem(props) {
-    const img1 = createRef();
-    const img2 = createRef();
-    const {title,price,images}=props.product
+    const img1 = createRef()
+    const img2 = createRef()
+    const {getImage} =useContext(MyContext)
+    const {title,price}=props.product
 
     useEffect(() => {
-        axios.get('http://localhost:4000/images/1/'+title,
-        {responseType: 'arraybuffer',headers: {'Accept': 'image/jpeg'}})
-        .then(res=>{
-          const blob = new Blob([res.data], { type:res.headers['content-type']});
-          const objectURL = URL.createObjectURL(blob);
-          if (img1.current != null)
-             img1.current.src = objectURL;
-        })
-        .catch(err=>console.log(err))
-
-        axios.get('http://localhost:4000/images/2/'+title,
-        {responseType: 'arraybuffer',headers: {'Accept': 'image/jpeg'}})
-        .then(res=>{
-          const blob = new Blob([res.data], { type:res.headers['content-type']});
-          const objectURL = URL.createObjectURL(blob);
-          console.log(objectURL);
-          if (img2.current != null)
-             img2.current.src = objectURL;
-        })
-        .catch(err=>console.log(err))
-    }, []);
+        getImage(title,setImage(img1),1)
+        getImage(title,setImage(img2),2)
+    }, [])
+    const setImage=(img)=>(res)=>{
+        const blob = new Blob([res.data],{type:res.headers['content-type']});
+        const objectURL = URL.createObjectURL(blob);
+        if (img.current != null)img.current.src = objectURL
+    }
 
     return (
         <div className="card">

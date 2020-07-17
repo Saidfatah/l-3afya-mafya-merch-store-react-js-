@@ -4,6 +4,8 @@ import logo from "../../Images/LOGO.png"
 import {Link} from "react-router-dom";
   
 function Navbar(props) {
+    //current linkl has underline
+    //if the route doesn't belong to any link none will be underlined 
     return (
         <div className="navBar">
              
