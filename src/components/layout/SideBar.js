@@ -1,19 +1,21 @@
-import React ,{createRef}from 'react'
+import React ,{createRef,forwardRef,useImperativeHandle}from 'react'
 import {Link} from "react-router-dom"
-function SideBar() {
+
+const SideBar=forwardRef((props,ref) =>{
     const sideBarContainer = createRef()
     const pageShdowCover = createRef()
-    const slideIn=e=>{
-        pageShdowCover.current.style.display='block'
-        sideBarContainer.current.style.left='0'
-        pageShdowCover.current.style.opacity='1'
-
-    }
     const slideOut=e=>{
         sideBarContainer.current.style.left='-400px'
         pageShdowCover.current.style.opacity='0'
         setTimeout(()=>pageShdowCover.current.style.display='none', 600);
     }
+    useImperativeHandle(ref, () => ({
+        slideIn(){
+            pageShdowCover.current.style.display='block'
+            sideBarContainer.current.style.left='0'
+            pageShdowCover.current.style.opacity='1'
+        }
+    }));
     return (
         <div>
             <div className="pageShdowCover" ref={pageShdowCover}></div>
@@ -39,6 +41,6 @@ function SideBar() {
         </div>
         </div>
     )
-}
+})
 
 export default SideBar

@@ -6,7 +6,7 @@ function ProductItem(props) {
     const img1 = createRef()
     const img2 = createRef()
     const {getImage} =useContext(MyContext)
-    const {title,price}=props.product
+    const {title,price,productId}=props.product
 
     useEffect(() => {
         getImage(title,setImage(img1),1)
@@ -19,7 +19,7 @@ function ProductItem(props) {
     }
 
     return (
-        <Link>
+        <Link  to={"/product/"+productId}>
         <div className="card">
             <div className="card__image">
                 <div className="card__image1">
