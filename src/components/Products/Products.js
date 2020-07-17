@@ -3,10 +3,11 @@ import ProductItem from './ProductItem'
 import {MyContext} from '../../Context/ProductsProvider'
 function Products(props) {
     const {products} =React.useContext(MyContext)
+    const {productSize}=props
     return (
-        <div className="flex wrap">
+        <div className="products">
             {
-                products.map((product,index)=><ProductItem key={index} images={product.images} product={product} />)
+                products.map((product,index)=><ProductItem key={index} images={product.images} productSize={productSize} product={product} />)
             }
         </div>
     )

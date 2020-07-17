@@ -6,6 +6,9 @@
    --colorPrimary:rgb(248, 38, 38);
    --colorBlack:black;
    --colorGrey:#5c5c5c;
+   --colorGreyLight:#7c7676;
+   --colorGreyFaint:#e0e0e0;
+   --colorShadow:#4646462c;
 }
 .App {
   font-family: "Century Gothic",sans-serif;
@@ -37,4 +40,16 @@ input{
   margin-bottom: 1rem ;
   border: 1px solid #fff;
   background: transparent;
+}
+
+.textCenter{
+  text-align: center;
+}
+
+
+p, h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  font-size: 14px;
+  font-size: inherit;
+  font-weight: inherit;
 }

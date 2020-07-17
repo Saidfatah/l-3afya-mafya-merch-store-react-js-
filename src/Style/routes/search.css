@@ -1,0 +1,21 @@
+.searchPage{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+}
+.searchPage input{
+     width:182;
+     height: 143;
+     margin-top: 1rem;
+}
+.searchPage h1,.searchPage p{
+    margin-bottom: 1rem;
+   font-size: 13px;
+}
+.searchPage p{
+   color: var(--colorGreyLight);
+}
