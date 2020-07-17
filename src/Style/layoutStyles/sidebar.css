@@ -1,0 +1,47 @@
+.SideContainer{
+    width: 400px;
+    height: 100vh;
+    background-color: #fff;
+    position: absolute;
+    box-shadow: 0px 0px 6px 5px var(--colorShadow);
+    transition: all .5s ease-in;
+    z-index: 99;
+    top: 0;
+    display: flex;
+  
+}
+.sideBar{
+    left: 0;
+    background-color: red;
+    flex-direction: row;
+} 
+.cart{
+    right: 0;
+    flex-direction: column;
+}
+.pageShdowCover{
+    width:100%;
+    height: 100vh;
+    background-color: var(--colorShadowDarker);
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 90;
+    transition: all .4s ease-in;
+}
+
+.cart__top{
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    border-bottom: 1px solid var(--colorGreyFaint);
+}
+.cart__top i{
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.cart__body{
+     height: calc(100vh - 75px);
+}

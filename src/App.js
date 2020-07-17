@@ -28,7 +28,8 @@ function App() {
   return (
     <div className="App">
        <Router>
-          <SideBarCart/>
+          {/* <SideBarCart/> */}
+          <SideBar/>
           <Navbar/>
           <Switch>
             <Provider>
