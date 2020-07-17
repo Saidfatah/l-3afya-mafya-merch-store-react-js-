@@ -49,3 +49,26 @@ flex: 1;
 }
 
 
+.sidemenu{
+    display: none;
+}
+
+
+@media all and (max-width :920px){
+    .sidemenu{
+        display: inline;
+    }
+    .navBar__Link:not(.sidemenu){
+        display: none;
+    }
+
+}
+@media all and (min-width :930px){
+    .sidemenu:not(.logo){
+        display: none;
+    }
+    .navBar__Link:not(.sidemenu){
+        display: inline;
+    }
+
+}
