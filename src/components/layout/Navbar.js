@@ -1,6 +1,5 @@
 import React from 'react'
 import logo from "../../Images/LOGO.png"
-
 import {Link} from "react-router-dom";
   
 function Navbar(props) {

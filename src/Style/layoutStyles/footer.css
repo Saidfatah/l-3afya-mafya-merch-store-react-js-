@@ -37,13 +37,8 @@
     font-size: 14px;
     margin-bottom: .75rem;
 }
-.social{
-    display: flex;
-    justify-content: space-between;
+.footer .social{
     width: 150px;
-}
-.social i{
-    color: #fff;
 }
 
 .newsletter form{

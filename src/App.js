@@ -8,7 +8,7 @@ import './Style/routes/search.css';
 import './Style/products/product.css';
 import './Style/products/products.css';
 import './Style/buttons.css';
-import './Style/cart/cart.css';
+import './Style/SideContainer.css';
 
 import { BrowserRouter as Router,Switch,Route} from "react-router-dom";
 import Navbar from './components/layout/Navbar'

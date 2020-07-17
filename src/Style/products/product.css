@@ -1,7 +1,7 @@
 .card{
     width: 300px;
     height: 400px;
-    background-color: blue;
+    cursor: pointer;
 }
 
 .card:hover .card__image2{
@@ -9,11 +9,9 @@
 }
 
 
-
 .card__image{
     height:100%;
     width: 100%;
-    background-color: black;
     position: relative;
 }
 .card__image2 ,.card__image2{
@@ -33,23 +31,9 @@
     width: 100%;
 }
 
-.card__info,.card__buttons{
+.card__info{
     position: relative;
     z-index: 9;
 }
 
 
-.card__buttons{
-    display: flex;
-    overflow: hidden;
-}
-.card_button{
-    position: relative;
-    top: 100%;
-    padding: 1rem 1.5rem;
-    flex: 1;
-    background-color: #000;
-    color: #fff;
-    border: none;
-    text-align: center;
-}

@@ -1,7 +1,7 @@
 import React,{useEffect,createRef,useContext} from 'react'
 import {MyContext} from '../../Context/ProductsProvider'
 import axios from 'axios'
-
+import {Link} from "react-router-dom"
 function ProductItem(props) {
     const img1 = createRef()
     const img2 = createRef()
@@ -19,6 +19,7 @@ function ProductItem(props) {
     }
 
     return (
+        <Link>
         <div className="card">
             <div className="card__image">
                 <div className="card__image1">
@@ -32,11 +33,9 @@ function ProductItem(props) {
                 <div className="card__title">{title}</div>
                 <div className="card__price">{price}</div>
             </div>
-            <div className="card__buttons">
-                <button className="card_button ">addToCart</button>
-                <button className="card_button ">More</button>
-            </div>
      </div>
+        </Link>
+        
     )
 }
 

@@ -1,6 +1,7 @@
 *{
   margin:0 ;
   padding:0;
+  box-sizing: border-box;
 }
 :root{
    --colorPrimary:rgb(248, 38, 38);
@@ -8,6 +9,7 @@
    --colorGrey:#5c5c5c;
    --colorGreyLight:#7c7676;
    --colorGreyFaint:#e0e0e0;
+   --colorGreyFainter:#ebebeb;
    --colorShadow:#4646462c;
    --colorShadowDarker:#2b2b2b2c;
 }
@@ -54,4 +56,25 @@ p, h1, h2, h3, h4, h5, h6 {
   font-size: 14px;
   font-size: inherit;
   font-weight: inherit;
+}
+
+
+
+.social{
+  display: flex;
+  justify-content: space-between;
+}
+.social i{
+  color: #fff;
+}
+
+
+.faintLink{
+  color:var(--colorGreyLight);
+  transition: all .3s ease-out;
+  cursor: pointer;
+}
+.faintLink:hover{
+ 
+  color: rgba(92,92,92,0.5);
 }
