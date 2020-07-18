@@ -21,7 +21,7 @@ const  Navbar=forwardRef((props,ref)=> {
                 </Link>
             </div>
             <div className="navBar__right">
-               <a className="navBar__Link sidemenu noHide" onClick={e=> {ref.current.slideCartIn() }}><i class="fas fa-shopping-bag"></i></a>
+               <a className="navBar__Link sidemenu noHide" onClick={e=> {ref.current.slideCartIn() }}><i className="fas fa-shopping-bag"></i></a>
                <Link className="navBar__Link no-sidemenu" to="/account">Account</Link>
                <a className="navBar__Link no-sidemenu">Search</a>
                <a className="navBar__Link no-sidemenu" onClick={e=> {ref.current.slideCartIn() }}>Cart(<span>1</span>)</a>

@@ -31,6 +31,9 @@ function ProductsProvider(props) {
      let [loaded,setLoaded]=React.useState(false )
      let [taskToUpdate,setTaskToUpdate]=React.useState({} )
      
+     const getProductById=id=>products.filter(p=>p.productId ==id)[0]
+
+
      const getImage=(title,callback,image)=>{
         axios.get('http://localhost:4000/images/'+image+'/'+title,
              {responseType: 'arraybuffer',headers: {'Accept': 'image/jpeg'}})
@@ -42,7 +45,7 @@ function ProductsProvider(props) {
      
 
      return (
-        <MyContext.Provider value={{products,collections,getImage}}>
+        <MyContext.Provider value={{products,collections,getProductById,getImage}}>
          {props.children}
         </MyContext.Provider>
      )

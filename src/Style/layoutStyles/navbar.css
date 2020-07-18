@@ -4,6 +4,11 @@
     justify-content: space-between;
     background-color: var(--colorBlack);
     padding: 0rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
 }
 .navBar__left{
 flex: 1;

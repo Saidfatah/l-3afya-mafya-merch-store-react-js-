@@ -14,7 +14,6 @@ const SideBarCart=forwardRef((props,ref)=>{
             pageShdowCover.current.style.display='block'
             cartContainer.current.style.right='0'
             pageShdowCover.current.style.opacity='1'
-    
         }
     }));
     return (
