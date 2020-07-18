@@ -1,9 +1,9 @@
 import React,{useState,useEffect,useContext} from 'react'
 import {MyContext} from '../../../Context/ProductsProvider'
-import AddToCart from './AddToCart'
 import ProductImages from './ProductImages'
 import RecentlyViewd from './RecentlyViewd'
 import Related       from './Related'
+import cookie from 'js-cookie'
 import { useParams } from 'react-router-dom'
 function ProductPage(props) {
     const [quantity,setQuantity]=useState(1)
@@ -12,9 +12,24 @@ function ProductPage(props) {
     const {getProductById} =useContext(MyContext)
 
     const {id}= useParams()
-    const {title,price}= getProductById(id)
+    const {title,price,hasSize}= getProductById(id)
     
- 
+    useEffect(() => {
+        let recentlyCiewdCookei= cookie.get('recentlyViewd')
+        const arr = cookie.get('arr')
+
+        if(recentlyCiewdCookei != undefined)
+        {   
+            recentlyCiewdCookei=JSON.parse(recentlyCiewdCookei)
+            recentlyCiewdCookei.push(id)
+            let set = new Set(...recentlyCiewdCookei);
+            console.log(set)
+            cookie.set('recentlyViewd',[...set])
+        }
+        else cookie.set('recentlyViewd',[])
+     
+
+     }, [])
 
     const updateQuantity=e=>{
         const inc = e.target.innerHTML =="+"?1 : (quantity <= 1 ? 0 : -1 );
@@ -32,7 +47,8 @@ function ProductPage(props) {
 
     return (
         <div className="productPage">
-            <div className="product__Info__wrapper">
+            <div  className="product__Info__wrapper">
+               <div className="product__Info__wrapper__wrapper">
                  <div className="product__Info">
                      <h2>{title}</h2>
                      <p>{price}</p>
@@ -42,14 +58,16 @@ function ProductPage(props) {
                          <li>6 oz/sqyd</li>
                          <li>Preshrunk</li>
                      </ul>
-                     <ul className="product__size" onClick={chooseSize}>
-                         <li>S</li>
-                         <li>M</li>
-                         <li>L</li>
-                         <li>XL</li>
-                         <li>2X</li>
-                         <li>3X</li>
-                     </ul>
+                     {
+                      hasSize?<ul className="product__size" onClick={chooseSize}>
+                      <li>S</li>
+                      <li>M</li>
+                      <li>L</li>
+                      <li>XL</li>
+                      <li>2X</li>
+                      <li>3X</li>
+                     </ul>:''
+                     }
                      <div className="quantity">
                          <span className="quantity__icon" onClick={updateQuantity}>-</span>
                          <input type="text" value={quantity}/>
@@ -59,7 +77,9 @@ function ProductPage(props) {
                      
                  </div>
             </div>
-            <ProductImages title={title} />
+               <ProductImages title={title} />
+            </div>
+            <RecentlyViewd /> 
         </div>
     )
 }

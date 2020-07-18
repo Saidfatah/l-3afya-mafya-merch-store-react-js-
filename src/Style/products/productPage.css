@@ -1,14 +1,16 @@
 .productPage{
     height: fit-content;
     position: relative;
-    height: 200vh;
+    height: fit-content;
     margin-top: 75px;
 }
 
-
-
-
 .product__Info__wrapper{
+    height: 100vh;
+}
+
+
+.product__Info__wrapper__wrapper{
     width: 30%;
     height: 1600px;
     position: absolute;
