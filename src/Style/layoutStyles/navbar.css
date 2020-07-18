@@ -58,17 +58,8 @@ flex: 1;
     .sidemenu{
         display: inline;
     }
-    .navBar__Link:not(.sidemenu){
+    .navBar__Link:not(.noHide){
         display: none;
-    }
-
-}
-@media all and (min-width :930px){
-    .sidemenu:not(.logo){
-        display: none;
-    }
-    .navBar__Link:not(.sidemenu){
-        display: inline;
     }
 
 }
