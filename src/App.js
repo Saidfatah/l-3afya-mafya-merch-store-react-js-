@@ -6,6 +6,7 @@ import './Style/layoutStyles/footer.css';
 import './Style/routes/Home.css';
 import './Style/routes/search.css';
 import './Style/routes/collection.css';
+import './Style/routes/collectionPage.css';
 import './Style/products/productPage.css';
 import './Style/products/product.css';
 import './Style/products/products.css';
@@ -23,6 +24,7 @@ import Account from './components/routes/Account'
 import Home from './components/routes/Home'
 import ProductPage from './components/Products/ProductPage/ProductPage'
 import Collections from './components/routes/Collections'
+import CollectionPage from './components/routes/CollectionPage'
 import SideBar from './components/layout/SideBar'
 import SideBarCart from './components/cart/SideBarCart'
 import Provider from './Context/ProductsProvider'
@@ -45,7 +47,8 @@ function App() {
           <Switch>
             <Provider>
                <Route exact path="/"> <Home />            </Route>
-               <Route path="/collections"><Collections /> </Route>
+               <Route exact path="/collections"><Collections /> </Route>
+               <Route path="/collections/:collectionTitle"><CollectionPage /> </Route>
                <Route path="/contact"><Contact />         </Route>
                <Route path="/shop">   <Shop />            </Route>
                <Route path="/policy"> <PrivacyPolicy />   </Route>

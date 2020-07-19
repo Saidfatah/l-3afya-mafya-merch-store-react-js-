@@ -1,4 +1,5 @@
 import React,{useContext ,useEffect,createRef} from 'react'
+import {Link} from "react-router-dom"
 import {MyContext} from '../../Context/ProductsProvider'
 function Collections() {
     const img1 = createRef()
@@ -24,12 +25,24 @@ function Collections() {
             <h1>All collections</h1>
             <div className="collections__wrapper">
                 <div className="collections__collection">
+                    <div className="collection__info">
+                        <h2>{collections[0].title}</h2>
+                        <Link to={"/collections/"+collections[0].title} className="btn">VIEW PRODUCTS</Link>
+                    </div>
                     <img ref={img1}  src=""alt="loading ..."/>
                 </div>  
                 <div className="collections__collection">
+                     <div className="collection__info">
+                        <h2>{collections[1].title}</h2>
+                        <Link to={"/collections/"+collections[1].title} className="btn">VIEW PRODUCTS</Link>
+                    </div>
                     <img ref={img2}  src=""alt="loading ..."/>
                 </div>  
                 <div className="collections__collection">
+                    <div className="collection__info">
+                        <h2>{collections[2].title}</h2>
+                        <Link to={"/collections/"+collections[2].title} className="btn">VIEW PRODUCTS</Link>
+                    </div>
                     <img ref={img3}  src=""alt="loading ..."/>
                 </div>  
             </div>

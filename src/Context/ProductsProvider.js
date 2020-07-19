@@ -38,8 +38,7 @@ function ProductsProvider(props) {
      const getProductById=id=>products.filter(p=>p.productId ==id)[0]
 
      const getProductsByListOfIds=idsList=>{
-        idsList = idsList.map(id=>parseInt(id))
-        return products.filter(product => idsList.includes(product.productId))
+        return products.filter(product => idsList[0].includes(product.productId))
      }
      const getImage=(title,callback,image)=>{
         axios.get('http://localhost:4000/images/'+image+'/'+title,
