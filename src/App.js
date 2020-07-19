@@ -5,6 +5,7 @@ import './Style/layoutStyles/navbar.css';
 import './Style/layoutStyles/footer.css';
 import './Style/routes/Home.css';
 import './Style/routes/search.css';
+import './Style/routes/collection.css';
 import './Style/products/productPage.css';
 import './Style/products/product.css';
 import './Style/products/products.css';

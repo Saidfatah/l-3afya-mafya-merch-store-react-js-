@@ -1,0 +1,40 @@
+.collections{
+    height: fit-content;
+    margin-top: 8rem;
+}
+.collections h1{
+    margin-bottom: 3rem;
+    text-align: center;
+    font-size: 22px;
+}
+
+.collections__wrapper{
+    display: flex;
+    height: 500px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 8rem;
+}
+.collections__collection{
+    height: 100%;
+    width: 395px;
+    position: relative;
+    margin-right: 2rem;
+    background-color: tomato;
+    background-image: linear-gradient(to top, rgba(4,4,4,0.65), rgba(54,54,54,0.2));
+
+}
+.collections__collection::after{
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(4,4,4,0.65)), to(rgba(54,54,54,0.2))); 
+    background-image: linear-gradient(to top, rgba(4,4,4,0.65), rgba(54,54,54,0.2));
+}
+.collections__collection img{
+    width: 100%;
+}

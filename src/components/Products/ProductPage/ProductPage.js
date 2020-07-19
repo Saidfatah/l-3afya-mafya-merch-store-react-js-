@@ -23,7 +23,6 @@ function ProductPage(props) {
             recentlyCiewdCookei=JSON.parse(recentlyCiewdCookei)
             recentlyCiewdCookei.push(id)
             let set = new Set(...recentlyCiewdCookei);
-            console.log(set)
             cookie.set('recentlyViewd',[...set])
         }
         else cookie.set('recentlyViewd',[])

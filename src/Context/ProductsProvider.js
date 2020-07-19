@@ -22,7 +22,7 @@ function ProductsProvider(props) {
     let [collections,setCollections]=React.useState(
         [
            {title:"L'3AFYA MAFYA LOGO",products:[7,8,9,10,5,6]},
-           {title:"New",products:[11,10,4,9,8]},
+           {title:"New",products:products.slice(Math.max(products.length - 5, 1)).map(p=>p.productId)},
            {title:"skeleton",products:[0,1,2,3]},
 
         ]
@@ -31,11 +31,15 @@ function ProductsProvider(props) {
      let [loaded,setLoaded]=React.useState(false )
      let [taskToUpdate,setTaskToUpdate]=React.useState({} )
      
+
+     const getLastProduct =()=>{
+        console.log()
+     }
      const getProductById=id=>products.filter(p=>p.productId ==id)[0]
 
      const getProductsByListOfIds=idsList=>{
         idsList = idsList.map(id=>parseInt(id))
-       return products.filter(product => idsList.includes(product.productId))
+        return products.filter(product => idsList.includes(product.productId))
      }
      const getImage=(title,callback,image)=>{
         axios.get('http://localhost:4000/images/'+image+'/'+title,
@@ -48,7 +52,7 @@ function ProductsProvider(props) {
      
 
      return (
-        <MyContext.Provider value={{products,collections,getProductById,getImage,getProductsByListOfIds}}>
+        <MyContext.Provider value={{products,collections,getLastProduct,getProductById,getImage,getProductsByListOfIds}}>
          {props.children}
         </MyContext.Provider>
      )
