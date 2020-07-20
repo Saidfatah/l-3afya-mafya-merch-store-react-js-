@@ -9,9 +9,11 @@ import './Style/routes/collection.css';
 import './Style/routes/collectionPage.css';
 import './Style/products/productPage.css';
 import './Style/products/product.css';
+import './Style/products/resultsModal.css';
 import './Style/products/products.css';
 import './Style/buttons.css';
 import './Style/SideContainer.css';
+
 
 import { BrowserRouter as Router,Switch,Route} from "react-router-dom";
 import Navbar from './components/layout/Navbar'
@@ -22,6 +24,7 @@ import Search from './components/routes/Search'
 import Shop from './components/routes/Shop'
 import Account from './components/routes/Account'
 import Home from './components/routes/Home'
+import SearchModal from './components/Products/SearchModal'
 import ProductPage from './components/Products/ProductPage/ProductPage'
 import Collections from './components/routes/Collections'
 import CollectionPage from './components/routes/CollectionPage'
@@ -33,8 +36,9 @@ function App() {
   const SideBarRef = useRef();
   const cartRef = useRef();
   const NavbarRef = useRef();
+  const SearchModalRef = useRef();
   useEffect(() => {
-    NavbarRef.current.slideSideBarIn = SideBarRef.current.slideIn
+    SideBarRef.current.slideSideBarIn = SideBarRef.current.slideIn
     NavbarRef.current.slideCartIn = cartRef.current.slideIn
   }, [])
   
@@ -44,6 +48,7 @@ function App() {
           <SideBarCart ref={cartRef} />
           <SideBar ref={SideBarRef} />
           <Navbar ref={NavbarRef} />
+          {/* <SearchModal ref={SearchModalRef} /> */}
           <Switch>
             <Provider>
                <Route exact path="/"> <Home />            </Route>

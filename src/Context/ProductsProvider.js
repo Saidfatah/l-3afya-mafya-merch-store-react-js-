@@ -35,6 +35,9 @@ function ProductsProvider(props) {
      const getLastProduct =()=>{
         console.log()
      }
+     const getProductsContainingCharcters= (charcters)=>{
+           console.log(products.filter(p=>p.title.includes(charcters)))
+     }
      const getProductById=id=>products.filter(p=>p.productId ==id)[0]
 
      const getProductsByListOfIds=idsList=>{
