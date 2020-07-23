@@ -68,6 +68,14 @@ p, h1, h2, h3, h4, h5, h6 {
   color: #fff;
 }
 
+.error{
+  color: red;
+}
+
+.offsetNavbar{
+  margin-bottom: 75px;
+}
+
 .raw__Link{
   font-size: .8rem;
   color:var(--colorBlack)

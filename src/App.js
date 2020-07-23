@@ -20,7 +20,7 @@ import Contact from './components/routes/Contact'
 import PrivacyPolicy from './components/routes/PrivacyPolicy'
 import Search from './components/routes/Search'
 import Shop from './components/routes/Shop'
-import Account from './components/routes/Account'
+import Account from './components/routes/Account/Account'
 import Home from './components/routes/Home'
 import SearchModal from './components/Products/SearchModal'
 import ProductPage from './components/Products/ProductPage/ProductPage'
@@ -37,7 +37,7 @@ function App() {
   const SearchModalRef = useRef();
   useEffect(() => {
     NavbarRef.current.slideSideBarIn = SideBarRef.current.slideIn
-    NavbarRef.current.slideCartIn = cartRef.current.slideIn
+    // NavbarRef.current.slideCartIn = cartRef.current.slideIn
     NavbarRef.current.fadeIn = SearchModalRef.current.fadeIn
   }, [])
   
@@ -45,15 +45,17 @@ function App() {
     <div className="App">
       <Provider>
        <Router>
-          <SideBarCart ref={cartRef} />
+          {/* <SideBarCart ref={cartRef} /> */}
           <SideBar ref={SideBarRef} />
+          <div className="offsetNavbar"></div>
           <Navbar ref={NavbarRef} />
           <SearchModal ref={SearchModalRef} /> 
           <Switch>      
                <Route exact path="/"> <Home />            </Route>
                <Route exact path="/collections"><Collections /> </Route>
                <Route path="/collections/:collectionTitle"><CollectionPage /> </Route>
-               <Route path="/contact"><Contact />         </Route>
+               <Route path="/contact"><Contact  register={false}/>         </Route>
+               <Route path="/contact/register"><Contact register={true} />         </Route>
                <Route path="/shop">   <Shop />            </Route>
                <Route path="/policy"> <PrivacyPolicy />   </Route>
                <Route path="/account"><Account />         </Route>
