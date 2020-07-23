@@ -1,9 +1,46 @@
 .resultsModal{
     position: absolute;
     height: 100%;
+    display: none;
     width: 100%;
     top: 0;
     left: 0;
     background-color: #fff;
     z-index: 999;
+    overflow-y: scroll;
+    transition: all 1s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+.resultsModal__top{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    padding: 1rem;
+}
+.resultsModal__top input{
+    text-align: left;
+    padding-left: 0;
+    width: 100%;
+    line-height: normal;
+    color: var(--colorGreyLight);
+    margin-left: 1rem;
+    font-size: 18px;
+    font-family: go;
+}
+.resultsModal__top input:focus{
+    outline: none;
+}
+.resultsModal_results{
+    padding: 0 2rem;
+}
+.results__info{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 1rem;
+    align-items: center;
+    border-bottom: 1px solid var(--colorGreyFaint);
+}
+.results__info h2{
+    font-size: .8rem;
 }

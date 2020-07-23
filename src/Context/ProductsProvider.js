@@ -32,11 +32,10 @@ function ProductsProvider(props) {
      let [taskToUpdate,setTaskToUpdate]=React.useState({} )
      
 
-     const getLastProduct =()=>{
-        console.log()
-     }
-     const getProductsContainingCharcters= (charcters)=>{
+  
+     const getProductsByString= charcters=>{
            console.log(products.filter(p=>p.title.includes(charcters)))
+           return products
      }
      const getProductById=id=>products.filter(p=>p.productId ==id)[0]
 
@@ -44,17 +43,18 @@ function ProductsProvider(props) {
         return products.filter(product => idsList[0].includes(product.productId))
      }
      const getImage=(title,callback,image)=>{
-        axios.get('http://localhost:4000/images/'+image+'/'+title,
-             {responseType: 'arraybuffer',headers: {'Accept': 'image/jpeg'}})
-             .then(res=>{
-                 console.log(callback(res))
-                })
-             .catch(err=>console.log(err))
+           callback(process.env.REACT_APP_PUBLIC_URL+'/images/products/'+title+'/img'+image+'.png')
      }
      
 
      return (
-        <MyContext.Provider value={{products,collections,getLastProduct,getProductById,getImage,getProductsByListOfIds}}>
+        <MyContext.Provider value={{
+           products,
+           collections,
+           getProductsByString,
+           getProductById,getImage,
+           getProductsByListOfIds
+           }}>
          {props.children}
         </MyContext.Provider>
      )

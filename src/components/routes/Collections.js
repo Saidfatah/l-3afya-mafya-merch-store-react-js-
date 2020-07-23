@@ -15,11 +15,13 @@ function Collections() {
         getImage(title2,setImage(img2),1)
         getImage(title3,setImage(img3),1)
     }, [])
+
     const setImage=(img)=>(res)=>{
-        const blob = new Blob([res.data],{type:res.headers['content-type']});
-        const objectURL = URL.createObjectURL(blob);
-        if (img.current != null)img.current.src = objectURL
-    }
+        img.current.onerror = ()=> {
+              img.current.src =res.split('.png')[0]+'.jpg'
+        }
+        if (img.current != null)img.current.src =res
+    };
     return (
         <div className="collections">
             <h1>All collections</h1>

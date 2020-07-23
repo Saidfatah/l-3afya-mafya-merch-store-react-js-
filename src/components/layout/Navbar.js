@@ -1,5 +1,5 @@
 import React ,{forwardRef,useImperativeHandle}from 'react'
-import logo from "../../Images/LOGO.png"
+
 import {Link} from "react-router-dom";
   
 const  Navbar=forwardRef((props,ref)=> {
@@ -17,13 +17,13 @@ const  Navbar=forwardRef((props,ref)=> {
             </div>
             <div className="navBar__middle">
                 <Link className="navBar__Link noHide  noborder" to="/">
-                    <img className="navBar__logo" src={logo}/>
+                    <img className="navBar__logo" src={process.env.REACT_APP_PUBLIC_URL+'/images/LOGO.png' }/>
                 </Link>
             </div>
             <div className="navBar__right">
                <a className="navBar__Link sidemenu noHide" onClick={e=> {ref.current.slideCartIn() }}><i className="fas fa-shopping-bag"></i></a>
                <Link className="navBar__Link no-sidemenu" to="/account">Account</Link>
-               <a className="navBar__Link no-sidemenu">Search</a>
+               <a className="navBar__Link no-sidemenu" onClick={e=> {ref.current.fadeIn() }}>Search</a>
                <a className="navBar__Link no-sidemenu" onClick={e=> {ref.current.slideCartIn() }}>Cart(<span>1</span>)</a>
             </div>
         </div>

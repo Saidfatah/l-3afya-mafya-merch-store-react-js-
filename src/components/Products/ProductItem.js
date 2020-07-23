@@ -13,10 +13,14 @@ function ProductItem(props) {
         getImage(title,setImage(img2),2)
     }, [])
     const setImage=(img)=>(res)=>{
-        const blob = new Blob([res.data],{type:res.headers['content-type']});
-        const objectURL = URL.createObjectURL(blob);
-        if (img.current != null)img.current.src = objectURL
-    }
+            img.current.onerror = ()=> {
+                  img.current.src =res.split('.png')[0]+'.jpg'
+            }
+            if (img.current != null)img.current.src =res
+    };
+
+
+
 
     return (
         <Link  to={"/product/"+productId}>

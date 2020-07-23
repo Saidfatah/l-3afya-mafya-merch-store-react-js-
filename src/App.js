@@ -13,8 +13,6 @@ import './Style/products/resultsModal.css';
 import './Style/products/products.css';
 import './Style/buttons.css';
 import './Style/SideContainer.css';
-
-
 import { BrowserRouter as Router,Switch,Route} from "react-router-dom";
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
@@ -38,19 +36,20 @@ function App() {
   const NavbarRef = useRef();
   const SearchModalRef = useRef();
   useEffect(() => {
-    SideBarRef.current.slideSideBarIn = SideBarRef.current.slideIn
+    NavbarRef.current.slideSideBarIn = SideBarRef.current.slideIn
     NavbarRef.current.slideCartIn = cartRef.current.slideIn
+    NavbarRef.current.fadeIn = SearchModalRef.current.fadeIn
   }, [])
   
   return (
     <div className="App">
+      <Provider>
        <Router>
           <SideBarCart ref={cartRef} />
           <SideBar ref={SideBarRef} />
           <Navbar ref={NavbarRef} />
-          {/* <SearchModal ref={SearchModalRef} /> */}
-          <Switch>
-            <Provider>
+          <SearchModal ref={SearchModalRef} /> 
+          <Switch>      
                <Route exact path="/"> <Home />            </Route>
                <Route exact path="/collections"><Collections /> </Route>
                <Route path="/collections/:collectionTitle"><CollectionPage /> </Route>
@@ -60,10 +59,11 @@ function App() {
                <Route path="/account"><Account />         </Route>
                <Route path="/product/:id"> <ProductPage /></Route>
                <Route path="/search"> <Search />          </Route>
-            </Provider>
+          
           </Switch>
           <Footer/>
        </Router>  
+       </Provider>
     </div>
   );
 }
