@@ -11,13 +11,13 @@ function AddToCart(props) {
 
     const addToCart = e=>{
         setCart([...cart,{itemName:product.title, itemPrice : product.price , quantity :quantity2 }])
+        console.log(product,cart)
     }
 
     useEffect(() => {
         getProductById(id).then(res=>{
             setProduct(res)
         })
-        console.log(product,cart)
      }, [])
     return (
         <button className="btn" type="submit" onClick={addToCart}>ADD TO CART</button>

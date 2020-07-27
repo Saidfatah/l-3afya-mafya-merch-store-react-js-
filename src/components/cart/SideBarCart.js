@@ -20,9 +20,7 @@ function SideBarCart(props){
 
     }
     useEffect(()=>{
-        console.log(cart)
         if(slideNow == true)slideIn()
-   
     },[slideNow,cart])
     return (
         <div>
@@ -35,7 +33,13 @@ function SideBarCart(props){
                 </div>
                 <div className="cart__body">  
                   {
-                      cart.map(item=><CartItem cartItem={item}/>)
+                      cart.map((item,index)=><CartItem key={index} cartItem={item}/>)
+                  }
+              
+                </div>
+                <div className="cart__bottom">  
+                  {
+                    cart.map(item=>item.itemPrice).reduce(function(a, b){ return a + b;}, 0)
                   }
                 </div>
             </div>
