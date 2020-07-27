@@ -17,9 +17,6 @@ function Collections() {
     }, [])
 
     const setImage=(img)=>(res)=>{
-        img.current.onerror = ()=> {
-              img.current.src =res.split('.png')[0]+'.jpg'
-        }
         if (img.current != null)img.current.src =res
     };
     return (

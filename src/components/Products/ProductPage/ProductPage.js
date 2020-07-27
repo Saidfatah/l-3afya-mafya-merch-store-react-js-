@@ -1,23 +1,27 @@
-import React,{useState,useEffect,useContext} from 'react'
+import React,{useState,useEffect,useContext,createRef} from 'react'
 import {MyContext} from '../../../Context/ProductsProvider'
 import ProductImages from './ProductImages'
 import RecentlyViewd from './RecentlyViewd'
+import AddToCart from './AddToCart'
 import Related       from './Related'
 import cookie from 'js-cookie'
 import { useParams } from 'react-router-dom'
+
 function ProductPage(props) {
     const [quantity,setQuantity]=useState(1)
     const [selectedSize,setSize]=useState("S")
+    const [title,setTitle]=useState("S")
+    const [price,setPrice]=useState("S")
+    const [hasSize,setHasSize]=useState("S")
+   
     const [prevSelectedSize,setPrevSelectedSize]=useState(null)
     const {getProductById} =useContext(MyContext)
-
     const {id}= useParams()
-    const {title,price,hasSize}= getProductById(id)
-    
+  
     useEffect(() => {
+      
         let recentlyCiewdCookei= cookie.get('recentlyViewd')
         const arr = cookie.get('arr')
-
         if(recentlyCiewdCookei != undefined)
         {   
             recentlyCiewdCookei=JSON.parse(recentlyCiewdCookei)
@@ -43,7 +47,11 @@ function ProductPage(props) {
         }
     }
 
-
+    getProductById(id).then(res=>{
+        setHasSize(res.hasSize)
+        setTitle(res.title)
+        setPrice(res.price)
+    })
     return (
         <div className="productPage">
             <div  className="product__Info__wrapper">
@@ -69,14 +77,13 @@ function ProductPage(props) {
                      }
                      <div className="quantity">
                          <span className="quantity__icon" onClick={updateQuantity}>-</span>
-                         <input type="text" value={quantity}/>
+                         <input type="text" onChange={e=>e.preventDefault()} value={quantity}/>
                          <span className="quantity__icon" onClick={updateQuantity}>+</span>
                      </div>
-                     <button className="btn" type="submit">SUBSCRIBE</button>
-                     
+                        <AddToCart id={id} quantity={quantity} selectedSize={selectedSize}  />
                  </div>
             </div>
-               <ProductImages title={title} />
+               <ProductImages id={id} />
             </div>
             <RecentlyViewd /> 
         </div>

@@ -6,6 +6,7 @@ import SignUp from './SignUp'
 function Account(props) {
     const jwtCheck = ()=>localStorage.getItem('token') !=null && localStorage.getItem('token') !='null' 
     const getUserRule = ()=>localStorage.getItem('rule') 
+    const getUser = ()=>JSON.parse(localStorage.getItem('user') )
 
     const logOut = e=> {
         localStorage.setItem('token',null)
@@ -14,13 +15,15 @@ function Account(props) {
     }
 
     return (
-        <div>
-             {jwtCheck() ? 
-                 <div className="account__profile">
-                   <button onClick={logOut}>Logout</button>   
-                  {getUserRule() =='admin' ? <Admin />: <Customer />}
-                  </div>
-             :props.register? <SignUp/>:<Login/>}
+        <div className="account">
+             {
+                 jwtCheck() ? 
+                    <div className="account__profile">
+                     <button onClick={logOut}>Logout</button>   
+                     {getUserRule() =='admin' ? <Admin />: <Customer userid={getUser() != null ? getUser().id : 1} />}
+                    </div>
+                :props.register? <SignUp/>:<Login/>
+              }
         </div>
     )
 }

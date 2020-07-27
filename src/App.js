@@ -1,8 +1,10 @@
-import React,{useRef,useEffect} from 'react';
+import React,{useRef,useState,useEffect} from 'react';
 import './Style/App.css';
 import './Style/layoutStyles/hero.css';
 import './Style/layoutStyles/navbar.css';
 import './Style/layoutStyles/footer.css';
+import './Style/account/order.css';
+import './Style/account/account.css';
 import './Style/routes/Home.css';
 import './Style/routes/search.css';
 import './Style/routes/collection.css';
@@ -29,28 +31,35 @@ import CollectionPage from './components/routes/CollectionPage'
 import SideBar from './components/layout/SideBar'
 import SideBarCart from './components/cart/SideBarCart'
 import Provider from './Context/ProductsProvider'
+import CartProvider from './Context/CartProvider'
 
 function App() {
+
   const SideBarRef = useRef();
   const cartRef = useRef();
   const NavbarRef = useRef();
   const SearchModalRef = useRef();
+   const [slideNow,setSlideNow]=useState(false)
+   const setSlideNowFun=(slide)=>{setSlideNow(slide);console.log("set state")}
+   
   useEffect(() => {
     NavbarRef.current.slideSideBarIn = SideBarRef.current.slideIn
     // NavbarRef.current.slideCartIn = cartRef.current.slideIn
     NavbarRef.current.fadeIn = SearchModalRef.current.fadeIn
   }, [])
-  
+
+
   return (
     <div className="App">
-      <Provider>
-       <Router>
-          {/* <SideBarCart ref={cartRef} /> */}
-          <SideBar ref={SideBarRef} />
-          <div className="offsetNavbar"></div>
-          <Navbar ref={NavbarRef} />
-          <SearchModal ref={SearchModalRef} /> 
-          <Switch>      
+      <CartProvider>
+         <Provider>
+            <Router>
+               <SideBarCart ref={cartRef} setSlideNow={setSlideNowFun} slideNow={slideNow} />
+               <SideBar ref={SideBarRef} />
+               <div className="offsetNavbar"></div>
+               <Navbar ref={NavbarRef} setSlideNow={setSlideNowFun} />
+               <SearchModal ref={SearchModalRef} /> 
+               <Switch>      
                <Route exact path="/"> <Home />            </Route>
                <Route exact path="/collections"><Collections /> </Route>
                <Route path="/collections/:collectionTitle"><CollectionPage /> </Route>
@@ -63,9 +72,11 @@ function App() {
                <Route path="/search"> <Search />          </Route>
           
           </Switch>
-          <Footer/>
-       </Router>  
-       </Provider>
+               <Footer/>
+            </Router>  
+          </Provider>
+       </CartProvider>
+
     </div>
   );
 }

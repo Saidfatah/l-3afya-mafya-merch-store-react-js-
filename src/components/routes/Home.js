@@ -1,11 +1,10 @@
 import React from 'react'
 import Products from '../Products/Products'
+import Hero from '../layout/Hero'
 function Home() {
     return (
         <div className="Home">
-            <div className="hero">
-                <img   src={process.env.REACT_APP_PUBLIC_URL+'/images/HeroImages/HeroImage.png'}/>
-            </div>
+            <Hero/>
             {/* <Products /> */}
         </div>
     )

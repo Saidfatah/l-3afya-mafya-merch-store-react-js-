@@ -1,12 +1,11 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import ProductItem from './ProductItem'
 import {MyContext} from '../../Context/ProductsProvider'
 function Products(props) {
-    const {products,collections,getProductsByListOfIds} =React.useContext(MyContext)
+    const {products,collections,getProductsByListOfIds} =useContext(MyContext)
     const {productSize,collectionTitle,maxDisplay,productsFromSearch}=props
 
     let collection = collections.filter(collection=>collection.title == collectionTitle)
-    console.log({collection})
     const getMaxDisplayProducts=()=>{
         console.log('from searhc')
         if(maxDisplay != undefined)

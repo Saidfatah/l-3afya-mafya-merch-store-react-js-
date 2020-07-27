@@ -13,6 +13,7 @@ function Login() {
                  .then(res=>{
                      localStorage.setItem('token',res.data.token)
                      localStorage.setItem('rule',res.data.rule)
+                     localStorage.setItem('user',res.data.user)
                      window.location.reload();
                 })
                  .catch(err=> setErr('worng email or password'))

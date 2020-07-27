@@ -1,9 +1,10 @@
 import React from 'react'
 
-function CartItem() {
+function CartItem(props) {
+    const {itemName,itemPrice}= props.cartItem
     return (
         <div>
-            cart item
+            {itemName} and price is {itemPrice}
         </div>
     )
 }

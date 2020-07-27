@@ -1,0 +1,15 @@
+.order{
+    padding: 1rem;
+    box-shadow: 0px 0px 10px 3px rgba(45, 55, 97, 0.329) ;
+
+}
+.order__products{
+    font-size: .8rem;
+}
+
+.cost{
+      
+}
+.cost__money{
+      color: green;
+}
