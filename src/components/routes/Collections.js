@@ -1,50 +1,68 @@
-import React,{useContext ,useEffect,createRef} from 'react'
+import React,{useContext ,useEffect,useState,createRef} from 'react'
 import {Link} from "react-router-dom"
 import {MyContext} from '../../Context/ProductsProvider'
+import {CollectionsContext} from '../../Context/CollectionsProvider'
+import {ImagesContext} from '../../Context/ImagesProvder'
 function Collections() {
-    const img1 = createRef()
-    const img2 = createRef()
-    const img3 = createRef()
-    const {collections,getProductById,getImage} =useContext(MyContext)
+    const [imageSrc1,setimageSrc1]=useState('')
+    const [imageSrc2,setimageSrc2]=useState('')
+    const [imageSrc3,setimageSrc3]=useState('')
+    const [collectionsList,setCollectionsList]=useState([])
+    const {getProductById} =useContext(MyContext)
+    const {collections} =useContext(CollectionsContext)
+    const {getImage} =useContext(ImagesContext)
     useEffect(() => {
-        const title1 = getProductById(collections[0].products[1]).title
-        const title2 = getProductById(collections[1].products[3]).title
-        const title3 = getProductById(collections[2].products[0]).title
-        console.log(title1)
-        getImage(title1,setImage(img1),1)
-        getImage(title2,setImage(img2),1)
-        getImage(title3,setImage(img3),1)
-    }, [])
+        if(collections.length >0)
+        {
+            console.log(collections)
+            getProductById(collections[0].products[1]).then(res=>{
+                getImage(res.title).then(src=>{
+                   setimageSrc1('/images/products/'+res.title+'/img1.'+src.data)
+                })
+            })
+            getProductById(collections[1].products[3]).then(res=>{
+                getImage(res.title).then(src=>{
+                   setimageSrc2('/images/products/'+res.title+'/img1.'+src.data)
+                })
+            })
+            getProductById(collections[2].products[0]).then(res=>{
+                getImage(res.title).then(src=>{
+                   setimageSrc3('/images/products/'+res.title+'/img1.'+src.data)
+                })
+            })
+        }
+    }, [collections])
 
-    const setImage=(img)=>(res)=>{
-        if (img.current != null)img.current.src =res
-    };
+
     return (
         <div className="collections">
             <h1>All collections</h1>
-            <div className="collections__wrapper">
-                <div className="collections__collection">
-                    <div className="collection__info">
-                        <h2>{collections[0].title}</h2>
-                        <Link to={"/collections/"+collections[0].title} className="btn">VIEW PRODUCTS</Link>
-                    </div>
-                    <img ref={img1}  src=""alt="loading ..."/>
-                </div>  
-                <div className="collections__collection">
-                     <div className="collection__info">
-                        <h2>{collections[1].title}</h2>
-                        <Link to={"/collections/"+collections[1].title} className="btn">VIEW PRODUCTS</Link>
-                    </div>
-                    <img ref={img2}  src=""alt="loading ..."/>
-                </div>  
-                <div className="collections__collection">
-                    <div className="collection__info">
-                        <h2>{collections[2].title}</h2>
-                        <Link to={"/collections/"+collections[2].title} className="btn">VIEW PRODUCTS</Link>
-                    </div>
-                    <img ref={img3}  src=""alt="loading ..."/>
-                </div>  
-            </div>
+            {
+                collections.length >0 ? <div className="collections__wrapper">
+                     <div className="collections__collection">
+                         <div className="collection__info">
+                             <h2>{collections[0].title }</h2>
+                             <Link to={"/collections/"+collections[0].title } className="btn">VIEW PRODUCTS</Link>
+                         </div>
+                         <img   src={imageSrc1} alt="loading ..."/>
+                     </div>  
+                     <div className="collections__collection">
+                          <div className="collection__info">
+                             <h2>{collections[1].title }</h2>
+                             <Link to={"/collections/"+collections[1].title } className="btn">VIEW PRODUCTS</Link>
+                         </div>
+                         <img   src={imageSrc2} alt="loading ..."/>
+                     </div>  
+                     <div className="collections__collection">
+                         <div className="collection__info">
+                             <h2>{collections[2].title }</h2>
+                             <Link to={"/collections/"+collections[2].title } className="btn">VIEW PRODUCTS</Link>
+                         </div>
+                         <img  src={imageSrc3} alt="loading ..."/>
+                     </div> 
+                </div>
+                 :'no collections'
+            }
         </div>
     )
 }

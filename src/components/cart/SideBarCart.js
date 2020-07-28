@@ -1,6 +1,7 @@
 import React ,{createRef,forwardRef,useImperativeHandle,useContext,useEffect,statics}from 'react'
 import CartItem from './CartItem'
 import {CartContext} from '../../Context/CartProvider'
+import ImagesProvder from '../../Context/ImagesProvder'
 
 
 function SideBarCart(props){
@@ -27,20 +28,17 @@ function SideBarCart(props){
             <div className="pageShdowCover"  ref={pageShdowCover} ></div>
             <div className="SideContainer cart" ref={cartContainer}>
                 <div className="cart__top">
-                    <h1>Cart</h1>
-                   <i className="far fa-times-circle Close" onClick={e=>{slideOut();setSlideNow()}}></i>  
-                   <a onClick={e=>{slideOut();}}>x</a>
+                     <h1>Cart</h1>
+                     <i className="far fa-times-circle Close" onClick={e=>{slideOut();setSlideNow()}}></i>  
+                     <a onClick={e=>{slideOut();}}>x</a>
                 </div>
                 <div className="cart__body">  
-                  {
-                      cart.map((item,index)=><CartItem key={index} cartItem={item}/>)
-                  }
-              
+                    <ImagesProvder>
+                         { cart.map((item,index)=><CartItem key={index} cartItem={item}/>)}
+                    </ImagesProvder>
                 </div>
                 <div className="cart__bottom">  
-                  {
-                    cart.map(item=>item.itemPrice).reduce(function(a, b){ return a + b;}, 0)
-                  }
+                      {cart.map(item=>item.itemPrice).reduce(function(a, b){ return a + b;}, 0)}
                 </div>
             </div>
         </div>

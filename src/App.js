@@ -1,5 +1,6 @@
 import React,{useRef,useState,useEffect} from 'react';
 import './Style/App.css';
+import './Style/cart.css';
 import './Style/layoutStyles/hero.css';
 import './Style/layoutStyles/navbar.css';
 import './Style/layoutStyles/footer.css';
@@ -32,6 +33,8 @@ import SideBar from './components/layout/SideBar'
 import SideBarCart from './components/cart/SideBarCart'
 import Provider from './Context/ProductsProvider'
 import CartProvider from './Context/CartProvider'
+import ImagesProvder from './Context/ImagesProvder'
+import CollectionsProvider from './Context/CollectionsProvider'
 
 function App() {
 
@@ -49,8 +52,10 @@ function App() {
 
   return (
     <div className="App">
-      <CartProvider>
          <Provider>
+            <CartProvider>
+            <CollectionsProvider>
+
             <Router>
                <SideBarCart setSlideNow={setSlideNowFun} slideNow={slideNow} />
                <SideBar ref={SideBarRef} />
@@ -59,7 +64,11 @@ function App() {
                <SearchModal ref={SearchModalRef} /> 
                <Switch>      
                <Route exact path="/"> <Home />            </Route>
-               <Route exact path="/collections"><Collections /> </Route>
+               <Route exact path="/collections">  
+                 <ImagesProvder>
+                        <Collections />
+                  </ImagesProvder>
+               </Route>
                <Route path="/collections/:collectionTitle"><CollectionPage /> </Route>
                <Route path="/contact"><Contact  register={false}/>         </Route>
                <Route path="/contact/register"><Contact register={true} />         </Route>
@@ -72,8 +81,9 @@ function App() {
           </Switch>
                <Footer/>
             </Router>  
-          </Provider>
-       </CartProvider>
+            </CollectionsProvider> 
+         </CartProvider>
+      </Provider>
 
     </div>
   );

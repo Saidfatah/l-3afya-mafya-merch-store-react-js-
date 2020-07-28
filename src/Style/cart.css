@@ -1,0 +1,28 @@
+.cartItem{
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cartItem__image{
+   width: 100px;
+   margin-right: 1rem;
+}
+.cartItem__image img{
+   width: 100%;
+}
+.cartItem__action{
+    margin-top: 1rem;
+   display: flex;
+   align-items: center;
+}
+.cartItem__action .quantity{
+    height:40px;
+    width: 98px;
+    margin-right: 2rem;
+}
+.cartItem__info{
+    font-size: .8rem;
+   flex: 2;
+} 

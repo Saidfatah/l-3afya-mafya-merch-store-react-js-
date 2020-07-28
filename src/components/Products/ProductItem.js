@@ -12,9 +12,7 @@ function ProductItem(props) {
           getImage(title).then(src=>{
             setImage(img1,'/images/products/'+title+'/img1.'+src.data) 
             setImage(img2,'/images/products/'+title+'/img2.'+src.data) 
-       
            })
-     
     }, [])
     const setImage=(img,res)=>{ 
        if(img.current != null) img.current.src = res 

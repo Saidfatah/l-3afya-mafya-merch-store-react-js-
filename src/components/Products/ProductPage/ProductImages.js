@@ -18,7 +18,6 @@ function ProductImages(props) {
                     setimageSrc2('/images/products/'+res.title+'/img2.'+src.data)
                  })
              })
-        
     }, [])
 
 
@@ -33,7 +32,7 @@ function ProductImages(props) {
                      <div ref={img1Container} className="imageSlider__image">
                          <img  src={imageSrc1} alt="loading ..."/>
                      </div>
-                     <div ref={img2Container} className="imageSlider__image">
+                     <div ref={img2Container}   className="imageSlider__image">
                          <img   src={imageSrc2} alt="loading ..."/>
                      </div>
                      <div className="imageSlider__navigate">

@@ -1,9 +1,11 @@
 import React,{useContext} from 'react'
 import ProductItem from './ProductItem'
 import {MyContext} from '../../Context/ProductsProvider'
+import {CollectionsContext} from '../../Context/CollectionsProvider'
 import ImagesProvder from '../../Context/ImagesProvder'
 function Products(props) {
-    const {products,collections,getProductsByListOfIds} =useContext(MyContext)
+    const {products,getProductsByListOfIds} =useContext(MyContext)
+    const {collections} =useContext(CollectionsContext)
     const {productSize,collectionTitle,maxDisplay,productsFromSearch}=props
 
     let collection = collections.filter(collection=>collection.title == collectionTitle)

@@ -76,17 +76,3 @@ p, h1, h2, h3, h4, h5, h6 {
   margin-bottom: 75px;
 }
 
-.raw__Link{
-  font-size: .8rem;
-  color:var(--colorBlack)
-}
-
-.faintLink{
-  color:var(--colorGreyLight);
-  transition: all .3s ease-out;
-  cursor: pointer;
-}
-.faintLink:hover{
- 
-  color: rgba(92,92,92,0.5);
-}

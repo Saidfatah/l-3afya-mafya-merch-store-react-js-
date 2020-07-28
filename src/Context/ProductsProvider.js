@@ -4,7 +4,6 @@ import axios from 'axios'
 export const MyContext =createContext()
 function ProductsProvider(props) {
     let [products,setProducts]=useState([])
-    let [collections,setCollections]=useState([])
 
    
     const apiurl='http://localhost:4000/'
@@ -13,7 +12,6 @@ function ProductsProvider(props) {
    
     useEffect(()=>{
         apicall('product',setProducts)
-        apicall('collection',setCollections)
     },[])
 
      
@@ -36,7 +34,6 @@ function ProductsProvider(props) {
     
     return (<MyContext.Provider value={{
            products,
-           collections,
            apiurl,
            getProductsByString,
            getProductById,
