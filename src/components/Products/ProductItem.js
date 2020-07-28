@@ -1,28 +1,24 @@
-import React,{useEffect,createRef,useContext} from 'react'
-import {MyContext} from '../../Context/ProductsProvider'
+import React,{useEffect,createRef,useState,useContext} from 'react'
+import {ImagesContext} from '../../Context/ImagesProvder'
 import axios from 'axios'
 import {Link} from "react-router-dom"
 function ProductItem(props) {
     const img1 = createRef()
     const img2 = createRef()
-    const {getImage} =useContext(MyContext)
+    const {getImage,setImage1,setImage2} =useContext(ImagesContext)
     const {title,price,productId}=props.product
 
     useEffect(() => {
-            getImage(title,setImage(img1),1)
-            getImage(title,setImage(img2),2)
+          getImage(title).then(src=>{
+            setImage(img1,'/images/products/'+title+'/img1.'+src.data) 
+            setImage(img2,'/images/products/'+title+'/img2.'+src.data) 
+       
+           })
+     
     }, [])
-    const setImage=(img)=>(res)=>{
-        // img.current.onerror = ()=> {
-        //     console.log(title)
-        //       img.current.src =res.split('.png')[0]+'.jpg'
-        // }
-            if (img.current != null)img.current.src =res
-    };
-
-
-
-
+    const setImage=(img,res)=>{ 
+       if(img.current != null) img.current.src = res 
+     }
     return (
         <Link  to={"/product/"+productId}>
              <div className="card">

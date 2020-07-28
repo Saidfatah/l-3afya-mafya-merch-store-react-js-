@@ -23,7 +23,6 @@ function ProductsProvider(props) {
            return products
     }
     const getUserById=async (id)=>{
-        console.log(await axios.get(apiurl+"users/"+id))
         return await axios.get(apiurl+"users/"+id).data
     }
     const getProductById=async (id)=>{
@@ -33,20 +32,14 @@ function ProductsProvider(props) {
     const getProductsByListOfIds=idsList=>{
         return products.filter(product => idsList[0].includes(product.productId))
     }
-    const getImage=(title,callback,image)=>{
-         apicall('image/'+title,res=> {
-             callback('/images/products/'+title+'/img'+image+'.'+res)
-            })
-    }
-  
-     
-
-     return (<MyContext.Provider value={{
+    
+    
+    return (<MyContext.Provider value={{
            products,
            collections,
            apiurl,
            getProductsByString,
-           getProductById,getImage,
+           getProductById,
            getProductsByListOfIds
            }}>
          {props.children}

@@ -1,5 +1,6 @@
 import React,{useState,useEffect,useContext,createRef} from 'react'
 import {MyContext} from '../../../Context/ProductsProvider'
+import ImagesProvder from '../../../Context/ImagesProvder'
 import ProductImages from './ProductImages'
 import RecentlyViewd from './RecentlyViewd'
 import AddToCart from './AddToCart'
@@ -83,9 +84,11 @@ function ProductPage(props) {
                         <AddToCart id={id} quantity={quantity} selectedSize={selectedSize}  />
                  </div>
             </div>
+            <ImagesProvder>
                <ProductImages id={id} />
+            </ImagesProvder>
             </div>
-            <RecentlyViewd /> 
+            {/* <RecentlyViewd />  */}
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import React,{useContext} from 'react'
 import ProductItem from './ProductItem'
 import {MyContext} from '../../Context/ProductsProvider'
+import ImagesProvder from '../../Context/ImagesProvder'
 function Products(props) {
     const {products,collections,getProductsByListOfIds} =useContext(MyContext)
     const {productSize,collectionTitle,maxDisplay,productsFromSearch}=props
@@ -22,7 +23,9 @@ function Products(props) {
 
     return (
         <div className="products">
-            { collection.length>0 ?getProductsListByIds() : maxDisplay != undefined ?getMaxDisplayProducts() : getAllProducts()}
+            <ImagesProvder>
+                 { collection.length>0 ?getProductsListByIds() : maxDisplay != undefined ?getMaxDisplayProducts() : getAllProducts()}
+            </ImagesProvder>
         </div>
     )
 }

@@ -36,7 +36,6 @@ import CartProvider from './Context/CartProvider'
 function App() {
 
   const SideBarRef = useRef();
-  const cartRef = useRef();
   const NavbarRef = useRef();
   const SearchModalRef = useRef();
    const [slideNow,setSlideNow]=useState(false)
@@ -44,7 +43,6 @@ function App() {
    
   useEffect(() => {
     NavbarRef.current.slideSideBarIn = SideBarRef.current.slideIn
-    // NavbarRef.current.slideCartIn = cartRef.current.slideIn
     NavbarRef.current.fadeIn = SearchModalRef.current.fadeIn
   }, [])
 
@@ -54,7 +52,7 @@ function App() {
       <CartProvider>
          <Provider>
             <Router>
-               <SideBarCart ref={cartRef} setSlideNow={setSlideNowFun} slideNow={slideNow} />
+               <SideBarCart setSlideNow={setSlideNowFun} slideNow={slideNow} />
                <SideBar ref={SideBarRef} />
                <div className="offsetNavbar"></div>
                <Navbar ref={NavbarRef} setSlideNow={setSlideNowFun} />
