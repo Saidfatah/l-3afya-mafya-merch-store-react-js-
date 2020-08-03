@@ -1,44 +1,41 @@
-import React ,{createContext,useState,useEffect} from 'react'
+import React ,{createContext,useState,useEffect,useMemo} from 'react'
 import axios from 'axios'
 
 export const MyContext =createContext()
 function ProductsProvider(props) {
     let [products,setProducts]=useState([])
-
-   
     const apiurl='http://localhost:4000/'
     const errhandler =err=>console.log(err)
-    const apicall =(route,calb)=>axios.get(apiurl+route).then(res=>calb(res.data)).catch(errhandler)
    
-    useEffect(()=>{
-        apicall('product',setProducts)
-    },[])
-
-     
+    useEffect(()=>{axios.get(apiurl+'product').then(res=> setProducts(res.data)).catch(errhandler)},[])
     
     const getProductsByString= charcters=>{
            console.log(products.filter(p=>p.title.includes(charcters)))
            return products
     }
-    const getUserById=async (id)=>{
-        return await axios.get(apiurl+"users/"+id).data
+    const getUserById=id=>axios.get(apiurl+"users/"+id).data
+
+    const getProductById= (id)=> axios.get(apiurl+"product/"+id) 
+    const intersect = (a, b)=> {
+        let t
+        if (b.length > a.length){
+             t = b
+             b = a
+             a = t
+        }
+        return a.filter(e=> b.indexOf(e) > -1 );
     }
-    const getProductById=async (id)=>{
-        const product =  await axios.get(apiurl+"product/"+id)
-        return product.data
-    }
-    const getProductsByListOfIds=idsList=>{
-        return products.filter(product => idsList[0].includes(product.productId))
-    }
+    const getProducts=()=> axios.get(apiurl+'product')
+
+    const value=useMemo(()=>({
+        products,
+        getProductsByString,
+        getProductById,
+        getProducts
+    }),[getProducts,getProducts,getProductById,getProductsByString,products])
     
     
-    return (<MyContext.Provider value={{
-           products,
-           apiurl,
-           getProductsByString,
-           getProductById,
-           getProductsByListOfIds
-           }}>
+    return (<MyContext.Provider value={value}>
          {props.children}
         </MyContext.Provider>)
 }

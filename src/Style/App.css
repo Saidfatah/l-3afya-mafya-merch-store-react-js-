@@ -5,6 +5,7 @@
 }
 :root{
    --colorPrimary:rgb(248, 38, 38);
+   --colorError:rgb(233, 24, 24);
    --colorBlack:black;
    --colorGrey:#5c5c5c;
    --colorGreyLight:#7c7676;
@@ -59,6 +60,9 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 
+button:focus{
+   outline: none;
+}
 
 .social{
   display: flex;
@@ -69,7 +73,7 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .error{
-  color: red;
+  color: var(--colorError);
 }
 
 .offsetNavbar{

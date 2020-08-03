@@ -5,7 +5,6 @@ function Login() {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
     const [err,setErr]=useState('')
-    const [redirect,setRedirect]=useState(false)
     const login = e=>{
         e.preventDefault()
          if(email !== '' && password !==''){
@@ -13,7 +12,7 @@ function Login() {
                  .then(res=>{
                      localStorage.setItem('token',res.data.token)
                      localStorage.setItem('rule',res.data.rule)
-                     localStorage.setItem('user',res.data.user)
+                     localStorage.setItem('user',JSON.stringify(res.data.user))
                      window.location.reload();
                 })
                  .catch(err=> setErr('worng email or password'))
@@ -23,6 +22,7 @@ function Login() {
             setErr('please enter email and password')
          }
     }
+
     return (
         <div>
             <h1>Login</h1>

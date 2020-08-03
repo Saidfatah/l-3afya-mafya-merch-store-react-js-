@@ -12,14 +12,14 @@ function ProductImages(props) {
     const {getImage} =useContext(ImagesContext)
 
     useEffect(() => {
-             getProductById(id).then(res=>{
-                 getImage(res.title).then(src=>{
-                    setimageSrc1('/images/products/'+res.title+'/img1.'+src.data)
-                    setimageSrc2('/images/products/'+res.title+'/img2.'+src.data)
-                 })
+         getProductById(id).then(res=>{
+            console.log(res.data.title)
+             getImage(res.data.title).then(src=>{
+                setimageSrc1('/images/products/'+res.data.title+'/img1.'+src.data)
+                setimageSrc2('/images/products/'+res.data.title+'/img2.'+src.data)
              })
+         })
     }, [])
-
 
     const slideImage=e=>{
         img1Container.current.style.opacity= firstsActive? '0':'1'

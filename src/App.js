@@ -15,6 +15,7 @@ import './Style/products/product.css';
 import './Style/products/resultsModal.css';
 import './Style/products/products.css';
 import './Style/buttons.css';
+import './Style/products/createProductForm.css';
 import './Style/SideContainer.css';
 import { BrowserRouter as Router,Switch,Route} from "react-router-dom";
 import Navbar from './components/layout/Navbar'
@@ -24,6 +25,7 @@ import PrivacyPolicy from './components/routes/PrivacyPolicy'
 import Search from './components/routes/Search'
 import Shop from './components/routes/Shop'
 import Account from './components/routes/Account/Account'
+import CreateProduct from './components/routes/protectedRoutes/CreateProduct'
 import Home from './components/routes/Home'
 import SearchModal from './components/Products/SearchModal'
 import ProductPage from './components/Products/ProductPage/ProductPage'
@@ -42,20 +44,18 @@ function App() {
   const NavbarRef = useRef();
   const SearchModalRef = useRef();
    const [slideNow,setSlideNow]=useState(false)
-   const setSlideNowFun=(slide)=>{setSlideNow(slide);console.log("set state")}
+   const setSlideNowFun=(slide)=>{setSlideNow(slide)}
    
   useEffect(() => {
     NavbarRef.current.slideSideBarIn = SideBarRef.current.slideIn
     NavbarRef.current.fadeIn = SearchModalRef.current.fadeIn
-  }, [])
-
+  }, [ NavbarRef.current])
 
   return (
     <div className="App">
          <Provider>
             <CartProvider>
             <CollectionsProvider>
-
             <Router>
                <SideBarCart setSlideNow={setSlideNowFun} slideNow={slideNow} />
                <SideBar ref={SideBarRef} />
@@ -63,22 +63,23 @@ function App() {
                <Navbar ref={NavbarRef} setSlideNow={setSlideNowFun} />
                <SearchModal ref={SearchModalRef} /> 
                <Switch>      
-               <Route exact path="/"> <Home />            </Route>
-               <Route exact path="/collections">  
-                 <ImagesProvder>
-                        <Collections />
-                  </ImagesProvder>
-               </Route>
-               <Route path="/collections/:collectionTitle"><CollectionPage /> </Route>
-               <Route path="/contact"><Contact  register={false}/>         </Route>
-               <Route path="/contact/register"><Contact register={true} />         </Route>
-               <Route path="/shop">   <Shop />            </Route>
-               <Route path="/policy"> <PrivacyPolicy />   </Route>
-               <Route path="/account"><Account />         </Route>
-               <Route path="/product/:id"> <ProductPage /></Route>
-               <Route path="/search"> <Search />          </Route>
+                  <Route exact path="/"> <Home /> </Route>
+                  <Route exact path="/collections">  
+                    <ImagesProvder>
+                           <Collections />
+                     </ImagesProvder>
+                  </Route>
+                  <Route path="/collections/:collectionTitle"><CollectionPage /> </Route>
+                  <Route path="/contact"><Contact  register={false}/>         </Route>
+                  <Route path="/contact/register"><Contact register={true} /> </Route>
+                  <Route path="/shop">   <Shop />            </Route>
+                  <Route path="/product/create"> <CreateProduct />   </Route>
+                  <Route path="/policy"> <PrivacyPolicy />   </Route>
+                  <Route path="/account"><Account />         </Route>
+                  <Route path="/product/:id"> <ProductPage /></Route>
+                  <Route path="/search"> <Search />          </Route>
           
-          </Switch>
+               </Switch>
                <Footer/>
             </Router>  
             </CollectionsProvider> 

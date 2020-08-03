@@ -11,11 +11,12 @@ function CollectionsProvider(props) {
 
     useEffect(()=>{
         apicall('collection',setCollections)
-    },[])
+    },[collections.length>0])
     const addCollection=()=>{
 
     }
-    return (<CollectionsContext.Provider value={{collections,addCollection  }}>
+    const getCollections=() =>axios.get(apiurl+"collection")
+    return (<CollectionsContext.Provider value={{collections,addCollection ,getCollections }}>
       {props.children}
      </CollectionsContext.Provider>)
 }

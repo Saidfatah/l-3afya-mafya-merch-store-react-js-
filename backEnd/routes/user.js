@@ -42,19 +42,12 @@ const users = [
 
     }
 ]
-
 router.get('/',(req,res)=>{
     res.json(users.filter(user=>user.rule!='admin'))
 })
-
 router.get('/:id',(req,res)=>{
     res.json(users.filter(user=>user.id == req.params.id)[0])
 })
-
-
-
-
-
 router.post('/login',(req,res)=>{
     const email = req.body.email
     const password = req.body.password

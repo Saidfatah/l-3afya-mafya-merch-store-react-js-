@@ -5,7 +5,7 @@ function Home() {
     return (
         <div className="Home">
             <Hero/>
-            {/* <Products /> */}
+            <Products />
         </div>
     )
 }

@@ -9,7 +9,7 @@ function Admin() {
         axios.get(apiurl+'order')
              .then(res=>setOrders(res.data))
              .catch(err=>console.log(err))
-     },[])
+     },[orders])
 
     return (
         <div>

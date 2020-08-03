@@ -16,18 +16,18 @@ function Collections() {
         {
             console.log(collections)
             getProductById(collections[0].products[1]).then(res=>{
-                getImage(res.title).then(src=>{
-                   setimageSrc1('/images/products/'+res.title+'/img1.'+src.data)
+                getImage(res.data.title).then(src=>{
+                   setimageSrc1('/images/products/'+res.data.title+'/img1.'+src.data)
                 })
             })
             getProductById(collections[1].products[3]).then(res=>{
-                getImage(res.title).then(src=>{
-                   setimageSrc2('/images/products/'+res.title+'/img1.'+src.data)
+                getImage(res.data.title).then(src=>{
+                   setimageSrc2('/images/products/'+res.data.title+'/img1.'+src.data)
                 })
             })
             getProductById(collections[2].products[0]).then(res=>{
-                getImage(res.title).then(src=>{
-                   setimageSrc3('/images/products/'+res.title+'/img1.'+src.data)
+                getImage(res.data.title).then(src=>{
+                   setimageSrc3('/images/products/'+res.data.title+'/img1.'+src.data)
                 })
             })
         }

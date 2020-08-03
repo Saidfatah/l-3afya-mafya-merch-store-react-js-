@@ -1,22 +1,30 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useContext,useState} from 'react'
 import {MyContext} from '../../../Context/ProductsProvider'
+import ImagesProvder from '../../../Context/ImagesProvder'
 import ProductItem from '../ProductItem'
 import cookie from 'js-cookie'
 function RecentlyViewd() {
+     const {getProducts} =useContext(MyContext)
+     const [recentlyViewdItems,setRecentlyViewd]=useState([])
 
-     const {getProductsByListOfIds} =React.useContext(MyContext)
-     const [recentlyViewd,setRecentlyViewd]=useState([])
      useEffect(() => {
         let  recentlyViewIds =cookie.get('recentlyViewd')
         recentlyViewIds=JSON.parse(recentlyViewIds)
-        setRecentlyViewd(getProductsByListOfIds(recentlyViewIds))
-     }, [])
+        getProducts().then(res=>{
+            const  ids= recentlyViewIds.map(id=>parseInt(id))
+            const recentlyVisted =  res.data.filter(p => ids.indexOf(p.productId) > -1)
+            // setRecentlyViewd(recentlyVisted)
+        })
+      
+     }, [recentlyViewdItems[0]])
+     console.log("recentlyViewdItems item")
+
     return (
         <div>
             <h1>Recently Viewd</h1>
-            {
-                recentlyViewd.map((product,index)=><ProductItem  key={index}   product={product}  />)
-            }
+            <ImagesProvder>
+                  {/* {recentlyViewdItems.map((product,index)=><ProductItem  key={index}   product={product}  />)} */}
+            </ImagesProvder>
         </div>
     )
 }

@@ -3,25 +3,13 @@ import {CartContext} from '../../../Context/CartProvider'
 import {MyContext} from '../../../Context/ProductsProvider'
 
 function AddToCart(props) {
-    const {id,selectedSize,quantity}=props
+    const {id,quantity}=props
     const [product,setProduct]=useState({})
-    const [quantity2,setQuantity]=useState(1)
     const {getProductById} =useContext(MyContext)
-    const {cart,setCart} = useContext(CartContext)
-
-    const addToCart = e=>{
-        setCart([...cart,{itemName:product.title, itemPrice : product.price , quantity :quantity2 }])
-        console.log(product,cart)
-    }
-
-    useEffect(() => {
-        getProductById(id).then(res=>{
-            setProduct(res)
-        })
-     }, [])
-    return (
-        <button className="btn" type="submit" onClick={addToCart}>ADD TO CART</button>
-    )
+    const {cart,addItem} = useContext(CartContext)
+    const addToCart = e=> addItem({itemId:cart.length+1,itemName:product.title, itemPrice : product.price , quantity :quantity })
+    useEffect(()=>{getProductById(id).then(res=>setProduct(res.data))},[])
+    return (<button className="btn" type="submit" onClick={addToCart}>ADD TO CART</button>)
 }
 
 export default AddToCart

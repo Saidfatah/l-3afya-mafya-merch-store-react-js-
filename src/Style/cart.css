@@ -26,3 +26,20 @@
     font-size: .8rem;
    flex: 2;
 } 
+.cart__body{
+    width: 100%;
+    height: 100%;
+
+}
+.cart__empty{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart__count{
+    color: var(--colorPrimary);
+    padding: .25rem;
+    position: relative;
+}
