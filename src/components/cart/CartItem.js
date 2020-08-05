@@ -3,18 +3,12 @@ import {ImagesContext} from '../../Context/ImagesProvder'
 import {CartContext} from '../../Context/CartProvider'
 
 function CartItem(props) {
-    
-    const {itemName,itemPrice,quantity,itemId}= props.cartItem
+    const {itemName,itemPrice,quantity,itemId,images}= props.cartItem
     const [imageSrc,setimageSrc]=useState('')
     const [quantityCounter,setQuantity]=useState(1)
-    
     const {removeItem,updateQuantityContext} =useContext(CartContext)
-    const {getImage} =useContext(ImagesContext)
     useEffect(() => {
-                                                                                                                                                                                                                         setQuantity(quantity)
-        getImage(itemName).then(src=>{
-           setimageSrc('/images/products/'+itemName+'/img1.'+src.data)
-        })
+        setimageSrc('/images/products/'+itemName+'/'+images[0]) ;                                                                                                                                                                                               setQuantity(quantity)
      }, [quantity])
      const updateQuantity=e=>{
         const inc = e.target.innerHTML =="+"?1 : (quantityCounter <= 1 ? 0 : -1 );

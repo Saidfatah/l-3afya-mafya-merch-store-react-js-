@@ -11,6 +11,7 @@ import './Style/routes/search.css';
 import './Style/routes/collection.css';
 import './Style/routes/collectionPage.css';
 import './Style/products/productPage.css';
+import './Style/products/recentlyVisited.css';
 import './Style/products/product.css';
 import './Style/products/resultsModal.css';
 import './Style/products/products.css';
@@ -35,7 +36,6 @@ import SideBar from './components/layout/SideBar'
 import SideBarCart from './components/cart/SideBarCart'
 import Provider from './Context/ProductsProvider'
 import CartProvider from './Context/CartProvider'
-import ImagesProvder from './Context/ImagesProvder'
 import CollectionsProvider from './Context/CollectionsProvider'
 
 function App() {
@@ -64,11 +64,7 @@ function App() {
                <SearchModal ref={SearchModalRef} /> 
                <Switch>      
                   <Route exact path="/"> <Home /> </Route>
-                  <Route exact path="/collections">  
-                    <ImagesProvder>
-                           <Collections />
-                     </ImagesProvder>
-                  </Route>
+                  <Route exact path="/collections">  <Collections /></Route>
                   <Route path="/collections/:collectionTitle"><CollectionPage /> </Route>
                   <Route path="/contact"><Contact  register={false}/>         </Route>
                   <Route path="/contact/register"><Contact register={true} /> </Route>

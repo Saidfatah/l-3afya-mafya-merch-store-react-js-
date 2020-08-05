@@ -24,12 +24,13 @@ function ProductPage() {
     
     const getRecentlyVisted=()=>{
         let recentlyCiewdCookei= cookie.get('recentlyViewd')
-        const arr = cookie.get('arr')
         if(recentlyCiewdCookei != undefined)
         {   
-            recentlyCiewdCookei=JSON.parse(recentlyCiewdCookei)
-            recentlyCiewdCookei.push(id)
-            let set = new Set(...recentlyCiewdCookei);
+            recentlyCiewdCookei=JSON.parse(recentlyCiewdCookei).map(id=>parseInt(id))  
+            recentlyCiewdCookei.push(parseInt(id))
+            console.log(...recentlyCiewdCookei)
+            let set = new Set([...recentlyCiewdCookei]);
+            console.log(set)
             cookie.set('recentlyViewd',[...set])
         }
         else cookie.set('recentlyViewd',[])
@@ -76,7 +77,7 @@ function ProductPage() {
                <ProductImages id={id} />
             </ImagesProvder>
             </div>
-            {/* <RecentlyViewd />  */}
+            <RecentlyViewd /> 
         </div>
     )
 }

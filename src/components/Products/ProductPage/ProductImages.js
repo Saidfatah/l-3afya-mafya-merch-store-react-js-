@@ -9,22 +9,18 @@ function ProductImages(props) {
     const [imageSrc1,setimageSrc1]=useState('')
     const [imageSrc2,setimageSrc2]=useState('')
     const {getProductById} =useContext(MyContext)
-    const {getImage} =useContext(ImagesContext)
 
     useEffect(() => {
          getProductById(id).then(res=>{
-            console.log(res.data.title)
-             getImage(res.data.title).then(src=>{
-                setimageSrc1('/images/products/'+res.data.title+'/img1.'+src.data)
-                setimageSrc2('/images/products/'+res.data.title+'/img2.'+src.data)
-             })
+             setimageSrc1('/images/products/'+res.data.title+'/'+res.data.images[0])
+             setimageSrc2('/images/products/'+res.data.title+'/'+res.data.images[1])
          })
     }, [])
 
     const slideImage=e=>{
-        img1Container.current.style.opacity= firstsActive? '0':'1'
-        img2Container.current.style.opacity=firstsActive? '1':'0'
-        setFirstsActive(!firstsActive)
+         img1Container.current.style.opacity= firstsActive? '0':'1'
+         img2Container.current.style.opacity=firstsActive? '1':'0'
+         setFirstsActive(!firstsActive)
     }
     return (
         <div  className="product_images">

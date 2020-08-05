@@ -13,18 +13,24 @@ function CartProvider(props) {
      const removeItem=(itemId)=> setCart(cart.filter(item=>item.itemId != itemId))
      const addItem=(item)=>{
           const itemChek = cart.filter(cartItem=> cartItem.itemName == item.itemName )
-          console.log(cart)
+          console.log(itemChek)
           if(itemChek[0] != undefined)
-              updateQuantityContext(itemChek[0].itemId,itemChek[0].quantity + item.quantity)
+          {
+           updateQuantityContext(itemChek[0].itemId,itemChek[0].quantity + item.quantity)
+          }
           else
-              setCart([...cart,item])
+          {  
+           setCart([...cart,item])
+           }
      }
      const updateQuantityContext=(itemId,quantity)=>{
           setCart(cart.map(item=>{
                if(item.itemId == itemId){
                     item.quantity=quantity
                     return item
-               }}
+               }
+               return item
+             }
           ))
      }
      return (

@@ -7,7 +7,7 @@ function AddToCart(props) {
     const [product,setProduct]=useState({})
     const {getProductById} =useContext(MyContext)
     const {cart,addItem} = useContext(CartContext)
-    const addToCart = e=> addItem({itemId:cart.length+1,itemName:product.title, itemPrice : product.price , quantity :quantity })
+    const addToCart = e=> addItem({itemId:cart.length+1,itemName:product.title, images:product.images,itemPrice : product.price , quantity :quantity })
     useEffect(()=>{getProductById(id).then(res=>setProduct(res.data))},[])
     return (<button className="btn" type="submit" onClick={addToCart}>ADD TO CART</button>)
 }

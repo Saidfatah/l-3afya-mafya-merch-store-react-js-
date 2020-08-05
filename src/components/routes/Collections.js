@@ -7,28 +7,19 @@ function Collections() {
     const [imageSrc1,setimageSrc1]=useState('')
     const [imageSrc2,setimageSrc2]=useState('')
     const [imageSrc3,setimageSrc3]=useState('')
-    const [collectionsList,setCollectionsList]=useState([])
     const {getProductById} =useContext(MyContext)
     const {collections} =useContext(CollectionsContext)
-    const {getImage} =useContext(ImagesContext)
     useEffect(() => {
         if(collections.length >0)
         {
-            console.log(collections)
             getProductById(collections[0].products[1]).then(res=>{
-                getImage(res.data.title).then(src=>{
-                   setimageSrc1('/images/products/'+res.data.title+'/img1.'+src.data)
-                })
+                   setimageSrc1('/images/products/'+res.data.title+'/'+res.data.images[0])
             })
             getProductById(collections[1].products[3]).then(res=>{
-                getImage(res.data.title).then(src=>{
-                   setimageSrc2('/images/products/'+res.data.title+'/img1.'+src.data)
-                })
+                   setimageSrc2('/images/products/'+res.data.title+'/'+res.data.images[0])
             })
             getProductById(collections[2].products[0]).then(res=>{
-                getImage(res.data.title).then(src=>{
-                   setimageSrc3('/images/products/'+res.data.title+'/img1.'+src.data)
-                })
+                   setimageSrc3('/images/products/'+res.data.title+'/'+res.data.images[0])
             })
         }
     }, [collections])

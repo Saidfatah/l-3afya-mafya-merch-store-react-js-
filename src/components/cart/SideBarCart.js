@@ -1,4 +1,4 @@
-import React ,{createRef,forwardRef,useImperativeHandle,useContext,useEffect,statics}from 'react'
+import React ,{createRef,useContext,useEffect}from 'react'
 import CartItem from './CartItem'
 import {CartContext} from '../../Context/CartProvider'
 import ImagesProvder from '../../Context/ImagesProvder'
@@ -10,15 +10,16 @@ function SideBarCart(props){
     const cartContainer  = createRef()
     const pageShdowCover = createRef()
     const  slideIn=()=>{
+        if(cartContainer.current == null ||   cartContainer.current == null) return
         pageShdowCover.current.style.display='block'
         cartContainer.current.style.transition="none"
         pageShdowCover.current.style.transition="none"
         cartContainer.current.style.top=window.scrollY +'px'
         pageShdowCover.current.style.top=window.scrollY +'px'
-
         setTimeout(() => {
-            cartContainer.current.style.transition="all .5s ease-in"
-            pageShdowCover.current.style.transition="all .5s ease-in"
+            if(cartContainer.current == null ||   cartContainer.current == null) return
+            cartContainer.current.style.transition="all .2s ease-in"
+            pageShdowCover.current.style.transition="all .2s ease-in"
             cartContainer.current.style.right='0'
             pageShdowCover.current.style.opacity='1'
         }, 400);
@@ -37,6 +38,7 @@ function SideBarCart(props){
     useEffect(()=>{
         if(slideNow == true)slideIn()
     },[slideNow,cart])
+
     return (
         <div>
             <div className="pageShdowCover"  ref={pageShdowCover} onClick={slideOutOut} ></div>
@@ -51,7 +53,7 @@ function SideBarCart(props){
                     </ImagesProvder>
                 </div>
                 <div className="cart__bottom">  
-                      {cart.length>0?cart.map(item=>item.itemPrice).reduce((a, b)=> a + b , 0):'no cart items'}
+                      {cart.length>0?cart.map(item=>item.itemPrice * item.quantity).reduce((a, b)=> a + b , 0):'no cart items'}
                 </div>
             </div>
         </div>

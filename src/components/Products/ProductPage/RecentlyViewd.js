@@ -12,19 +12,18 @@ function RecentlyViewd() {
         recentlyViewIds=JSON.parse(recentlyViewIds)
         getProducts().then(res=>{
             const  ids= recentlyViewIds.map(id=>parseInt(id))
+            console.log(ids)
             const recentlyVisted =  res.data.filter(p => ids.indexOf(p.productId) > -1)
-            // setRecentlyViewd(recentlyVisted)
+            setRecentlyViewd(recentlyVisted)
         })
       
-     }, [recentlyViewdItems[0]])
-     console.log("recentlyViewdItems item")
+     }, [recentlyViewdItems.length >0])
+    
 
     return (
         <div>
             <h1>Recently Viewd</h1>
-            <ImagesProvder>
-                  {/* {recentlyViewdItems.map((product,index)=><ProductItem  key={index}   product={product}  />)} */}
-            </ImagesProvder>
+              {recentlyViewdItems.map((product,index)=><ProductItem  key={index}   product={product}  />)}
         </div>
     )
 }

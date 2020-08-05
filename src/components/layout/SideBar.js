@@ -17,8 +17,8 @@ const SideBar=forwardRef((props,ref) =>{
             sideBarContainer.current.style.transition="none"
             sideBarContainer.current.style.top=window.scrollY +'px'
             setTimeout(() => {
-                sideBarContainer.current.style.transition="all .5s ease-in"
-                pageShdowCover.current.style.transition="all .5s ease-in"
+                sideBarContainer.current.style.transition="all .2s ease-in"
+                pageShdowCover.current.style.transition="all .2s ease-in"
                 pageShdowCover.current.style.opacity='1'
                 sideBarContainer.current.style.left='0'
             }, 400);

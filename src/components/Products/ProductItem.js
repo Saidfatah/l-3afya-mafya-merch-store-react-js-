@@ -5,14 +5,11 @@ import {Link} from "react-router-dom"
 function ProductItem(props) {
     const img1 = createRef()
     const img2 = createRef()
-    const {getImage} =useContext(ImagesContext)
-    const {title,price,productId}=props.product
+    const {title,price,productId,images}=props.product
 
     useEffect(() => {
-          getImage(title).then(src=>{
-            setImage(img1,'/images/products/'+title+'/img1.'+src.data) 
-            setImage(img2,'/images/products/'+title+'/img2.'+src.data) 
-           })
+        setImage(img1,'/images/products/'+title+'/'+images[0]) 
+        setImage(img2,'/images/products/'+title+'/'+images[1]) 
     }, [title])
 
     const setImage=(img,res)=>{ 
