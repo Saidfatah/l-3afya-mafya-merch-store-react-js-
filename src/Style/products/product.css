@@ -3,6 +3,7 @@
     height: 400px;
     margin-bottom: 2rem;
     cursor: pointer;
+    background-color: aquamarine;
 }
 
 .card:hover .card__image2{

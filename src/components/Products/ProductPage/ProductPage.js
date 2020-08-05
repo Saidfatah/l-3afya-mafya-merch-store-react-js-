@@ -28,9 +28,7 @@ function ProductPage() {
         {   
             recentlyCiewdCookei=JSON.parse(recentlyCiewdCookei).map(id=>parseInt(id))  
             recentlyCiewdCookei.push(parseInt(id))
-            console.log(...recentlyCiewdCookei)
             let set = new Set([...recentlyCiewdCookei]);
-            console.log(set)
             cookie.set('recentlyViewd',[...set])
         }
         else cookie.set('recentlyViewd',[])
