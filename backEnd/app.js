@@ -10,6 +10,7 @@ const productRoute= require('./routes/product').router
 const collectionRoute= require('./routes/collection')
 const cartRoute= require('./routes/cart')
 const orderRoute= require('./routes/order')
+const stripe= require('./routes/stripePaymentProccesing')
 
 app.use(cors())
 
@@ -24,6 +25,7 @@ app.use('/collection',collectionRoute)
 app.use('/cart',cartRoute)
 app.use('/order',orderRoute)
 app.use('/image',imageExtRoute)
+app.use('/stripe',stripe)
 
 
 

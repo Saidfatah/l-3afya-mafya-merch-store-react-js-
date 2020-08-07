@@ -13,13 +13,13 @@
     "formik": "^2.1.5",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
+    "materialize-css": "^1.0.0",
     "multer": "^1.4.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "react-hook-form": "^6.3.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "react-stripe-checkout": "^2.6.3"
+    "react-stripe-checkout": "^2.6.3",
+    "stripe": "^8.84.0"
   },
   "scripts": {
     "nodemon": "nodemon ./backEnd/app.js",

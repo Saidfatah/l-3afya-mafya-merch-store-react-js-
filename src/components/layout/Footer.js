@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 
 
 function Footer() {
+  if(window.location.pathname =="/checkout")return null
     return (
         <div className="footer">
             <div className="container">

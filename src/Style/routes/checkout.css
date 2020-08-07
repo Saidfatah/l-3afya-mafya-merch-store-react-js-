@@ -21,6 +21,7 @@
  }
  .checkout__gateways{
    flex: 2;
+   padding: 2rem;
  }
  .checkout__overview{
    flex:1;

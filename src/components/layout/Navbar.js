@@ -7,7 +7,6 @@ const  Navbar=forwardRef((props,ref)=> {
     const {setSlideNow}=props
     const {cart} =useContext(CartContext)
     useImperativeHandle(ref, () => ({ }));
-
     return (
         <div className="navBar">
             <div className="navBar__left">

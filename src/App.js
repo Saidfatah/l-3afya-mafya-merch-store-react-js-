@@ -26,7 +26,7 @@ import Footer from './components/layout/Footer'
 import Contact from './components/routes/Contact'
 import PrivacyPolicy from './components/routes/PrivacyPolicy'
 import Search from './components/routes/Search'
-import CheckOut from './components/routes/CheckOut'
+import CheckOut from './components/routes/checkout/CheckOut'
 import Shop from './components/routes/Shop'
 import Account from './components/routes/Account/Account'
 import CreateProduct from './components/routes/protectedRoutes/CreateProduct'
@@ -52,22 +52,30 @@ function App() {
    const setSlideNowFun=(slide)=>{setSlideNow(slide)}
    
   useEffect(() => {
+    if( NavbarRef.current != undefined)
+    {
       NavbarRef.current.slideSideBarIn = SideBarRef.current.slideIn
       NavbarRef.current.fadeIn = SearchModalRef.current.fadeIn
-    console.log('location changed')
-  }, [ NavbarRef.current,window.location])
- 
+    }
+  }, [ NavbarRef.current,])
+
   return (
     <div className="App">
          <Provider>
             <CartProvider>
             <CollectionsProvider>
             <Router>
-                <SideBarCart setSlideNow={setSlideNowFun} slideNow={slideNow} />
-                <SideBar ref={SideBarRef} />
-                <div className="offsetNavbar"></div>
-                <Navbar ref={NavbarRef} setSlideNow={setSlideNowFun} />
-                <SearchModal ref={SearchModalRef} /> 
+              { window.location.pathname !="/checkout"?
+                    <React.Fragment>
+                        <SideBarCart setSlideNow={setSlideNowFun} slideNow={slideNow} />
+                        <SideBar ref={SideBarRef} />
+                        <div className="offsetNavbar"></div>
+                        <Navbar ref={NavbarRef} setSlideNow={setSlideNowFun} />
+                        <SearchModal ref={SearchModalRef} /> 
+                    </React.Fragment>
+                  :null
+              }
+                
                 <ScrollToTop/>
                 <Switch>      
                    <Route exact path="/"><Home /></Route>

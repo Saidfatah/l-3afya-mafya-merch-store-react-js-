@@ -1,16 +1,23 @@
-import React,{useState} from 'react'
+import React,{useState,useContext,useEffect} from 'react'
 import axios from 'axios'
 import StripeCheckout from 'react-stripe-checkout'
-
+import {CartContext} from '../../../Context/CartProvider'
+  import PaymentInfo from './PaymentInfo'
 function CheckOut() {
     const [products,setProducts]=useState([
         {title:'Hands L',price:30,quantity:2,images:['img1.jpg','img2.jpg']},
         {title:"l'3afya mafya Lighter",price:50,quantity:1,images:['img1.png','img2.png']},
         {title:"L'3afya mafya logo T-Shirt (black)",price:60,quantity:2,images:['img1.png','img2.png']},
       ])
-      const handelToken=async(token)=>{
+    const {cart} = useContext(CartContext)
+
+    useEffect(()=>{
+     setProducts(cart.map(item=>({ title:item.itemName, price:item.itemPrice, quantity:item.quantity, images:item.images})))
+     console.log(cart.map(item=>({ title:item.itemName, price:item.itemPrice, quantity:item.quantity, images:item.images})))
+    },[products.lenght>0])
+    const handelToken=async(token)=>{
     
-             const res =await  axios.post('http://localhost:5000/checkout',{
+             const res =await  axios.post('http://localhost:4000/stripe/checkout',{
                 token,
                 product:{
                   products:products.map(p=>p.title),
@@ -18,7 +25,8 @@ function CheckOut() {
                 }
               })
             console.log(res)
-      }
+    }
+
     return (
         <div className="checkout">
         <div className="checkout__gateways">
@@ -33,7 +41,7 @@ function CheckOut() {
         <div className="checkout__overview">
             <div className="overview__items"> 
                  {
-                   products.map(item=><div className="overview__item">
+                   products.map((item,index)=><div key={index} className="overview__item">
                          <div className="item__identity">
                              <div className="item__image">
                                  <img src={'/images/products/'+item.title+'/'+item.images[0]} />
