@@ -59,7 +59,27 @@ p, h1, h2, h3, h4, h5, h6 {
   font-weight: inherit;
 }
 
-
+.h-centered{
+  margin-bottom: 3rem;
+  text-align: center;
+  font-size: 22px;
+}
+.border{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  height: 1px;
+  background-color:rgb(204, 204, 204)  ;
+}
+.mgb2{
+  margin-bottom: 2rem;
+}
+.mgt2{
+  margin-top: 2rem;
+}
+.mgt6{
+  margin-top: 6rem;
+}
 button:focus{
    outline: none;
 }

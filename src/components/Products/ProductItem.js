@@ -6,6 +6,7 @@ function ProductItem(props) {
     const img1 = createRef()
     const img2 = createRef()
     const {title,price,productId,images}=props.product
+    const {cardSize}=props
 
     useEffect(() => {
         setImage(img1,'/images/products/'+title+'/'+images[0]) 
@@ -17,7 +18,7 @@ function ProductItem(props) {
      }
     return (
         <Link  to={"/product/"+productId}>
-             <div className="card">
+             <div className={"card"+" card-"+cardSize}>
                  <div className="card__image">
                      <div className="card__image1">
                          <img ref={img1}  src="" alt="loading ..."/>

@@ -3,7 +3,6 @@
     height: 400px;
     margin-bottom: 2rem;
     cursor: pointer;
-    background-color: aquamarine;
 }
 
 .card:hover .card__image2{
@@ -16,12 +15,9 @@
 }
 .card__image2 ,.card__image2{
     position: absolute;
-
-    height: 100%;
     width: 100%;
     top: 0;
     left: 0;
-  
     transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .card__image2{
@@ -44,3 +40,7 @@
     
 }
 
+.card-medium{
+   height: 470px; 
+   width: 260px;
+}

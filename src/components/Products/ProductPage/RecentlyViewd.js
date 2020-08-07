@@ -2,34 +2,9 @@ import React,{useEffect,useContext,useState,recentlyViewd, createRef} from 'reac
 import {MyContext} from '../../../Context/ProductsProvider'
 import ProductItem from '../ProductItem'
 import cookie from 'js-cookie'
-const easer=(startValue ,targetValue, clb,speed)=>
-{
-    
-    const distance= targetValue - startValue
-    const duration = speed
-    let start= null
+import {useParams} from "react-router-dom";
+import {easer,getParentRecursive} from '../../utils/funcs1'
 
-    window.requestAnimationFrame(step)
-    function step(timestamp)
-    {
-       if(!start) start=timestamp
-       const progress= timestamp - start
-       clb(easeOutCirc(progress, startValue, distance, duration))
-       if(progress < duration) window.requestAnimationFrame(step)
-    }
-    function easeOutCirc  (t, b, c, d) {
-        t /= d;
-        t--;
-        return c * Math.sqrt(1 - t*t) + b;
-    };
-  
-
-}
-const getParentRecursive= (elem,className)=>{
-    if(elem.classList.contains(className))
-      return elem
-    return getParentRecursive(elem.parentElement,className)
-}
 function RecentlyViewd() {
      const {getProducts} =useContext(MyContext)
      const [recentlyViewdItems,setRecentlyViewd]=useState([])
@@ -38,22 +13,18 @@ function RecentlyViewd() {
      const btn_leftRef= createRef()
      const btn_rightRef= createRef()
      const productItemWidth = 300
+     const {id}= useParams()
      useEffect(() => {
         let  recentlyViewIds =cookie.get('recentlyViewd')
         recentlyViewIds=JSON.parse(recentlyViewIds)
         getProducts().then(res=>{
             const  ids= recentlyViewIds.map(id=>parseInt(id))
-            console.log(ids)
             const recentlyVisted =  res.data.filter(p => ids.indexOf(p.productId) > -1)
             setRecentlyViewd(recentlyVisted)
         })
       
      }, [recentlyViewdItems.length >0])
 
-     const toggleSliderBtns=(overFlowedProductsLeft, overFlowedProductsRight)=>{
-        //  btn_leftRef.current.style.display=overFlowedProductsRight>0?'inline':'none'
-        //  btn_rightRef.current.style.display=overFlowedProductsLeft>0?'inline':'none'
-     }
      const countProducts=(dir)=>{
         const productsContainerWidth=parseInt(recentlyViewd__ContainerRef.current.offsetWidth) ;
         const recentlyVistedWidth=parseInt(recentlyViewdRef.current.offsetWidth) ;
@@ -62,7 +33,6 @@ function RecentlyViewd() {
 
         const overFlowProductsLeft=Math.round(productsContainerX/productWidth)
         const overFlowedProductsRight=Math.round((productsContainerWidth - (productsContainerX+16+recentlyVistedWidth))/productWidth)
-        toggleSliderBtns(overFlowProductsLeft,overFlowedProductsRight)
         return dir>0?overFlowedProductsRight : overFlowProductsLeft;
      }
      const slide = (dir)=>{
@@ -74,11 +44,11 @@ function RecentlyViewd() {
           easer(X, X + Slide_amount,easer_calb,100)
           countProducts(-dir);
      }
-     const slideStoriesLeft = (e)=>{e.preventDefault(); slide(-1)}
-     const slideStoriesRight = (e)=>{e.preventDefault();  slide(1)}
+     const slideStoriesLeft = (e)=>{e.preventDefault(); slide(1)}
+     const slideStoriesRight = (e)=>{e.preventDefault();  slide(-1)}
     return (
         <div>
-            <h1>Recently Viewd</h1>
+            <h1 className="h-centered">Recently Viewd</h1>
             <div className="recentlyViewd" ref={recentlyViewdRef}>
                  <a href="#" className="stories__btn btn_left" ref={btn_leftRef} onClick={slideStoriesLeft}>
                      <div className="btn__image image_left" ></div>

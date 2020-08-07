@@ -15,7 +15,7 @@ function ProductImages(props) {
              setimageSrc1('/images/products/'+res.data.title+'/'+res.data.images[0])
              setimageSrc2('/images/products/'+res.data.title+'/'+res.data.images[1])
          })
-    }, [])
+    }, [id])
 
     const slideImage=e=>{
          img1Container.current.style.opacity= firstsActive? '0':'1'

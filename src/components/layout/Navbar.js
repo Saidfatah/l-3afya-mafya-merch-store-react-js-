@@ -1,7 +1,6 @@
 import React ,{forwardRef,useImperativeHandle,useContext}from 'react'
 import {CartContext} from '../../Context/CartProvider'
 import {jwtCheck,logOut} from "../Auth/Auth"
-
 import {Link} from "react-router-dom";
   
 const  Navbar=forwardRef((props,ref)=> {

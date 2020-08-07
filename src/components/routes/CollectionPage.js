@@ -4,8 +4,8 @@ import Products from '../Products/Products'
 function CollectionPage() {
     const {collectionTitle}= useParams()
     return (
-        <div className="collectionPage">
-            <h1>{collectionTitle} Collection</h1>
+        <div className="collectionPage mgt6">
+            <h1 className="h-centered ">{collectionTitle} Collection</h1>
                <Products collectionTitle={collectionTitle}/>
         </div>
     )

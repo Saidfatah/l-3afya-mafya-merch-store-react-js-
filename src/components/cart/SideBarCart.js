@@ -2,6 +2,7 @@ import React ,{createRef,useContext,useEffect}from 'react'
 import CartItem from './CartItem'
 import {CartContext} from '../../Context/CartProvider'
 import ImagesProvder from '../../Context/ImagesProvder'
+import {Link} from "react-router-dom";
 
 
 function SideBarCart(props){
@@ -53,7 +54,12 @@ function SideBarCart(props){
                     </ImagesProvder>
                 </div>
                 <div className="cart__bottom">  
-                      {cart.length>0?cart.map(item=>item.itemPrice * item.quantity).reduce((a, b)=> a + b , 0):'no cart items'}
+                     {cart.length>0?<div>
+                       <h2>Shipping & taxes calculated at checkout</h2>
+                       <Link className="btn" to="/checkout">CHECKOUT .  {cart.map(item=>item.itemPrice * item.quantity).reduce((a, b)=> a + b , 0)}</Link>
+                     </div>:'no cart items'}
+                     
+                     
                 </div>
             </div>
         </div>

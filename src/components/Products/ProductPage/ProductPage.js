@@ -19,8 +19,9 @@ function ProductPage() {
   
     useEffect(() => {
         getRecentlyVisted()
+        console.log('realoading')
         getProductById(id).then(res=>setProduct(res.data) )
-    }, [])
+    }, [id])
     
     const getRecentlyVisted=()=>{
         let recentlyCiewdCookei= cookie.get('recentlyViewd')
@@ -52,7 +53,7 @@ function ProductPage() {
                <div className="product__Info__wrapper__wrapper">
                  <div className="product__Info">
                      <h2>{product.title}</h2>
-                     <p>{product.price}</p>
+                     <p>{product.price}.00$</p>
                      <div className="borderB"></div>
                      <ul className="product__charactersristics">{product.character.map((char,index)=><li key={index}>{char}</li>)} </ul>
                      { product.hasSize?<ul className="product__size" onClick={chooseSize}>
@@ -75,6 +76,8 @@ function ProductPage() {
                <ProductImages id={id} />
             </ImagesProvder>
             </div>
+            <Related id={id}/>
+            <div className="border mgb2 mgt2"></div>
             <RecentlyViewd /> 
         </div>
     )
