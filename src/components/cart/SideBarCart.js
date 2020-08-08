@@ -56,7 +56,7 @@ function SideBarCart(props){
                 <div className="cart__bottom">  
                      {cart.length>0?<div>
                        <h2>Shipping & taxes calculated at checkout</h2>
-                       <Link className="btn" to="/checkout">CHECKOUT .  {cart.map(item=>item.itemPrice * item.quantity).reduce((a, b)=> a + b , 0)}</Link>
+                       <Link className="btn" to="/checkout" onClick={slideOutOut}>CHECKOUT .  {cart.map(item=>item.itemPrice * item.quantity).reduce((a, b)=> a + b , 0)}</Link>
                      </div>:'no cart items'}
                      
                      

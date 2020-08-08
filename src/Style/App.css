@@ -8,6 +8,7 @@
    --colorError:rgb(233, 24, 24);
    --colorBlack:black;
    --colorGrey:#5c5c5c;
+   --colorGreyDark:#333333;
    --colorGreyLight:#7c7676;
    --colorGreyFaint:#e0e0e0;
    --colorGreyFainter:#ebebeb;
@@ -64,12 +65,28 @@ p, h1, h2, h3, h4, h5, h6 {
   text-align: center;
   font-size: 22px;
 }
+.h-medium{
+ font-size: 1.2rem;
+ color: var(--colorGreyDark);
+ line-height: 1.3em;
+}
+
+
+.f1{
+  flex: 1;
+}
+.w100{
+  width: 100%;
+}
 .border{
   margin-top: 1rem;
   margin-bottom: 1rem;
   width: 100%;
   height: 1px;
   background-color:rgb(204, 204, 204)  ;
+}
+.mgb1{
+  margin-bottom: 1rem;
 }
 .mgb2{
   margin-bottom: 2rem;
