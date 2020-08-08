@@ -2,7 +2,6 @@ import React,{useState,useContext,useEffect} from 'react'
 import axios from 'axios'
 import StripeCheckout from 'react-stripe-checkout'
 import {CartContext} from '../../../Context/CartProvider'
-  import PaymentInfo from './PaymentInfo'
 function CheckOut() {
     const [products,setProducts]=useState([
         {title:'Hands L',price:30,quantity:2,images:['img1.jpg','img2.jpg']},
