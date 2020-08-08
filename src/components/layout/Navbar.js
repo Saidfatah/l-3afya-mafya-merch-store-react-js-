@@ -4,7 +4,7 @@ import {jwtCheck,logOut} from "../Auth/Auth"
 import {Link} from "react-router-dom";
   
 const  Navbar=forwardRef((props,ref)=> {
-    const {setSlideNow}=props
+    const {setSlideNow,setDisplaySearchModal}=props
     const {cart} =useContext(CartContext)
     useImperativeHandle(ref, () => ({ }));
     return (
@@ -41,7 +41,7 @@ const  Navbar=forwardRef((props,ref)=> {
                    <Link className="navBar__Link no-sidemenu" to="/account">Logout</Link>
                </React.Fragment>:
                <React.Fragment>
-                   <a className="navBar__Link no-sidemenu" onClick={e=> {ref.current.fadeIn() }}>Search</a>
+                   <a className="navBar__Link no-sidemenu" onClick={e=> {setDisplaySearchModal(true);document.body.style.overflowY="hidden"}}>Search</a>
                    <a className="navBar__Link no-sidemenu" onClick={e=> {setSlideNow(true);document.body.style.overflowY="hidden"}}>Cart(<span className="cart__count">{cart.length}</span>)</a>
                </React.Fragment>
              }

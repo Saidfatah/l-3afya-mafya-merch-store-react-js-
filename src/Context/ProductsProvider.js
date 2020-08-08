@@ -4,15 +4,13 @@ import axios from 'axios'
 export const MyContext =createContext()
 function ProductsProvider(props) {
     let [products,setProducts]=useState([])
+    let [searchResult,setSearchResult]=useState([])
     const apiurl='http://localhost:4000/'
     const errhandler =err=>console.log(err)
    
     useEffect(()=>{axios.get(apiurl+'product').then(res=> setProducts(res.data)).catch(errhandler)},[])
     
-    const getProductsByString= charcters=>{
-           console.log(products.filter(p=>p.title.includes(charcters)))
-           return products
-    }
+
     const getUserById=id=>axios.get(apiurl+"users/"+id).data
 
     const getProductById= (id)=> axios.get(apiurl+"product/"+id) 
@@ -26,13 +24,13 @@ function ProductsProvider(props) {
         return a.filter(e=> b.indexOf(e) > -1 );
     }
     const getProducts=()=> axios.get(apiurl+'product')
-
-    const value=useMemo(()=>({
+    const value = useMemo(()=>({
         products,
-        getProductsByString,
+        searchResult,
+        setSearchResult,
         getProductById,
-        getProducts
-    }),[getProducts,getProducts,getProductById,getProductsByString,products])
+        getProducts,
+    }),[getProducts,getProducts,setSearchResult,getProductById,searchResult,products])
     
     
     return (<MyContext.Provider value={value}>

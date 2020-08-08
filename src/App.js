@@ -1,5 +1,6 @@
 import React,{useRef,useState,useEffect} from 'react';
 import './Style/App.css';
+import './Style/Loader.css';
 import './Style/cart.css';
 import './Style/layoutStyles/hero.css';
 import './Style/layoutStyles/navbar.css';
@@ -48,16 +49,14 @@ function App() {
   const SideBarRef = useRef();
   const NavbarRef = useRef();
   const SearchModalRef = useRef();
-   const [slideNow,setSlideNow]=useState(false)
-   const setSlideNowFun=(slide)=>{setSlideNow(slide)}
+  const [slideNow,setSlideNow]=useState(false)
+  const [displaySearchModal,setDisplaySearchModal]=useState(false)
+  const setSlideNowFun=(slide)=>{setSlideNow(slide)}
+  const setDisplaySearchModalFun=(display)=>{setDisplaySearchModal(display)}
    
   useEffect(() => {
-    if( NavbarRef.current != undefined)
-    {
-      NavbarRef.current.slideSideBarIn = SideBarRef.current.slideIn
-      NavbarRef.current.fadeIn = SearchModalRef.current.fadeIn
-    }
-  }, [ NavbarRef.current,])
+    if( NavbarRef.current != undefined) NavbarRef.current.slideSideBarIn = SideBarRef.current.slideIn
+  }, [ NavbarRef.current])
 
   return (
     <div className="App">
@@ -70,8 +69,8 @@ function App() {
                         <SideBarCart setSlideNow={setSlideNowFun} slideNow={slideNow} />
                         <SideBar ref={SideBarRef} />
                         <div className="offsetNavbar"></div>
-                        <Navbar ref={NavbarRef} setSlideNow={setSlideNowFun} />
-                        <SearchModal ref={SearchModalRef} /> 
+                        <Navbar ref={NavbarRef}  setSlideNow={setSlideNowFun}  setDisplaySearchModal={setDisplaySearchModalFun}/>
+                        <SearchModal  ref={SearchModalRef}  display={displaySearchModal}  setDisplaySearchModal={setDisplaySearchModalFun}/> 
                     </React.Fragment>
                   :null
               }
@@ -88,7 +87,8 @@ function App() {
                    <Route path="/policy"><PrivacyPolicy /></Route>
                    <Route path="/account"><Account /></Route>
                    <Route path="/product/:id"><ProductPage /></Route>
-                   <Route path="/search"><Search /></Route>
+                   <Route exact path="/search"><Search  hasPram={true}/></Route>
+                   <Route path="/search/:query"><Search hasPram={false}/></Route>
                    <Route path="/checkout"><CheckOut /></Route>
                 </Switch>
                 <Footer/>

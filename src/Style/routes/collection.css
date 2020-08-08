@@ -1,6 +1,7 @@
 .collections{
-    height: fit-content;
     margin-top: 8rem;
+    min-height: 500px;
+
 }
 .collections h1{
     margin-bottom: 3rem;
@@ -10,7 +11,7 @@
 
 .collections__wrapper{
     display: flex;
-    height: 500px;
+    height:fit-content;
     width: 100%;
     justify-content: center;
     flex-wrap: wrap;

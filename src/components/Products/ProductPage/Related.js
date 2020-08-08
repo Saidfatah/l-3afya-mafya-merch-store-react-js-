@@ -9,6 +9,7 @@ function Related(props) {
     const {getProducts}= useContext(MyContext)
     const {id}=props
     useEffect(() => {
+        console.log(id)
         getCollections().then(res=>{
             const relatedProductsIds = res.data.filter(col=> col.products.indexOf(parseInt(id)) != -1).map(c=>c.products)[0].splice(0,3)
             getProducts().then(res2=>{
@@ -16,7 +17,7 @@ function Related(props) {
             setRelatedProducts(relatedProducts2)
         }) 
         })
-     }, [relatedProducts.length >0])
+     }, [relatedProducts.length >0,id])
    
     return (
         <div className="related">

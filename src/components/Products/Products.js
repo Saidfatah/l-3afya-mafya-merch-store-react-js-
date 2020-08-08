@@ -16,9 +16,14 @@ function Products(props) {
             let collection = res.data.filter(collection=>collection.title == collectionTitle)
             collection.length>0 ?getCollectionProducts(collection) : maxDisplay != undefined ?getMaxDisplayProducts() : getAllProducts()
         })
-    },[maxProducts.length>0,allProducts.length>0,collectionProducts.length>0])
+    },[maxProducts.length>0,allProducts.length>0,collectionProducts.length>0,productsFromSearch])
+
     const getMaxDisplayProducts=()=>{
-        if(maxDisplay != undefined) setMaxProducts(productsFromSearch.slice(1, 3 + 1)) 
+        if(maxDisplay != undefined){ 
+
+            const searchedProducts =maxDisplay != -1? productsFromSearch.slice(1, maxDisplay + 1):productsFromSearch
+            setMaxProducts(searchedProducts.map((product,index)=><ProductItem key={index}  cardSize={productSize} product={product} />))
+         }
     }
     const getCollectionProducts=(collection)=> {
           getProducts().then(res=>{
@@ -27,7 +32,7 @@ function Products(props) {
               setCollectionProducts(collectionProdycts.map((product,index)=><ProductItem key={index}  productSize={productSize} product={product} />))
           })
     }
-    const getAllProducts=()=>setAllProducts(products.map((product,index)=><ProductItem key={index}  productSize={productSize} product={product} />)) 
+    const getAllProducts=()=>setAllProducts(products.map((product,index)=><ProductItem key={index}  cardSize={productSize} product={product} />)) 
 
     return (
         <div className="products">
