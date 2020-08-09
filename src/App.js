@@ -57,14 +57,14 @@ function App() {
   useEffect(() => {
     if( NavbarRef.current != undefined) NavbarRef.current.slideSideBarIn = SideBarRef.current.slideIn
   }, [ NavbarRef.current])
-
+console.log(window.location.href.indexOf("/checkout"))
   return (
     <div className="App">
          <Provider>
             <CartProvider>
             <CollectionsProvider>
             <Router>
-              { window.location.pathname !="/checkout"?
+              { window.location.href.indexOf("/checkout") == -1?
                     <React.Fragment>
                         <SideBarCart setSlideNow={setSlideNowFun} slideNow={slideNow} />
                         <SideBar ref={SideBarRef} />
@@ -89,7 +89,7 @@ function App() {
                    <Route path="/product/:id"><ProductPage /></Route>
                    <Route exact path="/search"><Search  hasPram={true}/></Route>
                    <Route path="/search/:query"><Search hasPram={false}/></Route>
-                   <Route path="/checkout"><CheckOut /></Route>
+                   <Route  path="/checkout"><CheckOut /></Route>
                 </Switch>
                 <Footer/>
             </Router>  

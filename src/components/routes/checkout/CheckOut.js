@@ -1,8 +1,12 @@
-import React,{useState,useContext,useEffect} from 'react'
-import axios from 'axios'
-import StripeCheckout from 'react-stripe-checkout'
+import React,{useState,useContext,useEffect,useRef} from 'react'
 import {CartContext} from '../../../Context/CartProvider'
 import InfoFrom from './InfoFrom'
+import ShipingInfo from './ShipingInfo'
+import {Grid} from '@material-ui/core';
+import {Switch,Route,useRouteMatch,Link} from "react-router-dom";
+import CheckoutPayment from './CheckoutPayment'
+
+
 function CheckOut() {
     const [products,setProducts]=useState([
         {title:'Hands L',price:30,quantity:2,images:['img1.jpg','img2.jpg']},
@@ -10,34 +14,34 @@ function CheckOut() {
         {title:"L'3afya mafya logo T-Shirt (black)",price:60,quantity:2,images:['img1.png','img2.png']},
       ])
     const {cart} = useContext(CartContext)
-
+    const [progress,setProgress]=useState(0)
+    const LinksRef= useRef()
+    let {  path,url } = useRouteMatch();
     useEffect(()=>{
      setProducts(cart.map(item=>({ title:item.itemName, price:item.itemPrice, quantity:item.quantity, images:item.images})))
-     console.log(cart.map(item=>({ title:item.itemName, price:item.itemPrice, quantity:item.quantity, images:item.images})))
     },[products.lenght>0])
-    const handelToken=async(token)=>{
-    
-             const res =await  axios.post('http://localhost:4000/stripe/checkout',{
-                token,
-                product:{
-                  products:products.map(p=>p.title),
-                  amount:products.map(item=>item.price * item.quantity).reduce((a, b)=> a + b , 0)*100
-                }
-              })
-            console.log(res)
-    }
+   
 
     return (
         <div className="checkout">
         <div className="checkout__gateways">
-          <StripeCheckout 
-          stripeKey='pk_test_51HCsVhLkAIHmcekiVfb5aSOF75eJPLKwn7MhbxmQKMVtJrworoCsyNL8Otxs0cdcFYjKMpjejHzChey00DlIkW8b007nxn9KYC'
-          token={handelToken}
-          billingAddress
-          shippingAddress
-          amount={products.map(item=>item.price * item.quantity).reduce((a, b)=> a + b , 0)*100}
-          />
-          <InfoFrom />
+           <Grid  container direction="row"   justify="space-between"  className="CheckoutProgress " alignItems="center" ref={LinksRef} >
+                <Link to="/cart" className="raw__Link">Cart</Link>
+                <Link to={`${url}/information`} className="raw__Link">Information</Link>
+                <Link to={`${url}/shiping`} className="raw__Link">Shiping</Link>
+                <Link to={`${url}/payment`} className="raw__Link">Payment</Link>
+           </Grid>
+          <Switch>
+              <Route path={`${path}/information`}>
+                 <InfoFrom />
+              </Route>
+              <Route path={`${path}/shiping`}>
+                 <ShipingInfo />
+              </Route>
+              <Route path={`${path}/payment`}>
+                 <CheckoutPayment />
+              </Route>
+           </Switch>
         </div>
         <div className="checkout__overview">
             <div className="overview__items"> 

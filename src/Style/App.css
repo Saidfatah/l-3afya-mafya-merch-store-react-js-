@@ -66,15 +66,14 @@ p, h1, h2, h3, h4, h5, h6 {
   font-size: 22px;
 }
 .h-medium{
- font-size: 1.2rem;
  color: var(--colorGreyDark);
+ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+ font-size: 1.1rem;
  line-height: 1.3em;
 }
 
 
-.f1{
-  flex: 1;
-}
+
 .w100{
   width: 100%;
 }
@@ -117,3 +116,55 @@ button:focus{
   margin-bottom: 75px;
 }
 
+
+.smallTextG{
+  color: var(--colorGreyLight);
+  font-size: .8rem;
+}
+.smallTextB{
+  color: var(--colorGreyDark);
+  font-size: .8rem;
+}
+
+/* overdingsome  material ui  */
+.MuiFormControl-root {
+  margin-bottom: 1rem !important;
+}
+.MuiInputBase-input{
+  font-size: .8rem !important;
+  padding: 1rem  .5rem !important;
+
+}
+.MuiInputLabel-root{
+  font-size: .9rem !important;
+}
+.MuiCheckbox-colorSecondary.Mui-checked{
+  color: var(--colorGrey) !important;
+}
+.btnGrey{
+  background-color: var(--colorGrey) !important;
+  color: #fff !important;
+  padding: 1rem  1rem !important;
+  font-weight: 600!important;
+  font-size: .8rem !important;
+   text-transform: none !important;
+}
+.MuiTypography-body1 {
+ color: var(--colorGrey) !important;
+}
+.MuiFormLabel-root.Mui-focused {
+  color: var(--colorGreyDark) !important  ;
+}
+.MuiIconButton-label {
+  color: var(--colorGrey) !important;
+}
+
+.checkoutCard{
+  padding: 1rem !important;
+}
+.f1{
+  flex: 1;
+}
+.mgr1{
+  margin-right: 1rem !important;
+}

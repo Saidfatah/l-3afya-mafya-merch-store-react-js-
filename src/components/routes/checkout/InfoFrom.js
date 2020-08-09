@@ -1,6 +1,14 @@
 import React,{useState} from 'react'
+import {Button,
+  Grid,
+  TextField,
+  InputLabel,
+  Select,
+  FormControl,
+  FormControlLabel,
+  Checkbox} from '@material-ui/core';
+  import {Link} from "react-router-dom";
 
-import {Button,Grid,TextField,InputLabel,Select,FormControl,FormControlLabel,Checkbox} from '@material-ui/core';
 function InfoFrom() {
     const [countries,setCountries]=useState([
         "Afghanistan",
@@ -256,66 +264,45 @@ function InfoFrom() {
     const [keepUpToDate,setKeepUpToDate]=useState(false)
     return (
         <div>
-      
-            <Grid container direction="row"   justify="space-between"  alignItems="center"  className="mgb1">
-                 <h2 className="h-medium ">Contact information</h2>
-                 <p>Already have an account</p>
+            <Grid container direction="row"   justify="space-between"  alignItems="center" >
+                 <h2 className="h-medium mgb1">Contact information</h2>
+                 <div>
+                   <span className="smallTextG">Already have an account?</span>
+                   <Link to="/account" className="raw__Link">Login</Link>
+                 </div>
             </Grid>
-            <TextField id="outlined-basic" label="Email or mobile phone or number" variant="outlined"  className="mgb1"/><br/>
-            <FormControlLabel control={<Checkbox checked={keepUpToDate} onChange={e=>{setKeepUpToDate(true)}} name="keepme"  className="mgb1"/>}
+            <TextField id="outlined-basic" label="Email or mobile phone or number" variant="outlined"  className=" w100"/><br/>
+            <FormControlLabel control={<Checkbox checked={keepUpToDate} onChange={e=>{setKeepUpToDate(true)}} name="keepme"  />}
             label="	Keep me up to date on news and exclusive offers"
+            className="mgb2"
             />
-
-            <h2 className="h-medium">Shipping address</h2>
-            <Grid container direction="row"   justify="space-between"  alignItems="center" className="mgb1">
-                     <TextField id="outlined-basic" label="first name" className="f1" variant="outlined" />
-                     <TextField id="outlined-basic" label="last name" className="f1" variant="outlined" />
+            
+            <h2 className="h-medium mgb1">Shipping address</h2>
+            <Grid container direction="row"   justify="space-between"  alignItems="center" >
+                     <TextField  id="outlined-basic" label="first name" className="f1 mgr1" variant="outlined" />
+                     <TextField id="outlined-basic" label="last name" className="f1 " variant="outlined" />
             </Grid>
             <TextField id="outlined-basic" label="Address" variant="outlined" className="w100 mgb1" /> <br/>
-            <TextField id="outlined-basic" label="Appartment , suite ,etc (optional)" variant="outlined" className="w100 mgb1" />
-            <Grid container direction="row"   justify="space-between"  alignItems="center" className="mgb1">
-                  <TextField id="outlined-basic" label="Postal code" className="f1" variant="outlined" />
-                  <TextField id="outlined-basic" label="city" className="f1"  variant="outlined" />
+            <TextField id="outlined-basic" label="Appartment , suite ,etc (optional)" variant="outlined"  className="w100 " />
+            <Grid container direction="row"  justify="space-between"  alignItems="center" >
+                  <TextField id="outlined-basic" label="Postal code" className="f1 mgr1" variant="outlined" />
+                  <TextField id="outlined-basic" label="city" className="f1 "  variant="outlined" />
             </Grid>
-            <FormControl variant="outlined" className="form-control w100"  >
+            <FormControl variant="outlined" className="form-control w100 mgb1"  >
                  <InputLabel htmlFor="outlined-age-native-simple">Country/Region</InputLabel>
                  <Select   native  value={countries[0]}  onChange={e=>{}}   inputProps={{    name: 'country',  id: 'outlined-age-native-simple', }}  >
                    <option aria-label="None" value="" />
                    {countries.map(c=><option key={c} value={c}>{c}</option>)}
                  </Select>
             </FormControl>
-            <TextField id="outlined-basic" label="Phone (optional)" variant="outlined"  className="w100 mgb1"/>
+            <TextField id="outlined-basic" label="Phone (optional)" variant="outlined"  className="w100 "/>
+
             <Grid container direction="row"   justify="space-between"  alignItems="center">
-                <Button variant="contained" color="primary"> Continue to shipping</Button>
+                <Link to="/cart" className="raw__Link">Return to cart</Link>
+                <Button variant="contained" color="primary"  className="btnGrey"> Continue to shipping</Button>
             </Grid>
         </div>
     )
 }
 
 export default InfoFrom
-{/* <div className="row">
-             <form className="col s12">
-               <div className="row">
-                 <div className="input-field col s6">
-                   <input placeholder="Placeholder" id="first_name" type="text" className="validate"/>
-                   <label for="first_name "  >First Name</label>
-                 </div>
-                 <div className="input-field col s6">
-                   <input id="last_name" type="text" className="validate"/>
-                   <label for="last_name "  >Last Name</label>
-                 </div>
-               </div>
-               <div className="row">
-                 <div className="input-field col s12">
-                   <input id="password" type="password" className="validate"/>
-                   <label for="password "  >Password</label>
-                 </div>
-               </div>
-               <div className="row">
-                 <div className="input-field col s12">
-                   <input id="email" type="email" className="validate"/>
-                   <label for="email "  >Email</label>
-                 </div>
-               </div>
-             </form>
-            </div> */}
