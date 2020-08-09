@@ -38,7 +38,7 @@ function RecentlyViewd() {
      const slide = (dir)=>{
           const overflowProducts = countProducts(-dir);
           const productWidth =productItemWidth+16;
-          const Slide_amount = dir * productWidth *(overflowProducts >=4 ? 4:overflowProducts)
+          const Slide_amount = dir * productWidth *(overflowProducts >=3 ? 3:overflowProducts)
           const X= parseInt(recentlyViewd__ContainerRef.current.offsetLeft);
           const easer_calb=(value)=> recentlyViewd__ContainerRef.current.style.left=(value )+'px'
           easer(X, X + Slide_amount,easer_calb,100)
@@ -50,15 +50,17 @@ function RecentlyViewd() {
         <div>
             <h1 className="h-centered">Recently Viewd</h1>
             <div className="recentlyViewd" ref={recentlyViewdRef}>
-                 <a href="#" className="stories__btn btn_left" ref={btn_leftRef} onClick={slideStoriesLeft}>
-                     <div className="btn__image image_left" ></div>
-                 </a>
-                 <a href="#" className="stories__btn btn_right" ref={btn_rightRef} onClick={slideStoriesRight}>
-                     <div className="btn__image image_right"></div>
-                 </a>    
-                 <div className="recentlyViewd__Container" ref={recentlyViewd__ContainerRef}>
-                    {recentlyViewdItems.map((product,index)=><ProductItem  key={index}   product={product}  />)}
-                 </div>
+                <div>
+                   <a href="#" className="stories__btn btn_left" ref={btn_leftRef} onClick={slideStoriesLeft}>
+                       <div className="btn__image image_left" ></div>
+                   </a>
+                   <a href="#" className="stories__btn btn_right" ref={btn_rightRef} onClick={slideStoriesRight}>
+                       <div className="btn__image image_right"></div>
+                   </a>    
+                   <div className="recentlyViewd__Container" ref={recentlyViewd__ContainerRef}>
+                      {recentlyViewdItems.map((product,index)=><ProductItem  key={index}   product={product} cardSize="small" />)}
+                   </div>
+                </div>
             </div>
         </div>
     )

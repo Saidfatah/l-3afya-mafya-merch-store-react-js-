@@ -77,7 +77,7 @@ function ProductPage() {
             </ImagesProvder>
             </div>
             <Related id={id}/>
-            <div className="border mgb2 mgt2"></div>
+            <div className="border-faint mgb5 "></div>
             <RecentlyViewd /> 
         </div>
     )

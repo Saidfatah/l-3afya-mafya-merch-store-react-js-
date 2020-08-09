@@ -30,7 +30,7 @@ function Related(props) {
    
     return (
         <div className="related">
-            <h1 className="h-centered">Related Products</h1>
+            <h1 className="h-centered mgb2">Related Products</h1>
             <div className="related__Container">
                     {relatedProducts.map((product,index)=><ProductItem  key={index}   product={product}  cardSize="medium"/>)}
            </div>

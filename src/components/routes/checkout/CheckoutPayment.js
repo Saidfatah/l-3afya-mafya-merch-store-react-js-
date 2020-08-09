@@ -29,7 +29,7 @@ function CheckoutPayment(props) {
                </Grid>
            </Card>
             <Grid container direction="row"   justify="space-between"  alignItems="center">
-               <Link to="/checkout/information" className="raw__Link">Return to shipping</Link>
+               <Link to="/checkout/information" className="raw__Link"><i class="fas fa-angle-left iconeB"></i>Return to shipping</Link>
                <Button variant="contained" color="primary"  className="btnGrey"> Pay now</Button>
            </Grid>
         </div>

@@ -8,28 +8,28 @@ import CheckoutPayment from './CheckoutPayment'
 
 
 function CheckOut() {
-    const [products,setProducts]=useState([
-        {title:'Hands L',price:30,quantity:2,images:['img1.jpg','img2.jpg']},
-        {title:"l'3afya mafya Lighter",price:50,quantity:1,images:['img1.png','img2.png']},
-        {title:"L'3afya mafya logo T-Shirt (black)",price:60,quantity:2,images:['img1.png','img2.png']},
-      ])
+    const [products,setProducts]=useState([])
     const {cart} = useContext(CartContext)
     const [progress,setProgress]=useState(0)
     const LinksRef= useRef()
     let {  path,url } = useRouteMatch();
+
     useEffect(()=>{
      setProducts(cart.map(item=>({ title:item.itemName, price:item.itemPrice, quantity:item.quantity, images:item.images})))
     },[products.lenght>0])
    
-
+    const windowHref=  window.location.href
     return (
         <div className="checkout">
         <div className="checkout__gateways">
            <Grid  container direction="row"   justify="space-between"  className="CheckoutProgress " alignItems="center" ref={LinksRef} >
-                <Link to="/cart" className="raw__Link">Cart</Link>
-                <Link to={`${url}/information`} className="raw__Link">Information</Link>
-                <Link to={`${url}/shiping`} className="raw__Link">Shiping</Link>
-                <Link to={`${url}/payment`} className="raw__Link">Payment</Link>
+                <Link to="/cart" className="raw__Link withIcone">Cart </Link>
+                <i className="fas fa-angle-right"></i>
+                <Link to={`${url}/information`} className={"raw__Link withIcone"+ (windowHref.indexOf("/information")!=-1?" activeRoute":"") }>Information </Link>
+                <i className="fas fa-angle-right"></i>
+                <Link to={`${url}/shiping`} className={"raw__Link withIcone" + (windowHref.indexOf("/shiping")!=-1?" activeRoute":"") }>Shiping</Link>
+                <i className="fas fa-angle-right"></i>
+                <Link to={`${url}/payment`} className={"raw__Link" + (windowHref.indexOf("/payment")!=-1?" activeRoute":"")}>Payment</Link>
            </Grid>
           <Switch>
               <Route path={`${path}/information`}>

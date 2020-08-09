@@ -298,7 +298,7 @@ function InfoFrom() {
             <TextField id="outlined-basic" label="Phone (optional)" variant="outlined"  className="w100 "/>
 
             <Grid container direction="row"   justify="space-between"  alignItems="center">
-                <Link to="/cart" className="raw__Link">Return to cart</Link>
+                <Link to="/cart" className="raw__Link"><i class="fas fa-angle-left iconeB"></i>Return to cart</Link>
                 <Button variant="contained" color="primary"  className="btnGrey"> Continue to shipping</Button>
             </Grid>
         </div>

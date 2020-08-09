@@ -124,3 +124,7 @@
   margin: 0 auto;
   margin-bottom: 2rem !important;
 }
+
+.activeRoute{
+  font-weight: 600;
+}

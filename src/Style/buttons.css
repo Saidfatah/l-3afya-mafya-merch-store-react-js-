@@ -51,4 +51,10 @@
 .faintLink:hover{
     color: rgba(92,92,92,0.5);
 }
-
+.iconeB{
+    font-size: 1rem;
+    margin-right: .25rem;
+}
+i{
+    color: var(--colorGreyLight);
+}

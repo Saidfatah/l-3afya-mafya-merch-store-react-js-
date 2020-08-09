@@ -13,9 +13,15 @@ function  SearchModal(props) {
     const fadeIn=()=>{
         if(searchModalRef.current)
         { 
+          searchModalRef.current.style.transition="none"
           searchModalRef.current.style.display='block'
-          searchModalRef.current.style.opacity='1'
           searchModalRef.current.style.top=window.scrollY +'px'
+          setTimeout(() => {
+            if(searchModalRef.current == null ) return
+            searchModalRef.current.style.transition="all .3s cubic-bezier(0.55, 0.085, 0.68, 0.53)"
+          searchModalRef.current.style.opacity='1'
+
+        }, 100);
         }
     }
     const fadeOut=e=>{

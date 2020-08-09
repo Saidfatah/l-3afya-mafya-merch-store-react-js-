@@ -51,7 +51,7 @@ function ShipingInfo() {
                </RadioGroup>
             </Card>
            <Grid container direction="row"   justify="space-between"  alignItems="center">
-               <Link to="/checkout/information" className="raw__Link">Return to information</Link>
+               <Link to="/checkout/information" className="raw__Link"><i class="fas fa-angle-left iconeB"></i>Return to information</Link>
                <Button variant="contained" color="primary"  className="btnGrey"> Continue to payment</Button>
            </Grid>
 

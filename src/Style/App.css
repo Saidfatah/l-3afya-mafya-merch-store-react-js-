@@ -61,7 +61,6 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 .h-centered{
-  margin-bottom: 3rem;
   text-align: center;
   font-size: 22px;
 }
@@ -84,11 +83,24 @@ p, h1, h2, h3, h4, h5, h6 {
   height: 1px;
   background-color:rgb(204, 204, 204)  ;
 }
+.border-faint{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  height: 1px;
+  background-color:var(--colorGreyFaint) ;
+}
 .mgb1{
   margin-bottom: 1rem;
 }
 .mgb2{
   margin-bottom: 2rem;
+}
+.mgb3{
+  margin-bottom: 3rem;
+}
+.mgb5{
+  margin-bottom: 5rem;
 }
 .mgt2{
   margin-top: 2rem;

@@ -52,14 +52,12 @@ function SideBarCart(props){
                     <ImagesProvder>
                          {cart.length>0? cart.map((item,index)=><CartItem key={index} cartItem={item}/>) :<div className="cart__empty"><div> Your cart is empty</div></div>}
                     </ImagesProvder>
-                </div>
-                <div className="cart__bottom">  
+                    <div className="cart__bottom">  
                      {cart.length>0?<div>
-                       <h2>Shipping & taxes calculated at checkout</h2>
-                       <Link className="btn" to="/checkout" onClick={slideOutOut}>CHECKOUT .  {cart.map(item=>item.itemPrice * item.quantity).reduce((a, b)=> a + b , 0)}</Link>
+                       <h2 className="mgb1">Shipping & taxes calculated at checkout</h2>
+                       <Link className="btn" to="/checkout/information" onClick={slideOutOut}>CHECKOUT .${cart.map(item=>item.itemPrice * item.quantity).reduce((a, b)=> a + b , 0)}</Link>
                      </div>:'no cart items'}
-                     
-                     
+                   </div>
                 </div>
             </div>
         </div>

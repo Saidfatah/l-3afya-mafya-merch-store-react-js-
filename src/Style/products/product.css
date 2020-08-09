@@ -48,3 +48,9 @@
    height: 400px; 
    width: 200px;
 }
+.card-medium .card__image{
+   height:350px; 
+}
+.card-small .card__image{
+   height: 300px; 
+}

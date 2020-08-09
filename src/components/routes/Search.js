@@ -42,7 +42,7 @@ function Search(props) {
     }
     const ResultsDsiplay=()=>{
         return <div>
-        <h1>Search</h1>
+        <h1 className="h-centered">Search</h1>
         <h2>{searchCount} results for "{searchQuery}"</h2>
         <Products productsFromSearch={products} />
        </div>
