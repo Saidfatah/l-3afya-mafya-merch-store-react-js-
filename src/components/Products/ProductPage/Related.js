@@ -11,11 +11,20 @@ function Related(props) {
     useEffect(() => {
         console.log(id)
         getCollections().then(res=>{
-            const relatedProductsIds = res.data.filter(col=> col.products.indexOf(parseInt(id)) != -1).map(c=>c.products)[0].splice(0,3)
-            getProducts().then(res2=>{
-            const relatedProducts2 =  res2.data.filter(p => relatedProductsIds.indexOf(p.productId) > -1)
-            setRelatedProducts(relatedProducts2)
-        }) 
+            try {
+                const collection =res.data.filter(col=> col.products.indexOf(parseInt(id)) != -1)
+                let relatedProductsIds ;
+                if(collection[0] == undefined)
+                  relatedProductsIds =res.data[1].products
+                else  
+                  relatedProductsIds = collection.map(c=>c.products)[0]
+                 relatedProductsIds = relatedProductsIds.splice(0,3)
+                getProducts().then(res2=>{
+                     const relatedProducts2 =  res2.data.filter(p => relatedProductsIds.indexOf(p.productId) > -1)
+                     setRelatedProducts(relatedProducts2)
+                })    
+            }catch(error){ console.log(error)}
+           
         })
      }, [relatedProducts.length >0,id])
    

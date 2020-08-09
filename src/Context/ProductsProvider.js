@@ -8,21 +8,12 @@ function ProductsProvider(props) {
     const apiurl='http://localhost:4000/'
     const errhandler =err=>console.log(err)
    
-    useEffect(()=>{axios.get(apiurl+'product').then(res=> setProducts(res.data)).catch(errhandler)},[])
+    useEffect(()=>{
+        axios.get(apiurl+'product').then(res=> setProducts(res.data)).catch(errhandler)
+        console.log('search result changed')
+    },[searchResult.length>0,products.length>0])
     
-
-    const getUserById=id=>axios.get(apiurl+"users/"+id).data
-
     const getProductById= (id)=> axios.get(apiurl+"product/"+id) 
-    const intersect = (a, b)=> {
-        let t
-        if (b.length > a.length){
-             t = b
-             b = a
-             a = t
-        }
-        return a.filter(e=> b.indexOf(e) > -1 );
-    }
     const getProducts=()=> axios.get(apiurl+'product')
     const value = useMemo(()=>({
         products,

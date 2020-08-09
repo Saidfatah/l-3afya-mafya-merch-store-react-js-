@@ -57,7 +57,6 @@ function App() {
   useEffect(() => {
     if( NavbarRef.current != undefined) NavbarRef.current.slideSideBarIn = SideBarRef.current.slideIn
   }, [ NavbarRef.current])
-console.log(window.location.href.indexOf("/checkout"))
   return (
     <div className="App">
          <Provider>

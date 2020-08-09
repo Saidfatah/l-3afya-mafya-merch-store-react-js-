@@ -34,13 +34,14 @@ function  SearchModal(props) {
     useEffect(()=>{
         if(display == true)fadeIn()
     },[display])
+
     const search = e=>{
         setSearchQuery(e.target.value)
         getProducts().then(res=>{
             const fecthedProducts = res.data
             const resultsFiltered = fecthedProducts.filter(p=>p.title.includes(searchQuery))
-            setResults(resultsFiltered)
             setSearchResult(resultsFiltered)
+            setResults(resultsFiltered)
             setResultsCount(resultsFiltered.length)
         })
    }
