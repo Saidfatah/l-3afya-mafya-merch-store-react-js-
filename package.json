@@ -3,15 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
     "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
+    "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "formik": "^2.1.5",
+    "glamor": "^2.20.40",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
     "materialize-css": "^1.0.0-rc.2",
@@ -26,10 +30,9 @@
   },
   "scripts": {
     "nodemon": "nodemon ./backEnd/app.js",
-    "start": " react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "webpack-dev-server --mode development --open --hot -inline --progress --content-base ",
+    "build": "webpack --mode production",
+    "watch": "webpack-dev-server --progress"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -47,7 +50,22 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "@emotion/babel-preset-css-prop": "^10.0.27",
+    "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "^6.1.1",
+    "css-loader": "^4.3.0",
     "dotenv": "^8.2.0",
-    "nodemon": "^2.0.4"
+    "file-loader": "^6.1.0",
+    "html-webpack-plugin": "^4.5.0",
+    "nodemon": "^2.0.4",
+    "source-map-loader": "^1.1.0",
+    "style-loader": "^1.2.1",
+    "to-string-loader": "^1.1.6",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   }
 }

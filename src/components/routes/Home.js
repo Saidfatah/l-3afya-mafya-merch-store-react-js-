@@ -1,13 +1,23 @@
 import React from 'react'
 import Products from '../Products/Products'
 import Hero from '../layout/Hero'
-function Home() {
+/** @jsx jsx */
+import { jsx,css } from '@emotion/core'
+
+const Home=()=> {
     return (
-        <div className="Home">
+        <div css={styles.Home}>
             <Hero/>
-            <Products />
+            <Products productSize="noSize"/>
         </div>
     )
+}
+
+const styles ={
+    Home:css` 
+     height: 45vh;
+     width: 100%;
+    `,
 }
 
 export default Home

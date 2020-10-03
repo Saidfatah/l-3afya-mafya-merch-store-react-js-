@@ -13,7 +13,7 @@ function Customer(props) {
      },[])
 
     return (
-        <div>
+        <div >
             customer
             here we'll have orders
             {orders.map((order,index)=><Order key={index} order={order} />)}

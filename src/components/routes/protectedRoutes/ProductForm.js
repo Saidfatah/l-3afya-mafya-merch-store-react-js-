@@ -25,8 +25,6 @@ function ProductForm() {
     const [submitedValues,setSubmitedValues]=useState(true)
     const [characteristics,setCharacteristics]=useState([])
     const [sizes,setSizes]=useState([])
-
-
     const charcteristcRef = useRef()
     const charcteristcInputRef = useRef()
 
@@ -37,6 +35,9 @@ function ProductForm() {
     //    if( localStorage.getItem('submitedValues')!=undefined)setSubmitedValues(localStorage.getItem('submitedValues'))
        
     },[characteristics,sizes,submitedValues])
+   
+   
+   
     const onSubmitSucces=res=>{
         localStorage.setItem('submitedValues',true) 
         setSubmitedValues(true)

@@ -2,7 +2,7 @@ import React from 'react'
 import StripeCheckout from 'react-stripe-checkout'
 import axios from 'axios'
 
-function CreditCardCheckout(props) {
+const CreditCardCheckout=(props)=> {
     const {products}=props
 
     const handelToken=async(token)=>{

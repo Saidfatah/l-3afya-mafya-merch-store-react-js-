@@ -3,13 +3,18 @@ import {Link} from "react-router-dom";
 import {MyContext} from '../../Context/ProductsProvider'
 import Products from '../Products/Products'
 import {getParentRecursive} from '../utils/funcs1'
-function  SearchModal(props) {
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+
+const  SearchModal = (props)=> {
     const searchModalRef = createRef()
     const [searchQuery , setSearchQuery]=useState('')
     const [resultsCount , setResultsCount]=useState(0)
     const [results , setResults]=useState([])
     const {getProducts,setSearchResult} =useContext(MyContext)
     const {display,setDisplaySearchModal}=props
+
+
     const fadeIn=()=>{
         if(searchModalRef.current)
         { 
@@ -24,23 +29,29 @@ function  SearchModal(props) {
         }, 100);
         }
     }
-    const fadeOut=e=>{
-         searchModalRef.current.style.display='none'
-         searchModalRef.current.style.opacity='0'
-         document.body.style.overflowY="scroll" 
+  
 
-    }
-    const fadeOutFunc=e=>{
-        fadeOut();
-        setDisplaySearchModal(false)
-        setResults([])
-        setSearchResult('')
-        setResultsCount(0)
-    }
     useEffect(()=>{
         if(display == true)fadeIn()
     },[display])
 
+   const fadeOut=e=>{
+       searchModalRef.current.style.display='none'
+       searchModalRef.current.style.opacity='0'
+       document.body.style.overflowY="scroll" 
+
+   }
+   const fadeOutFunc=e=>{
+       fadeOut();
+       setDisplaySearchModal(false)
+       setResults([])
+       
+       if(results.length>0)
+             setSearchResult([...results])
+       else  setSearchResult([])
+
+       setResultsCount(0)
+   }
     const search = e=>{
         setSearchQuery(e.target.value)
         getProducts().then(res=>{
@@ -53,22 +64,79 @@ function  SearchModal(props) {
    }
   
     return (
-        <div ref={searchModalRef} className="resultsModal">
-            
-            <div className="resultsModal__top">
+        <div ref={searchModalRef} css={styles.resultsModal}>      
+            <div css={styles.resultsModal__top}>
                     <input  placeholder="Search..." onChange={search}/>
                     <i className="far fa-times-circle Close" onClick={fadeOutFunc}></i>
-                </div>
-            <div className="resultsModal_results">
-                <div className="results__info">
+            </div>
+            <div  css={styles.resultsModal_results}>
+                <div  css={styles.results__info}>
                      <h2><span>{resultsCount||0}</span> results </h2>
-                     {resultsCount>5? <Link className="raw__Link" to={"/search/"+searchQuery} onClick={fadeOutFunc} >View all</Link>:null}
+                     {
+                         resultsCount>5
+                         ?  <Link className="raw__Link" to={"/search/"+searchQuery} onClick={fadeOutFunc} >
+                             View all
+                            </Link>
+                         :null
+                     }
                 </div>
-                <div className="results__results" onClick={e=>{if(getParentRecursive(e.target,'card'))fadeOutFunc(e)}}>
+                <div  onClick={e=>{if(getParentRecursive(e.target,'card'))fadeOutFunc(e)}}>
                    <Products productsFromSearch={results} productSize="small" maxDisplay={resultsCount>=5?5:-1}/>
                 </div>
             </div>
         </div>
     )
+}
+
+
+const styles ={
+    resultsModal :css` 
+    position: absolute;
+    height: 100%;
+    display: none;
+    width: 100%;
+    top: 0;
+    opacity: 0;
+    left: 0;
+    background-color: #fff;
+    z-index: 999;
+    overflow-y: scroll;
+    transition: all .3s cubic-bezier(0.55, 0.085, 0.68, 0.53);
+    `,
+    resultsModal__top :css` 
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    padding: 1rem;
+    input{
+        text-align: left;
+        padding-left: 0;
+        width: 100%;
+        line-height: normal;
+        color: var(--colorGreyLight);
+        margin-left: 1rem;
+        font-size: 18px;
+        font-family: go;
+    }
+    input:focus{
+        outline: none;
+    }
+    `,
+    resultsModal_results :css` 
+    padding: 0 2rem;
+    `,
+    results__info :css` 
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 1rem;
+    align-items: center;
+    border-bottom: 1px solid var(--colorGreyFaint);
+    h2{
+        font-size: .8rem;
+    }
+    `,
+
 }
 export default SearchModal

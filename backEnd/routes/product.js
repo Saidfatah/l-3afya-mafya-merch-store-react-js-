@@ -15,7 +15,7 @@ const products= [
             ],
          character:["100% cotton jersey","6 oz/sqyd","Preshrunk"],
          price:34,
-         images:["img1.jpg","img2.jpg"],
+         images:["img1.png","img2.png"],
          title:"Hands L",
      },
     {
@@ -47,7 +47,7 @@ const products= [
             ],
             character:["100% cotton jersey","6 oz/sqyd","Preshrunk"],
             price:40,
-            images:["img1.jpg","img2.jpg"],
+            images:["img1.png","img2.png"],
             title:"skeleton T-Shirt",
     },
     {

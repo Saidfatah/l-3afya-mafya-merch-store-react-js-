@@ -2,10 +2,13 @@ import React,{useState} from 'react'
 import {useForm} from 'react-hook-form'
 import axios from 'axios'
 
-function ImageUploader(props) {
+
+
+const ImageUploader=(props)=> {
     const{title}=props
     const [previewImages,setPreviewImages]=useState([])
     const {register,handleSubmit}=useForm()
+
     const selectImage=e=>{
         let imagesArr=[]
         for (let index = 0; index <e.target.files.length; index++) {
@@ -26,6 +29,7 @@ function ImageUploader(props) {
                 }).then(res=>console.log('res'))
                   .catch(err=>console.log(err))
    }
+
     return (
         <div>
             <h1>Product Images</h1>
@@ -64,5 +68,6 @@ function ImageUploader(props) {
         </div>
     )
 }
+
 
 export default ImageUploader

@@ -1,25 +1,29 @@
 import React from 'react'
-import {Grid,Button,FormControlLabel,Radio,RadioGroup,Card} from '@material-ui/core';
+import {Button,FormControlLabel,Radio,RadioGroup} from '@material-ui/core';
 import {Link} from "react-router-dom";
 
-function ShipingInfo() {
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+import {Grid ,Card} from '../../../Style/global'
+
+const ShipingInfo=()=> {
     return (
         <div>
-           <Card className="checkoutCard" variant="outlined">
-               <Grid container direction="row"   justify="space-between"  alignItems="center">
+           <Card >
+               <Grid >
                   <span className="smallTextG">Contact</span>
                   <span className="smallTextB">sad_fatah@outlook.com</span>
                   <Link to="checkout/information" className="raw__Link">Change</Link>
                </Grid>
                <div className='border'></div>
-               <Grid container direction="row"   justify="space-between"  alignItems="center">
+               <Grid >
                     <span className="smallTextG">Contact</span>
                     <span className="smallTextB">ASKJALKSLASA, ASASA, 4500 OUARZAZATE , Morocco</span>
                     <Link to="checkout/information" className="raw__Link">Change</Link>
                </Grid>
            </Card>
            <h2 className="h-medium mgb1 mgt2">Return to information</h2>
-           <Card className="checkoutCard mgb1" variant="outlined">
+           <Card >
                <RadioGroup row aria-label="position" name="position" defaultValue="International Economy (up to 25 days)">
                    <Grid container direction="row"   justify="space-between"  alignItems="center">
                      <FormControlLabel value="International Economy (up to 25 days)" 
@@ -50,11 +54,10 @@ function ShipingInfo() {
                    </Grid>
                </RadioGroup>
             </Card>
-           <Grid container direction="row"   justify="space-between"  alignItems="center">
+           <Grid >
                <Link to="/checkout/information" className="raw__Link"><i class="fas fa-angle-left iconeB"></i>Return to information</Link>
                <Button variant="contained" color="primary"  className="btnGrey"> Continue to payment</Button>
            </Grid>
-
         </div>
     )
 }

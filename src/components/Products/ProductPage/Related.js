@@ -2,14 +2,18 @@ import React,{useEffect,useState,useContext} from 'react'
 import {CollectionsContext} from '../../../Context/CollectionsProvider'
 import {MyContext} from '../../../Context/ProductsProvider'
 import ProductItem from '../ProductItem'
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+import {H1} from '../../../Style/global'
 
-function Related(props) {
+const Related=(props)=> {
     const [relatedProducts,setRelatedProducts]=useState([])
     const {getCollections}= useContext(CollectionsContext)
     const {getProducts}= useContext(MyContext)
     const {id}=props
+
+
     useEffect(() => {
-        console.log(id)
         getCollections().then(res=>{
             try {
                 const collection =res.data.filter(col=> col.products.indexOf(parseInt(id)) != -1)
@@ -28,14 +32,28 @@ function Related(props) {
         })
      }, [relatedProducts.length >0,id])
    
+
     return (
-        <div className="related">
-            <h1 className="h-centered mgb2">Related Products</h1>
-            <div className="related__Container">
+        <div css={styles.related}>
+            <H1 mgb={2}>Related Products</H1>
+            <div css={styles.related__Container}>
                     {relatedProducts.map((product,index)=><ProductItem  key={index}   product={product}  cardSize="medium"/>)}
            </div>
         </div>
     )
+}
+
+const styles ={
+    related :css` 
+    width: 100%;
+    `,
+    related__Container :css` 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2rem;
+    `,
 }
 
 export default Related

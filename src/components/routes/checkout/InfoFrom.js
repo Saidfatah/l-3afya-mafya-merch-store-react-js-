@@ -1,15 +1,8 @@
 import React,{useState} from 'react'
-import {Button,
-  Grid,
-  TextField,
-  InputLabel,
-  Select,
-  FormControl,
-  FormControlLabel,
-  Checkbox} from '@material-ui/core';
-  import {Link} from "react-router-dom";
+import {Button,TextField, InputLabel, Select, FormControl,FormControlLabel,Checkbox,Grid} from '@material-ui/core';
+import {Link} from "react-router-dom";
 
-function InfoFrom() {
+const  InfoFrom=()=> {
     const [countries,setCountries]=useState([
         "Afghanistan",
         "Albania",
@@ -262,9 +255,11 @@ function InfoFrom() {
         "Åland Islands"
     ])
     const [keepUpToDate,setKeepUpToDate]=useState(false)
+ 
+    const gridProps={container:true ,justify:"center", alignItems:"center", alignContent:"center",style:{width:'100%'}}
     return (
         <div>
-            <Grid container direction="row"   justify="space-between"  alignItems="center" >
+            <Grid  {...gridProps}  >
                  <h2 className="h-medium mgb1">Contact information</h2>
                  <div>
                    <span className="smallTextG">Already have an account?</span>
@@ -278,13 +273,13 @@ function InfoFrom() {
             />
             
             <h2 className="h-medium mgb1">Shipping address</h2>
-            <Grid container direction="row"   justify="space-between"  alignItems="center" >
+            <Grid {...gridProps} >
                      <TextField  id="outlined-basic" label="first name" className="f1 mgr1" variant="outlined" />
                      <TextField id="outlined-basic" label="last name" className="f1 " variant="outlined" />
             </Grid>
             <TextField id="outlined-basic" label="Address" variant="outlined" className="w100 mgb1" /> <br/>
             <TextField id="outlined-basic" label="Appartment , suite ,etc (optional)" variant="outlined"  className="w100 " />
-            <Grid container direction="row"  justify="space-between"  alignItems="center" >
+            <Grid {...gridProps} >
                   <TextField id="outlined-basic" label="Postal code" className="f1 mgr1" variant="outlined" />
                   <TextField id="outlined-basic" label="city" className="f1 "  variant="outlined" />
             </Grid>
@@ -297,7 +292,7 @@ function InfoFrom() {
             </FormControl>
             <TextField id="outlined-basic" label="Phone (optional)" variant="outlined"  className="w100 "/>
 
-            <Grid container direction="row"   justify="space-between"  alignItems="center">
+            <Grid {...gridProps}>
                 <Link to="/cart" className="raw__Link"><i class="fas fa-angle-left iconeB"></i>Return to cart</Link>
                 <Button variant="contained" color="primary"  className="btnGrey"> Continue to shipping</Button>
             </Grid>

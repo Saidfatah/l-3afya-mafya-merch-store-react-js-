@@ -2,10 +2,14 @@ import React,{useEffect,useContext,useState,recentlyViewd, createRef} from 'reac
 import {MyContext} from '../../../Context/ProductsProvider'
 import ProductItem from '../ProductItem'
 import cookie from 'js-cookie'
-import {useParams} from "react-router-dom";
-import {easer,getParentRecursive} from '../../utils/funcs1'
+import {easer} from '../../utils/funcs1'
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+import {H1} from '../../../Style/global'
 
-function RecentlyViewd() {
+
+
+const RecentlyViewd=()=> {
      const {getProducts} =useContext(MyContext)
      const [recentlyViewdItems,setRecentlyViewd]=useState([])
      const recentlyViewdRef= createRef()
@@ -13,7 +17,9 @@ function RecentlyViewd() {
      const btn_leftRef= createRef()
      const btn_rightRef= createRef()
      const productItemWidth = 300
-     const {id}= useParams()
+
+
+
      useEffect(() => {
         let  recentlyViewIds =cookie.get('recentlyViewd')
         recentlyViewIds=JSON.parse(recentlyViewIds)
@@ -46,18 +52,20 @@ function RecentlyViewd() {
      }
      const slideStoriesLeft = (e)=>{e.preventDefault(); slide(1)}
      const slideStoriesRight = (e)=>{e.preventDefault();  slide(-1)}
+
+
     return (
         <div>
-            <h1 className="h-centered">Recently Viewd</h1>
-            <div className="recentlyViewd" ref={recentlyViewdRef}>
+            <H1 mgb={2}>Related Products</H1>
+            <div css={styles.recentlyViewd} ref={recentlyViewdRef}>
                 <div>
-                   <a href="#" className="stories__btn btn_left" ref={btn_leftRef} onClick={slideStoriesLeft}>
-                       <div className="btn__image image_left" ></div>
+                   <a href="#" css={css`${styles.stories__btn};${styles.btn_left}`} ref={btn_leftRef} onClick={slideStoriesLeft}>
+                       <div css={css`${styles.btn__image};${styles.image_left}`} ></div>
                    </a>
-                   <a href="#" className="stories__btn btn_right" ref={btn_rightRef} onClick={slideStoriesRight}>
-                       <div className="btn__image image_right"></div>
+                   <a href="#" css={css`${styles.stories__btn};${styles.btn_right}`} ref={btn_rightRef} onClick={slideStoriesRight}>
+                       <div css={css`${styles.btn__image};${styles.image_right}`} ></div>
                    </a>    
-                   <div className="recentlyViewd__Container" ref={recentlyViewd__ContainerRef}>
+                   <div css={styles.recentlyViewd__Container} ref={recentlyViewd__ContainerRef}>
                       {recentlyViewdItems.map((product,index)=><ProductItem  key={index}   product={product} cardSize="small" />)}
                    </div>
                 </div>
@@ -65,7 +73,51 @@ function RecentlyViewd() {
         </div>
     )
 }
+const styles ={
+    recentlyViewd :css` 
+    width:100%;
+    padding:2rem 4rem;
+    margin-bottom: 3rem;
 
+    >div{
+        position: relative;
+        width:100%;
+        height: 420px;
+        overflow: hidden;
+    }
+
+    `,
+    stories__btn :css`
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 999;
+    :focus{
+        outline: none;
+    }
+    `,
+    btn_left :css` left:2%;`,
+    btn_right:css`right:2%;`,
+    btn__image:css` background-image: url("https://instagram.com/static/bundles/es6/sprite_glyphs_03eea17932ef.png/03eea17932ef.png");
+    background-repeat: no-repeat;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    `,
+    image_left:css` background-position: -185px -226px;`,
+    image_right:css` background-position: -232px -226px;`,
+    recentlyViewd__Container:css`
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    height: 80%;
+    width: fit-content;
+    transition: all .3s ease-out;
+    `, 
+}
 export default RecentlyViewd
 
 

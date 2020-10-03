@@ -3,7 +3,10 @@ import   ProductItem from './ProductItem'
 import   {MyContext} from '../../Context/ProductsProvider'
 import   {CollectionsContext} from '../../Context/CollectionsProvider'
 import   ImagesProvder from '../../Context/ImagesProvder'
-function Products(props) {
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+
+const  Products=(props)=> {
     const {products,getProducts} =useContext(MyContext)
     const {getCollections} =useContext(CollectionsContext)
     const [collectionProducts,setCollectionProducts] =useState([])
@@ -12,11 +15,29 @@ function Products(props) {
     const {productSize,collectionTitle,maxDisplay,productsFromSearch}=props
 
     useEffect(()=>{
-        getCollections().then(res=>{
+        let gotCollections = false; 
+
+        getCollections()
+        .then(res=>{
             let collection = res.data.filter(collection=>collection.title == collectionTitle)
-            collection.length>0 ?getCollectionProducts(collection) : maxDisplay != undefined ?getMaxDisplayProducts() : getAllProducts()
+            gotCollections=collection.length>0  ; 
+            collection>0 
+            ?getCollectionProducts(collection) 
+            : maxDisplay != undefined 
+                 ?getMaxDisplayProducts() 
+                 : getAllProducts()
         })
-    },[maxProducts.length>0,allProducts.length>0,collectionProducts.length>0,productsFromSearch])
+        .catch(err=>console.log(err))
+
+
+        if(!gotCollections)
+        {
+      
+           if(products.length>=1) return;
+            getAllProducts()
+        }
+
+    },[products.length>0])
 
     const getMaxDisplayProducts=()=>{
         if(maxDisplay != undefined){ 
@@ -35,7 +56,7 @@ function Products(props) {
     const getAllProducts=()=>setAllProducts(products.map((product,index)=><ProductItem key={index}  cardSize={productSize} product={product} />)) 
 
     return (
-        <div className="products">
+        <div css={styles.products}>
             <ImagesProvder>
                  {collectionProducts}
                  {maxProducts}
@@ -43,6 +64,16 @@ function Products(props) {
             </ImagesProvder>
         </div>
     )
+}
+
+const styles ={
+    products :css` 
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom:6rem;
+    `,
 }
 
 export default Products
