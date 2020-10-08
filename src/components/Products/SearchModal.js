@@ -5,6 +5,7 @@ import Products from '../Products/Products'
 import {getParentRecursive} from '../utils/funcs1'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
+import {Modal} from '../../Style/global'
 
 const  SearchModal = (props)=> {
     const searchModalRef = createRef()
@@ -64,7 +65,14 @@ const  SearchModal = (props)=> {
    }
   
     return (
-        <div ref={searchModalRef} css={styles.resultsModal}>      
+        <Modal ref={searchModalRef} 
+        height="100%" 
+        width="100%" 
+        left={0}  
+        display="none" 
+        opacity={0} 
+        overflowY="scroll" 
+        >      
             <div css={styles.resultsModal__top}>
                     <input  placeholder="Search..." onChange={search}/>
                     <i className="far fa-times-circle Close" onClick={fadeOutFunc}></i>
@@ -74,9 +82,7 @@ const  SearchModal = (props)=> {
                      <h2><span>{resultsCount||0}</span> results </h2>
                      {
                          resultsCount>5
-                         ?  <Link className="raw__Link" to={"/search/"+searchQuery} onClick={fadeOutFunc} >
-                             View all
-                            </Link>
+                         ? <Link className="raw__Link" to={"/search/"+searchQuery} onClick={fadeOutFunc} >View all</Link>
                          :null
                      }
                 </div>
@@ -84,25 +90,12 @@ const  SearchModal = (props)=> {
                    <Products productsFromSearch={results} productSize="small" maxDisplay={resultsCount>=5?5:-1}/>
                 </div>
             </div>
-        </div>
+        </Modal>
     )
 }
 
 
 const styles ={
-    resultsModal :css` 
-    position: absolute;
-    height: 100%;
-    display: none;
-    width: 100%;
-    top: 0;
-    opacity: 0;
-    left: 0;
-    background-color: #fff;
-    z-index: 999;
-    overflow-y: scroll;
-    transition: all .3s cubic-bezier(0.55, 0.085, 0.68, 0.53);
-    `,
     resultsModal__top :css` 
     display: flex;
     justify-content: space-between;

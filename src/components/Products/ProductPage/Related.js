@@ -16,17 +16,31 @@ const Related=(props)=> {
     useEffect(() => {
         getCollections().then(res=>{
             try {
-                const collection =res.data.filter(col=> col.products.indexOf(parseInt(id)) != -1)
-                let relatedProductsIds ;
-                if(collection[0] == undefined)
-                  relatedProductsIds =res.data[1].products
-                else  
-                  relatedProductsIds = collection.map(c=>c.products)[0]
-                 relatedProductsIds = relatedProductsIds.splice(0,3)
-                getProducts().then(res2=>{
-                     const relatedProducts2 =  res2.data.filter(p => relatedProductsIds.indexOf(p.productId) > -1)
-                     setRelatedProducts(relatedProducts2)
-                })    
+                const collectionsArr = res.data
+                const collectionProducts =collectionsArr.map(col=>({prds:col.products,title:col.title}))
+                const collectionProductsIds =collectionProducts.map(col=>({ids:col.prds.map(p=>p._id),title:col.title}))
+
+                const productsRelatedIds =collectionProductsIds.filter(ids=> ids.ids.indexOf(id) != -1 )[0]
+                let relatedProductsPRODUCTS = collectionProducts.filter(prs=> prs.title == productsRelatedIds.title )[0]
+                 if(relatedProductsPRODUCTS != undefined)
+                 {
+                     relatedProductsPRODUCTS = relatedProductsPRODUCTS.prds.map(prd=>({...prd,productId:prd._id}))
+                     relatedProductsPRODUCTS.forEach(product => {
+                         delete product.__v;
+                         delete product._id;
+                     });
+                     setRelatedProducts(relatedProductsPRODUCTS)
+                 }
+                //   relatedProductsIds =res.data[1].products
+                // productIds.indexOf(id) != -1)
+                // let relatedProductsIds ;
+
+          
+                  
+                //  relatedProductsIds = relatedProductsIds.splice(0,3)
+
+ 
+
             }catch(error){ console.log(error)}
            
         })

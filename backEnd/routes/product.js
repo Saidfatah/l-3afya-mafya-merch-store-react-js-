@@ -1,194 +1,10 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose')
+const ProductModel = require('../Models/Product') 
 const upload= require('../config/multer')
-const products= [
-    {
-        productId:0,
-        hasSize:true,
-        sizes:[
-             "S",
-             "M",
-              "L",
-              "XL",
-              "2X",
-              "3X",
-            ],
-         character:["100% cotton jersey","6 oz/sqyd","Preshrunk"],
-         price:34,
-         images:["img1.png","img2.png"],
-         title:"Hands L",
-     },
-    {
-        productId:1,
-        hasSize:true,
-        sizes:[
-             "S",
-             "M",
-             "L",
-             "XL",
-             "2X",
-             "3X",
-            ],
-         character:["100% cotton jersey","6 oz/sqyd","Preshrunk"],
-         price:30,
-         images:["img1.png","img2.png"],
-         title:"skull T-Shirt",
-    },
-    {
-        productId:2,
-        hasSize:true,
-        sizes:[
-             "S",
-             "M",
-             "L",
-             "XL",
-             "2X",
-             "3X",
-            ],
-            character:["100% cotton jersey","6 oz/sqyd","Preshrunk"],
-            price:40,
-            images:["img1.png","img2.png"],
-            title:"skeleton T-Shirt",
-    },
-    {
-        productId:3,
-        hasSize:true,
-        sizes:[
-             "S",
-             "M",
-             "L",
-             "XL",
-             "2X",
-             "3X",
-            ],
-            character:["100% cotton jersey","6 oz/sqyd","Preshrunk"],
-            price:50,
-            images:["img1.png","img2.png"],
-            title:"skeleton hand T-Shirt",
-     },
-     {
-         productId:4,
-         hasSize:false
-         ,sizes:[],
-         character:["100% Cotton","One size fits all","Adjustable fastener with a metal clasp","Curved peak"],
-         price:"50",
-         images:["img1.png","img2.png"],
-         title:"mafya Dad Hat",
-     },
-    {
-        productId:5,
-        hasSize:true,
-        sizes:[
-             "S",
-             "M",
-             "L",
-             "XL",
-             "2X",
-             "3X",
-            ],
-            character:["100% cotton jersey","6 oz/sqyd","Preshrunk"],
-            price:50,
-            images:["img1.png","img2.png"],
-            title:"L'3afya mafya T-Shirt (red)",
-    },
-    {
-        productId:6,
-        hasSize:true,
-        sizes:[
-             "S",
-                   "M",
-                   "L",
-                   "XL",
-                   "2X",
-                   "3X",
-                ],
-                character:["100% cotton jersey","6 oz/sqyd","Preshrunk"],
-                price:50,
-                images:["img1.png","img2.png"],
-                title:"L'3afya mafya T-Shirt (block)",
-     }, 
-    {
-        productId:7,
-        hasSize:true,
-        sizes:[
-             "S",
-                   "M",
-                   "L",
-                   "XL",
-                   "2X",
-                   "3X",
-                ],
-                character:["100% cotton jersey","6 oz/sqyd","Preshrunk"],
-                price:48,
-                images:["img1.png","img2.png"],
-                title:"L'3afya mafya logo T-Shirt (red)",
-    },  
-    {
-        productId:8,
-        hasSize:true,
-        sizes:[
-             "S",
-                   "M",
-                   "L",
-                   "XL",
-                   "2X",
-                   "3X",
-                ],
-                character:["100% cotton jersey","6 oz/sqyd","Preshrunk"],
-                price:50,
-                images:["img1.png","img2.png"],
-                title:"L'3afya mafya logo T-Shirt (black)",
-    },
-    {
-        productId:9,
-        hasSize:true,
-        sizes:[
-             "S",
-                   "M",
-                   "L",
-                   "XL",
-                   "2X",
-                   "3X",
-                ],
-                character:["10 oz 70% cotton 30% polyester","Fleece lined hood","Heavy gauge drawcord with metal eyelets"],
-                price:66,
-                images:["img1.png","img2.png"],
-                title:"l3afya mafya Logo Hoodie (red)",
-    },
-     {
-        productId:10,
-        hasSize:true,
-        sizes:[
-               "S",
-             "M",
-             "L",
-             "XL",
-             "2X",
-             "3X",
-         ],
-        character:["10 oz 70% cotton 30% polyester","Fleece lined hood","Heavy gauge drawcord with metal eyelets"],
-        price:50,
-        images:["img1.png","img2.png"],
-        title:"l3afya mafya Logo Hoodie (block)",
-    },
-    {
-     productId:11,
-     hasSize:false,
-     sizes:[
-             "S",
-                   "M",
-                   "L",
-                   "XL",
-                   "2X",
-                   "3X",
-      ],
-      character:["Please note that this item is classified as a hazardous material by various federal agencies and may not be re-shipped or mailed except in an approved container. ","Official BIC lighter.","Domestic (U.S.) Shipping Only"],
-      price:50,
-      images:["img1.png","img2.png"],
-      title:"l'3afya mafya Lighter",
-     }
- ]
- const newProduct=({character,title,sizes,price})=>{
+
+const newProduct=({character,title,sizes,price})=>{
      let hasSize = true
      if(sizes.length<1)hasSize=false
      return {
@@ -201,6 +17,7 @@ const products= [
         title,
      }
  }
+
 const verifyToken = (req,res,next)=>{
     const bearerHeader = req.headers['authorization']
     if( bearerHeader  !== 'undefined'){
@@ -212,36 +29,83 @@ const verifyToken = (req,res,next)=>{
        res.sendStatus(403)
     }
 }
-router.get('/',(req,res)=>{
-    res.json(products)
+
+
+
+router.get('/limit',async(req,res)=>{
+    const limit = req.params.limit ; 
+    try {
+        const colelctionPromse = await ProductModel.find({}).sort({'date':-1}).limit(limit).exec()
+        console.log(colelctionPromse)
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(400).send('no products found ')
+    }
 })
-router.get('/:id',(req,res)=>{
-    res.json(products.filter(product=>product.productId == req.params.id)[0])
+
+router.get('/',async(req,res)=>{
+    try {
+        const ProductsPromise = await ProductModel.find({})
+        if(ProductsPromise[0] == undefined) throw new Error('no products')
+
+        const mapedProducts= ProductsPromise.map(p=>({...p._doc,productId:p._id}))
+        mapedProducts.forEach(p=>delete p.__v)
+
+        res.json(mapedProducts)
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(400).send('no products found ')
+    }
 })
-// 
-router.post('/create',verifyToken,(req,res)=>{
-        console.log(req.body)
+router.get('/:id',async (req,res)=>{
+    try {
+        const productsPromise = await ProductModel.findOne({_id:req.params.id})
+        if(productsPromise == undefined) throw new Error('no products')
+        const productMaped= {...productsPromise._doc,productId:productsPromise._id}
+        delete  productMaped.__v;
+        console.log(productMaped)
+         res.json(productMaped)
+    } catch (error) {
+        console.log(error)
+        res.sendStatus(400).send('no products found ')
+    }
+})
+
+
+router.post('/create',verifyToken,async (req,res)=>{
+        const {title}=req.body
         //check if exists a product with the same title 
-        // products.push({...res.body, productId:products.length})
-        console.log(newProduct(req.body))
-        res.json('succes')
+        try {
+            const checkTitlePromise= await  ProductModel.findOne({title:title})
+            if(checkTitlePromise != null) throw new Error('EXISTS')
+
+            const product = new ProductModel({...req.body,hasSize:req.body.sizes >0})
+            const saveProductPromise = await product.save()
+            if(saveProductPromise == undefined || saveProductPromise==null)
+                 throw new Error('SOMETHNG_WENT_WRONG')
+            res.send(200).send('POSTED WITH SUCCES')
+        } catch (error) {
+            if(error.message =="EXISTS") res.status(403).send('EXISTS')
+            if(error.message =="SOMETHNG_WENT_WRONG") res.status(403).send('SOMETHNG_WENT_WRONG')
+        }
 })
 router.post('/uploadImages/:title',(req,res)=>{
          upload(req,res,(err)=>{
-             if(err) console.log(err)
-             else{ 
-                 if(res.file != undefined)
-                 {
-                     res.send('file uploaded')
-                 }
-                 else
-                 {
-                     res.send('no file selected')
-                 }
+             if(err) return console.log(err)
+             console.log('file uploaded image')
+             console.log(req.body)
+             if(res.file != undefined)
+             {
+                console.log('file uploaded image')
+                 res.send('file uploaded')
              }
+             else
+             {
+                 res.send('no file selected')
+             }
+             
          })
       
 })
 
-module.exports.products = products
 module.exports.router = router

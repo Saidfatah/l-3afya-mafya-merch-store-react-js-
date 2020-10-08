@@ -41,7 +41,7 @@ const  Navbar=forwardRef((props,ref)=> {
              {jwtCheck()
                ?<React.Fragment>
                    <Link className="navBar__Link no-sidemenu" to="/product/create">Add New Product</Link>
-                   <Link className="navBar__Link no-sidemenu" to="/account">Logout</Link>
+                   <Link className="navBar__Link no-sidemenu" to="/account" onClick={logOut}>Logout</Link>
                </React.Fragment>
                :<React.Fragment>
                     <a className="navBar__Link no-sidemenu" onClick={e=> {setDisplaySearchModal(true);document.body.style.overflowY="hidden"}}>

@@ -9,22 +9,34 @@ function ProductsProvider(props) {
     const errhandler =err=>console.log(err)
    
     useEffect(()=>{
-        axios.get(apiurl+'product').then(res=> setProducts(res.data)).catch(errhandler)
-        console.log('search result changed')
-    },[searchResult.length>0,products.length>0])
+        let CancelToken =axios.CancelToken;
+        let cancel
+        (async()=>{
+            try {
+                axios.get(apiurl+'product',{cancelToken: new CancelToken((c)=>cancel = c )})
+                .then(res=> {
+                    if(res.data != undefined)setProducts(res.data)
+                })
+                .catch(errhandler)
+            } catch (error) {
+                console.log(error)
+            }
+        })()
+        return ()=>{cancel && cancel()}
+    },[])
     
     const getProductById= (id)=> axios.get(apiurl+"product/"+id) 
     const getProducts=()=> axios.get(apiurl+'product')
-    const value = useMemo(()=>({
-        products,
+
+
+    
+    
+    return (<MyContext.Provider value={ 
+        {products,
         searchResult,
         setSearchResult,
         getProductById,
-        getProducts,
-    }),[getProducts,getProducts,setSearchResult,getProductById,searchResult,products])
-    
-    
-    return (<MyContext.Provider value={value}>
+        getProducts}}>
          {props.children}
         </MyContext.Provider>)
 }

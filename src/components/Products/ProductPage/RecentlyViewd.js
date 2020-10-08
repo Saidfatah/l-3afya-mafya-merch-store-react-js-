@@ -24,12 +24,11 @@ const RecentlyViewd=()=> {
         let  recentlyViewIds =cookie.get('recentlyViewd')
         recentlyViewIds=JSON.parse(recentlyViewIds)
         getProducts().then(res=>{
-            const  ids= recentlyViewIds.map(id=>parseInt(id))
-            const recentlyVisted =  res.data.filter(p => ids.indexOf(p.productId) > -1)
+            const recentlyVisted =  res.data.filter(p => recentlyViewIds.indexOf(p.productId) > -1)
             setRecentlyViewd(recentlyVisted)
         })
       
-     }, [recentlyViewdItems.length >0])
+     }, [])
 
      const countProducts=(dir)=>{
         const productsContainerWidth=parseInt(recentlyViewd__ContainerRef.current.offsetWidth) ;
@@ -59,12 +58,18 @@ const RecentlyViewd=()=> {
             <H1 mgb={2}>Related Products</H1>
             <div css={styles.recentlyViewd} ref={recentlyViewdRef}>
                 <div>
-                   <a href="#" css={css`${styles.stories__btn};${styles.btn_left}`} ref={btn_leftRef} onClick={slideStoriesLeft}>
-                       <div css={css`${styles.btn__image};${styles.image_left}`} ></div>
-                   </a>
-                   <a href="#" css={css`${styles.stories__btn};${styles.btn_right}`} ref={btn_rightRef} onClick={slideStoriesRight}>
-                       <div css={css`${styles.btn__image};${styles.image_right}`} ></div>
-                   </a>    
+                    {
+                        recentlyViewdItems.length>5 
+                        ?<>
+                         <a href="#" css={css`${styles.stories__btn};${styles.btn_left}`} ref={btn_leftRef} onClick={slideStoriesLeft}>
+                             <div css={css`${styles.btn__image};${styles.image_left}`} ></div>
+                         </a>
+                         <a href="#" css={css`${styles.stories__btn};${styles.btn_right}`} ref={btn_rightRef} onClick={slideStoriesRight}>
+                             <div css={css`${styles.btn__image};${styles.image_right}`} ></div>
+                         </a>  
+                        </>
+                        :null
+                    }
                    <div css={styles.recentlyViewd__Container} ref={recentlyViewd__ContainerRef}>
                       {recentlyViewdItems.map((product,index)=><ProductItem  key={index}   product={product} cardSize="small" />)}
                    </div>
@@ -73,6 +78,7 @@ const RecentlyViewd=()=> {
         </div>
     )
 }
+
 const styles ={
     recentlyViewd :css` 
     width:100%;

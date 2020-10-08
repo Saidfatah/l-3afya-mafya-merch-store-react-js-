@@ -1,6 +1,5 @@
-import React,{useContext ,useEffect,useState,createRef} from 'react'
+import React,{useContext } from 'react'
 import {Link} from "react-router-dom"
-import {MyContext} from '../../Context/ProductsProvider'
 import {CollectionsContext} from '../../Context/CollectionsProvider'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
@@ -8,63 +7,31 @@ import {Button} from './../../Style/global'
 
 
 const Collections=()=> {
-    const [imageSrc1,setimageSrc1]=useState('')
-    const [imageSrc2,setimageSrc2]=useState('')
-    const [imageSrc3,setimageSrc3]=useState('')
-    const {getProductById} =useContext(MyContext)
     const {collections} =useContext(CollectionsContext)
 
-
-    useEffect(() => {
-        if(collections.length >0)
-        {
-            getProductById(collections[0].products[1]).then(res=>{
-                   setimageSrc1('/images/products/'+res.data.title+'/'+res.data.images[0])
-            })
-            getProductById(collections[1].products[3]).then(res=>{
-                   setimageSrc2('/images/products/'+res.data.title+'/'+res.data.images[0])
-            })
-            getProductById(collections[2].products[0]).then(res=>{
-                   setimageSrc3('/images/products/'+res.data.title+'/'+res.data.images[0])
-            })
-        }
-    }, [collections])
-
+    const CollectionItem =({collection})=>{
+        const {title,products} =collection
+        return( 
+        <div  css={styles.collections__collection}>
+             <div  css={styles.collection__info}>
+                 <h2>{title}</h2>
+                 <Link to={"/collections/"+title } className="btn">
+                     <Button collection={true} > VIEW PRODUCTS </Button>
+                 </Link>
+              </div>
+             <img   src={'/images/products/'+products[0].title+'/'+products[0].images[0]} alt="loading ..."/>
+        </div> 
+     )
+    }
 
     return (
         <div  css={styles.collections}>
             <h1>All collections</h1>
             {
                 collections.length >0 
-                ? <div css={styles.collections__wrapper}>
-                     <div  css={styles.collections__collection}>
-                         <div  css={styles.collection__info}>
-                             <h2>{collections[0].title }</h2>
-                             <Link to={"/collections/"+collections[0].title } className="btn">
-                                 <Button collection={true} > VIEW PRODUCTS </Button>
-                             </Link>
-                         </div>
-                         <img   src={imageSrc1} alt="loading ..."/>
-                     </div>  
-                     <div  css={styles.collections__collection}>
-                          <div  css={styles.collection__info}>
-                             <h2>{collections[1].title }</h2>
-                             <Link to={"/collections/"+collections[1].title } className="btn">
-                                  <Button collection={true} > VIEW PRODUCTS </Button>
-                             </Link>
-                         </div>
-                         <img   src={imageSrc2} alt="loading ..."/>
-                     </div>  
-                     <div  css={styles.collections__collection}>
-                         <div  css={styles.collection__info}>
-                             <h2>{collections[2].title }</h2>
-                             <Link to={"/collections/"+collections[2].title } className="btn">
-                                  <Button collection={true} > VIEW PRODUCTS </Button>
-                             </Link>
-                         </div>
-                         <img  src={imageSrc3} alt="loading ..."/>
-                     </div> 
-                </div>
+                 ? <div  css={styles.collections__wrapper}>
+                     { collections.map((c,i)=><CollectionItem key={i} collection={c} />)}
+                 </div>
                  :'no collections'
             }
         </div>

@@ -15,7 +15,7 @@ const Home=()=> {
 
 const styles ={
     Home:css` 
-     height: 45vh;
+     min-height: 45vh;
      width: 100%;
     `,
 }

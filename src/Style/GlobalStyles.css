@@ -130,7 +130,6 @@
 .MuiIconButton-label {
   color: var(--colorGrey) !important;
 }
-
 .checkoutCard{
   padding: 1rem !important;
 }
@@ -146,7 +145,6 @@ i{
 /* #endregion */
 
 /* #region navbar  */
-
 .navBar__Link{
   font-size: 13px;
   color: #fff;
@@ -171,12 +169,9 @@ i{
 .navBar__Link:not(.noborder):hover::after{
   width: 90%;
 }
-
 .sidemenu{
   display: none;
 }
-
-
 @media all and (max-width :920px){
   .sidemenu{
       display: inline;
@@ -186,10 +181,6 @@ i{
   }
 
 }
-
-
-
-
 /* #endregion  */
 
 /* #region sideBar */
@@ -216,11 +207,6 @@ i{
   cursor: pointer;
   color: var(--colorGrey);
 }
-
-
-
-
-
 .navBar__Link{
   font-size: 13px;
   color: #fff;
@@ -245,11 +231,9 @@ i{
 .navBar__Link:not(.noborder):hover::after{
   width: 90%;
 }
-
 .sidemenu{
   display: none;
 }
-
 
 @media all and (max-width :920px){
   .sidemenu{
@@ -258,7 +242,6 @@ i{
   .navBar__Link:not(.noHide){
       display: none;
   }
-
 }
 
 
@@ -267,93 +250,6 @@ i{
 /* #endregion  */
 
 /* #region form */
-.createProduct{
-  display: flex;
-  padding: 1rem;
-  min-height: 100vh;
-  justify-content: center;
-}
-.createProduct h1{
-  text-align: center;
-  font-size: 2rem;
-  letter-spacing: 5px;
-}
-.createForm{
-width: 500px;
-margin: 1rem;
-padding: 1rem;
-height: fit-content;
-}
-.createForm input{
-  border: 1px solid var(--colorGreyFaint);
-}
-.createForm label{
-  letter-spacing: 5px;
-  color: var(--colorGrey);
-  margin-bottom: 1rem;
- 
-}
-.createForm input:not(.charcter){
-  width: 100%;
-}
-.createForm .error{
-  color: var(--colorError);
-  font-size: .8rem;
-}
-
-
-
-.createForm .product_charactersristics {
-  border: 1px solid var(--colorGreyFaint);
-
-  padding: .25rem;
-  margin-bottom: 1rem;
-
-}
-.createForm .product_charactersristics div{
-display: flex;
-justify-content: space-between;
-align-items: center;
-}
-.createForm .product_charactersristics ul{
- overflow-y: scroll;
- height:100px;
-
-}
-.createForm .product_charactersristics button:not(.remove){
-  line-height: 4em;
-  padding: 0 1rem;
-}
-.createForm .product_charactersristics input{
-  margin: 0;
-}
-.createForm .product_charactersristics  ul li{
-  background-color:var(--colorGreyFaint);
-  color: var(--colorGrey);;
-  padding: .25rem;
-  margin: .25rem 0;
-  display: flex;
-  justify-content: space-between;
-  font-size: 1rem;
-}
-.remove{
-  background-color:var(--colorError);
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  padding: .25rem;
-  
-}
-
-
-.multiImagesPreview{
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
-}
-.multiImagesPreview img{
-  width: 100px;
-}
 
 
 

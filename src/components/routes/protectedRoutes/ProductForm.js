@@ -2,67 +2,102 @@ import React,{useState,useRef,useEffect} from 'react'
 import axios from 'axios'
 import {useFormik} from 'formik'
 import {jwtCheck,getToken} from '../../Auth/Auth'
-import ImageUploader from './ImageUploader'
+import {Button,RawLink} from '../../../Style/global'
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+
+
 const initialValues= {
     title:'product title',
     price:30,
     sizes:[],
-    character:[]
+    character:[],
+    images:[]
 }
 
 
-const validate =values=>{
-    const {title,price,sizes,character}=values
-    let errors ={} ; 
-    if(title =='')errors.title='title is required'
-    if(price <10)errors.price='price should be higher than 10 dollars'
-    if(character.length <1)errors.character='product charcters are required'
-   
-    return errors
-}
-function ProductForm() {
-    const [hasSize,setHasSize]=useState(true)
-    const [submitedValues,setSubmitedValues]=useState(true)
+const ProductForm=()=> {
     const [characteristics,setCharacteristics]=useState([])
     const [sizes,setSizes]=useState([])
     const charcteristcRef = useRef()
     const charcteristcInputRef = useRef()
+    const [previewImages,setPreviewImages]=useState([])
+    const [errs, seterrs] = useState({
+        imagesReq :false,
+        charactersReq:false,
+        titleReq:false,
+        priceLow:false
+    })
 
-    
     useEffect(()=>{
         formik.setFieldValue('character', characteristics)
         formik.setFieldValue('sizes', sizes)
-    //    if( localStorage.getItem('submitedValues')!=undefined)setSubmitedValues(localStorage.getItem('submitedValues'))
-       
-    },[characteristics,sizes,submitedValues])
+        formik.setFieldValue('images', previewImages)
+    },[characteristics,sizes,previewImages,errs])
    
    
-   
-    const onSubmitSucces=res=>{
-        localStorage.setItem('submitedValues',true) 
-        setSubmitedValues(true)
-    }
-    const onSubmit =values=>{
-        if(jwtCheck()){
-             const token =getToken()
-             const header= {
-                headers:{
-                    "Authorization" : `Bearer ${token}`,
-                }
-             }
-             axios.post('http://localhost:4000/product/create', values,header)
-                  .then(onSubmitSucces)
-                  .catch(err=>console.log(err))
-        }
+    const validateFields=(values)=>{
+         const {title,price,images,character}=values
+         const errsObjTemp ={...errs}
+         let errsCount = 0 ; 
+         if(images.length <1) {
+        errsObjTemp.imagesReq=true
+         errsCount++
+         }
+         if(character.length <1){
+         errsObjTemp.charactersReq=true
+         errsCount++
+         }
+         if(title =='') {
+         errsObjTemp.titleReq=true
+         errsCount++
+         }
+         if(price <10){
+         errsObjTemp.priceLow=true
+         errsCount++
+         }
      
+         seterrs({...errsObjTemp})
+         return errsCount>0 ? false :true
+    }
+    const onSubmit =async values=>{
+         try {
+             if(!validateFields(values)) return ; 
+             if(jwtCheck()){
+                  const token =getToken()
+                  const header= {headers:{"Authorization" : `Bearer ${token}`}}
+                  const apiUrl ='http://localhost:4000/product/uploadImages/'
+                  let constImageUploadPromise ;
+                  let imagesNames=[];
+
+                  const formData = new FormData();
+                  for (let index = 0; index < values.images.length; index++) 
+                  {    
+                     formData.append('img'+(index+1), values.images[index]);
+                     const splits = values.images[index].name.split('.')
+                     const ext=splits[splits.length-1]
+                     imagesNames.push('img'+(index+1)+'.'+ext)
+                  }
+               
+                  if(formData != undefined)
+                     constImageUploadPromise = await fetch(apiUrl+values.title,{method:'POST',body:formData})
+
+
+                  if(constImageUploadPromise.status != 200) throw new Error('IMAGE_UPLOAD_FAIL')
+                  delete values.images
+                  const constProductUploadPromise = await axios.post('http://localhost:4000/product/create',
+                                                                     {...values,images:imagesNames},header)
+                  console.log(constProductUploadPromise)
+             } 
+        } catch (error) {
+            if(error.message =='IMAGE_UPLOAD_FAIL') console.log('IMAGE_UPLOAD_FAIL')
+            console.log(error)
+        }
     }
     const formik = useFormik({
         initialValues,
-        onSubmit,
-        validate
+        onSubmit
     })
-    
-
     const addCharcter=e=>{
         const charcter =charcteristcInputRef.current.value
         setCharacteristics([...characteristics,charcter])
@@ -77,7 +112,7 @@ function ProductForm() {
     }
     const addSize=e=>{
         e.preventDefault()
-        if(e.target.classList.contains('size'))
+        if(e.target.tagName.toLowerCase() == 'button')
         {
              if(e.target.classList.contains('selected-Size'))
              {
@@ -85,45 +120,67 @@ function ProductForm() {
                 let newSizes= sizes
                 newSizes = newSizes.filter(s=>s!=e.target.innerHTML)
                 setSizes([...newSizes])
-                return
+                return ;
              }
              setSizes([...sizes,e.target.innerHTML])
              e.target.classList.add('selected-Size')
         }
     }
-    const characteristicsList=()=>  
-          {
-              return  <div className="product_charactersristics" >
-                             <div>
-                                 <input type="text" name="charcter" onBlur={formik.handleBlur} placeholder="charcterstic " className="charcter"  ref={charcteristcInputRef}/> 
-                                 <button type="button" onClick={addCharcter} className="faintLink link-underlined"> add to charcteristics</button>
-                             </div>
-                             <ul  ref={charcteristcRef} onClick={removeCharacter}>
-                                 {characteristics.map((char,index)=><li id={index} key={index} ><span>{char}</span> <button className="remove raw__Link">remove</button></li>)} 
-                             </ul>
-                       </div>
-          }
+    const characteristicsList=()=>{
+    return(
+        <div css={styles.product__charactersristics} >
+             <div>
+                 <input 
+                  type="text" 
+                  name="charcter" 
+                  onBlur={formik.handleBlur} 
+                  placeholder="charcterstic " 
+                  ref={charcteristcInputRef}
+                  /> 
+                 <button 
+                  type="button"
+                  onClick={addCharcter} 
+                  css={styles.add}
+                  > add </button>
+             </div>
+             <ul  ref={charcteristcRef} onClick={removeCharacter}>
+                 {
+                  characteristics.map((char,index)=><li  id={index}  key={index}>
+                      <span>{char}</span> 
+                      <button css={styles.remove}>remove</button>
+                  </li>)
+                 } 
+             </ul>
+        </div>
+       )
+    }
     const sizeSelect=()=>{
-        return hasSize?
-          <div  className="product__size" onClick={addSize}>
-            <button className="size">S</button>
-            <button className="size">M</button>
-            <button className="size">L</button>
-            <button className="size">XL</button>
-            <button className="size">2X</button>
-            <button className="size">3X</button>
-         </div> : null}
-
-
+        return  <div  css={styles.product__size} onClick={addSize}>
+            <button css={styles.size}>S</button>
+            <button css={styles.size}>M</button>
+            <button css={styles.size}>L</button>
+            <button css={styles.size}>XL</button>
+            <button css={styles.size}>2X</button>
+            <button css={styles.size}>3X</button>
+         </div> 
+    }
+    const selectImage=e=>{
+         let imagesArr=[]
+         for (let index = 0; index <e.target.files.length; index++) 
+             imagesArr.push(e.target.files[index])
+         
+         setPreviewImages(imagesArr)
+    }
+    const Err=({message,trigger})=>{
+        if(!trigger) return ''
+        return <div className="error">{message}</div>
+    }
 
     return (
-        <div>
-           
-            {
-                !submitedValues?<div> 
-                    <h1> ADD NEW PRODUCT </h1>
-                    <form onSubmit={formik.handleSubmit} className="createForm" >
-                <div className="formGroup">
+        <div>      
+           <h1> ADD NEW PRODUCT </h1>
+           <form onSubmit={formik.handleSubmit} css={styles.createForm} >
+                <div css={styles.formGroup}>
                      <label>PRODUCT TITLE</label>
                      <input type="text"
                             name="title" 
@@ -133,9 +190,9 @@ function ProductForm() {
                             onChange={formik.handleChange}
                             value={formik.values.title}
                      />
-                    {formik.errors.title && formik.touched.title?<div className="error">{formik.errors.title}</div>:null}
+                     <Err message="Product title is required" trigger={errs.titleReq} />
                 </div>
-                <div className="formGroup">
+                <div css={styles.formGroup}>
                      <label>PRODUCT PRICE</label>
                      <input type="number" 
                             name="price" 
@@ -146,25 +203,167 @@ function ProductForm() {
                             onChange={formik.handleChange}
                             value={formik.values.price}
                       />
-                     {formik.errors.price && formik.touched.price?<div className="error"> {formik.errors.price}</div>:null}
+                     <Err message="Product price should be superiour to 10.00$" trigger={errs.priceLow} />
                 </div>
-                <div className="formGroup">
-                     <label>PRODUCT AVAILABLE SIZES</label>
-                     {sizeSelect()}
-                </div>
-                <div className="formGroup">
+                <div css={styles.formGroup}>
+                              <label>PRODUCT AVAILABLE SIZES</label>
+                              {sizeSelect()}
+                         </div>
+                <div css={styles.formGroup}>
                      <label>PRODUCT CHARCTERSTICS</label>
                      {characteristicsList()}
-                     {characteristics.length<1 && formik.touched.charcter  ?<div className="error">charctersitic are reqiured</div>:null}
+                     <Err message="Product charcteristics are required" trigger={errs.charactersReq} />
+                </div>         
+                <label>PRODUCT IMAGES</label>   
+                <div css={css`${styles.formGroup} ;  border: 1px solid var(--colorGreyFaint); padding: .25rem;  margin-bottom: 1rem; `}>
+                    <div css={styles.porportions}>
+                        <span>The image propotions should respect </span>
+                        <RawLink href="/images/products/L'3afya mafya logo T-Shirt (red)/img1.png" download > in this image </RawLink>
+                    </div>
+                    <input  type="file"    
+                            name="images"
+                            css={styles.add}
+                            multiple
+                            onChange={selectImage}
+                    />
+                    <div css={styles.images}>
+                        {
+                             (previewImages|| [])
+                             .map((url,index) => (<img 
+                             key={index} 
+                             src={URL.createObjectURL(url)} 
+                             alt="..." /> ))
+                        }
+                    </div>
+                    <Err message="please choose product images " trigger={errs.imagesReq} />
                 </div>
-               
-                <button type="submit" className="btn submit">Add the Product</button>
+               <Button type="submit" width="100%" >Add the Product</Button>
             </form>
-                </div>
-                               : <ImageUploader title={formik.title} />
-            }
-        </div>
+       </div>
     )
 }
 
+const styles ={
+    createProduct:css`
+        display: flex;
+        padding: 1rem;
+        min-height: 100vh;
+        justify-content: center;
+        h1{
+            text-align: center;
+            font-size: 2rem;
+            letter-spacing: 5px;
+          }
+    `,
+    product__charactersristics:css`
+        border: 1px solid var(--colorGreyFaint);
+        padding: .25rem;
+        margin-bottom: 1rem;
+        ul{
+            overflow-y: scroll;
+            height:100px;
+        }
+        ul li{
+            background-color:var(--colorGreyFaint);
+            color: var(--colorGrey);
+            margin-bottom: 1rem;
+            padding: .25rem;
+            margin: .25rem 0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+        }
+        >div{
+            display:flex;
+            justify_content:space-bettwen;
+            align_items:center;
+            width:100%;
+            height:30px;
+
+        }
+       input{
+            width:fit-content;
+           flex:2;
+        }
+    `,
+    add:css`
+       background-color:#fff;
+       border-radius:12px;
+       flex:1;
+       padding: 0 .5rem;
+    `,
+    remove:css`
+        background-color:var(--colorError);
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        padding: .25rem;
+    `,
+    size:css`
+        padding:.25rem;
+    `,
+    
+    product__size:css`
+        padding: 0;
+        border: 1px solid var(--colorGreyFaint);
+        display: flex;
+        width:100%;
+        list-style: none;
+        height: 45px;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-bottom: 1rem;
+       
+        button{
+            background-color:#fff;
+            border:none;
+            padding: .25rem;
+            margin-right: .5rem;
+            cursor: pointer;
+        }
+
+        button:hover{
+            transform: scale(1.2);
+        }
+
+    `,
+    images:css`
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        img{
+            width: 100px;
+        }
+    `,
+    porportions:css`
+       margin-bottom:.5rem;
+       span , a {
+           font-size:.8rem;
+       }
+       a {
+          color:var(--colorPrimary)
+       }
+    `,
+    formGroup:css`
+        margn-bottom:1rem;
+    `,
+    createForm:css`
+    width: 500px;
+    margin: 1rem;
+    padding: 1rem;
+    height: fit-content;
+    input{
+        border: 1px solid var(--colorGreyFaint);
+    }
+    label{
+      letter-spacing: 5px;
+      color: var(--colorGrey);
+      margin-bottom: 1rem;
+     
+    }
+    input{
+      width: 100%;
+    }
+    `,
+}
 export default ProductForm

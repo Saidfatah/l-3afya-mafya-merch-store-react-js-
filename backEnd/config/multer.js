@@ -4,10 +4,11 @@ const fs = require('fs')
 //get product title 
 //create directory 
 
-let productTitle = 'product'
+
 const storage = multer.diskStorage({
                      destination:(req, file, cb)=>{
-                          var dir = './public/images/products/'+req.params.title;
+                          console.log()
+                          var dir = './src/images/products/'+req.params.title;
                           if (!fs.existsSync(dir)){
                               fs.mkdir(dir,()=>{
                                    cb(null, dir)

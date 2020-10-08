@@ -7,53 +7,56 @@ import   ImagesProvder from '../../Context/ImagesProvder'
 import { jsx, css } from '@emotion/core'
 
 const  Products=(props)=> {
-    const {products,getProducts} =useContext(MyContext)
-    const {getCollections} =useContext(CollectionsContext)
+    const {products} =useContext(MyContext)
+    const {collections} =useContext(CollectionsContext)
     const [collectionProducts,setCollectionProducts] =useState([])
     const [maxProducts,setMaxProducts] =useState([])
     const [allProducts,setAllProducts] =useState([])
     const {productSize,collectionTitle,maxDisplay,productsFromSearch}=props
 
-    useEffect(()=>{
-        let gotCollections = false; 
-
-        getCollections()
-        .then(res=>{
-            let collection = res.data.filter(collection=>collection.title == collectionTitle)
-            gotCollections=collection.length>0  ; 
-            collection>0 
-            ?getCollectionProducts(collection) 
-            : maxDisplay != undefined 
-                 ?getMaxDisplayProducts() 
-                 : getAllProducts()
-        })
-        .catch(err=>console.log(err))
-
-
-        if(!gotCollections)
+    useEffect(()=>{    
+        let mounted= true; 
+        if(collectionTitle != undefined && collections.length>0 && mounted)
         {
-      
-           if(products.length>=1) return;
+            let selectedCollectionProducts = collections.filter(col=>col.title == collectionTitle)[0].products
+             selectedCollectionProducts = selectedCollectionProducts.map(product=>({...product,productId:product._id}))
+            setCollectionProducts(selectedCollectionProducts.map((product,index)=><ProductItem 
+                 key={index} 
+                 productSize={productSize} 
+                 product={product} 
+            />))
+        }else
+        {
+            if( maxDisplay != -1 && maxDisplay != undefined )return getMaxDisplayProducts()   
             getAllProducts()
         }
 
-    },[products.length>0])
+        return ()=>{mounted = false }
+    },[products.length])
 
     const getMaxDisplayProducts=()=>{
-        if(maxDisplay != undefined){ 
-
-            const searchedProducts =maxDisplay != -1? productsFromSearch.slice(1, maxDisplay + 1):productsFromSearch
-            setMaxProducts(searchedProducts.map((product,index)=><ProductItem key={index}  cardSize={productSize} product={product} />))
-         }
+           console.log('max products ')
+           let searchedProducts
+            if(maxDisplay <= 0)searchedProducts =productsFromSearch
+            else searchedProducts =productsFromSearch.slice(1, maxDisplay + 1)
+         
+            setMaxProducts(searchedProducts.map((product,index)=><ProductItem 
+            key={index}  
+            cardSize={productSize} 
+            product={product} 
+            />))
     }
-    const getCollectionProducts=(collection)=> {
-          getProducts().then(res=>{
-              const  ids= collection[0].products
-              const collectionProdycts =  res.data.filter(p => ids.indexOf(p.productId) > -1)
-              setCollectionProducts(collectionProdycts.map((product,index)=><ProductItem key={index}  productSize={productSize} product={product} />))
-          })
+   
+    const getAllProducts=()=>{
+        
+        if(products == undefined)return ; 
+        const allProducts= products.map((product,index)=><ProductItem 
+              key={index}  
+              cardSize={productSize} 
+              product={product} 
+        />)
+        setAllProducts(allProducts) 
     }
-    const getAllProducts=()=>setAllProducts(products.map((product,index)=><ProductItem key={index}  cardSize={productSize} product={product} />)) 
 
     return (
         <div css={styles.products}>
@@ -65,6 +68,7 @@ const  Products=(props)=> {
         </div>
     )
 }
+
 
 const styles ={
     products :css` 

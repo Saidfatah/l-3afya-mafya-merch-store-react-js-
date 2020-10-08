@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useContext,useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import Products from '../Products/Products'
 import {H1} from '../../Style/global'

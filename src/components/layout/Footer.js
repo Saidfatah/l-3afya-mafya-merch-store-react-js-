@@ -1,9 +1,9 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 /** @jsx jsx */
-import { jsx, css, Global, ClassNames } from '@emotion/core'
+import { jsx, css} from '@emotion/core'
 import {Button} from '../../Style/global'
-
+import SocialLinks from './Social'
 const  Footer=() =>{
   if(window.location.href.indexOf("/checkout") != -1)return null
     return (
@@ -13,12 +13,7 @@ const  Footer=() =>{
                     <div css={styles.footer__blocks}>
                       <div css={styles.footer__block}>
                         <h2>CONNECT</h2>
-                         <div css={styles.social}>
-                           <a href="https://twitter.com/home"><i className="fab fa-twitter"></i></a>
-                           <a href="https://www.facebook.com/"><i className="fab fa-facebook-f"></i></a>
-                           <a href="https://www.instagram.com/"><i className="fab fa-instagram"></i></a>
-                           <a href="https://www.youtube.com/"><i className="fab fa-youtube"></i></a>
-                         </div>
+                        <SocialLinks width="150px" color="#fff" />
                       </div>
                       <div css={styles.footer__block}>
                         <h2>MENU</h2>
@@ -59,20 +54,31 @@ const styles ={
     font-weight: 400;
     font-size: 13px;
     font-style: normal;
-    margin-bottom: 1.5REM;
+    margin-bottom: 1rem;
 }
 `,
-  footer__inner :css`padding: 5rem 0;
+  footer__inner :css`
+  padding: 5rem 0;
   display: flex;
   flex-direction: column;
   `,
-  footer__blocks :css` display: flex;
-  height: 300px;`,
-  footer__block :css`flex: 1;`,
-  social :css` height:40px;
-  width: 98px;
-  margin-right: 2rem;`,
-  footer__credits :css`cursor: pointer;
+  footer__blocks :css` 
+  display: flex;
+  min-height: 300px;
+  @media all and (max-width :920px){
+    flex-direction: column;
+  }
+  `,
+  footer__block :css`
+  flex: 1;
+  margin-bottom:1.5rem;
+  `,
+  social :css` 
+  width:100%;
+  margin-right: 2rem;
+  `,
+  footer__credits :css`
+  cursor: pointer;
   font-size: 1.25rem;
   first-of-type[p]{
     font-size: 11px;
@@ -86,7 +92,10 @@ const styles ={
   margin-bottom: .75rem;`,
   footer__Links :css`display: flex;
   flex-direction: column;`,
-  social :css` width: 150px;`,
+  social :css` 
+  width:100%;
+  display:flex;
+  `,
   newsletter :css`form{
     display: flex;
     flex-direction: column;

@@ -1,15 +1,21 @@
 const router = require('express').Router();
 const {verifyToken} = require('../config/jwt.js')
+const CollectionModel = require('../Models/Collection')
 
-const {products} =require('./product')
-let collections= [
-    {id:0,title:"L'3AFYA MAFYA LOGO",products:[7,8,9,10,5,6]},
-    {id:1,title:"New",products:products.slice(Math.max(products.length - 5, 1)).map(p=>p.productId)},
-    {id:2,title:"skeleton",products:[0,1,2,3]},
- ]
 
-router.get('/',(req,res)=>{ res.json(collections)})
-router.get('/:id',(req,res)=>{ res.json(collections[0])})
+
+
+router.get('/',async (req,res)=>{ 
+    try {
+        const colelctionPromse = await CollectionModel.find({}).populate('products')
+        if(colelctionPromse[0] == undefined) throw new Error('no collections')
+
+        res.json(colelctionPromse.map(c=>({...c._doc,id:c._id})))
+    } catch (error) {
+        res.sendStatus(400).send('no collections ')
+    }
+})
+
 
 router.post('/create',verifyToken,(req,res)=>{
    

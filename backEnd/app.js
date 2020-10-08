@@ -1,6 +1,7 @@
 const path = require('path')
 const express= require('express')
 const app = express()
+const mongoose = require('mongoose')
 const cors =require('cors')
 var fs = require('fs')
 const bodyParser = require('body-parser')
@@ -12,11 +13,27 @@ const cartRoute= require('./routes/cart')
 const orderRoute= require('./routes/order')
 const stripe= require('./routes/stripePaymentProccesing')
 
+
+const ProductModel = require('./Models/Product') 
+
+const bcrypt = require('bcrypt')
+const Order = require('./Models/Order')
 app.use(cors())
 
 app.use(bodyParser.urlencoded({ extended: false }))
-// parse application/json
 app.use(bodyParser.json())
+
+
+mongoose.connect('mongodb+srv://admin:123456Imgamers@saidfatah.sfpyf.mongodb.net/afiyaMafiya?retryWrites=true&w=majority', 
+{ useNewUrlParser: true, useUnifiedTopology: true },
+ async () => {
+        try {
+
+        } catch (error) {
+            console.log(error)
+        }
+
+  })
 
 
 app.use('/users',userRoute)

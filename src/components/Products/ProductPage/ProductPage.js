@@ -25,14 +25,17 @@ const ProductPage=()=>{
         let recentlyCiewdCookei= cookie.get('recentlyViewd')
         if(recentlyCiewdCookei != undefined)
         {   
-            recentlyCiewdCookei=JSON.parse(recentlyCiewdCookei).map(id=>parseInt(id))  
-            recentlyCiewdCookei.push(parseInt(id))
+            recentlyCiewdCookei=JSON.parse(recentlyCiewdCookei)
+            console.log({recentlyCiewdCookei})
+            recentlyCiewdCookei.push(id)
             let set = new Set([...recentlyCiewdCookei]);
             cookie.set('recentlyViewd',[...set])
         }
         else cookie.set('recentlyViewd',[])
     } 
+
     useEffect(() => {
+        console.log({id})
         getRecentlyVisted()
         getProductById(id).then(res=>setProduct(res.data) )
     }, [id])

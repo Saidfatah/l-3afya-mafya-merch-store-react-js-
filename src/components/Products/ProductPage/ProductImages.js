@@ -13,6 +13,7 @@ const ProductImages=(props)=> {
     const [imageSrc2,setimageSrc2]=useState('')
     const {getProductById} =useContext(MyContext)
     const [imageVisibale, setimageVisibale] = useState(true)
+    
     useEffect(() => {
          getProductById(id).then(res=>{
              setimageSrc1('/images/products/'+res.data.title+'/'+res.data.images[0])

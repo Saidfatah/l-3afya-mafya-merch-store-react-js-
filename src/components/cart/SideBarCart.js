@@ -85,29 +85,19 @@ const SideBarCart=(props)=>{
         </div>
     </div>
     }
+    
     return (
         <div>
             <PageCover {...{slideOutOut,pageShdowCover}} />
-            <div css={css`${styles.cart} ; ${styles.SideContainer}`} ref={cartContainer}>
+            <Modal ref={cartContainer} right={-400} >
                  <Top />
                  <Body />
-            </div>
+            </Modal>
         </div>
     )
 }
 
 const styles ={
-    SideContainer :css`width: 400px;
-    height: 100vh;
-    background-color: #fff;
-    position: absolute;
-    box-shadow: 0px 0px 6px 5px var(--colorShadow);
-    transition: all .2s ease-in;
-    z-index: 999;
-    top: 0;
-    display: flex;`,
-    cart :css`right: -400px;
-    flex-direction: column;`,
     cart__body :css`height: calc(100vh - 75px);
     width: 100%;
     position: relative;`,
