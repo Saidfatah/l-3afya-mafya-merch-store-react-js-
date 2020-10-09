@@ -69,7 +69,7 @@ const  SearchModal = (props)=> {
         height="100%" 
         width="100%" 
         left={0}  
-        display="none" 
+        display={display?"flex":"none"} 
         opacity={0} 
         overflowY="scroll" 
         >      

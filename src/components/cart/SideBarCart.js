@@ -2,9 +2,8 @@ import React ,{createRef,useContext,useEffect}from 'react'
 import CartItem from './CartItem'
 import {CartContext} from '../../Context/CartProvider'
 import ImagesProvder from '../../Context/ImagesProvder'
-import PageCover from '../layout/PageCover'
 import {Link} from "react-router-dom";
-import {Button} from '../../Style/global'
+import {Button,Modal,ModalBackground} from '../../Style/global'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 
@@ -88,8 +87,8 @@ const SideBarCart=(props)=>{
     
     return (
         <div>
-            <PageCover {...{slideOutOut,pageShdowCover}} />
-            <Modal ref={cartContainer} right={-400} >
+            <ModalBackground  ref={pageShdowCover} onClick={slideOutOut} />
+            <Modal ref={cartContainer} right={-400} from="cart" >
                  <Top />
                  <Body />
             </Modal>

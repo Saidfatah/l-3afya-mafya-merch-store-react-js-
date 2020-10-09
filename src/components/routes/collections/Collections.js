@@ -1,9 +1,9 @@
 import React,{useContext } from 'react'
 import {Link} from "react-router-dom"
-import {CollectionsContext} from '../../Context/CollectionsProvider'
+import {CollectionsContext} from '../../../Context/CollectionsProvider'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
-import {Button} from './../../Style/global'
+import {Button} from '../../../Style/global'
 
 
 const Collections=()=> {

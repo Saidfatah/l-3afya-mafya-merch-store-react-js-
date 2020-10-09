@@ -37,10 +37,10 @@ const  Navbar=forwardRef((props,ref)=> {
                <i className="fas fa-shopping-bag"></i></a>
                <Link className="navBar__Link no-sidemenu" to="/account">Account</Link>
                
-               
              {jwtCheck()
                ?<React.Fragment>
-                   <Link className="navBar__Link no-sidemenu" to="/product/create">Add New Product</Link>
+                   <Link className="navBar__Link no-sidemenu" to="/product/create">Add  Product</Link>
+                   <Link className="navBar__Link no-sidemenu" to="/collectioncreation" >Add  Collection</Link>
                    <Link className="navBar__Link no-sidemenu" to="/account" onClick={logOut}>Logout</Link>
                </React.Fragment>
                :<React.Fragment>

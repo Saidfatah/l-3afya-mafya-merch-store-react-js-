@@ -35,7 +35,8 @@ router.post('/login',async (req,res)=>{
                 firstname:userGetPromise.firstname,
                 lastname:userGetPromise.lastname,
                 email:userGetPromise.email,
-                rule:userGetPromise.rule
+                rule:userGetPromise.rule,
+                addresses:userGetPromise.addresses,
             }
         }))
   
@@ -64,7 +65,7 @@ router.post('/register',async(req,res)=>{
         if( checkEmailExistsPromise !== null) throw new Error('EMAIL')
 
        
-        const userDoc= new UserModel({ password:passHash,email,firstname,lastname,rule:'costumer'}).save()
+        const userDoc= new UserModel({ password:passHash,email,firstname,lastname,addresses:[],rule:'costumer'}).save()
         const userSave = await userDoc
         if(userSave._id == undefined) throw new Error('REGISTER')
 
@@ -80,7 +81,8 @@ router.post('/register',async(req,res)=>{
                     firstname:userSave.firstname,
                     lastname:userSave.lastname,
                     email:userSave.email,
-                    rule:userSave.rule
+                    rule:userSave.rule,
+                    addresses:userSave.addresses,
                 }
         }))
 
@@ -97,6 +99,37 @@ router.post('/register',async(req,res)=>{
             res.statusMessage='ROBOT';
             res.sendStatus(403)
         }
+       console.log(error)
+    }
+})
+
+router.post('/update',async(req,res)=>{
+    const {id,addresses}=  req.body
+    try {      
+        const targetDoc=await UserModel.findOne({_id:id});
+
+        const update = { addresses};
+        const updateResponse = await targetDoc.updateOne(update);
+        const updatedDoc = await UserModel.findOne({_id:id});
+
+        jwt.sign(
+            {updatedDoc},
+            'secretKey',
+            {expiresIn:'10h'},
+            (err,token)=>res.json({
+                token,
+                rule:updatedDoc.rule,
+                user:{
+                    id:updatedDoc._id ,
+                    firstname:updatedDoc.firstname,
+                    lastname:updatedDoc.lastname,
+                    email:updatedDoc.email,
+                    rule:updatedDoc.rule,
+                    addresses:updatedDoc.addresses,
+                }
+        }))
+
+    } catch (error) {
        console.log(error)
     }
 })

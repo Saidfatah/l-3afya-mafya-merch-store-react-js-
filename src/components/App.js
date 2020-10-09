@@ -16,10 +16,11 @@ import CreateProduct from './routes/protectedRoutes/CreateProduct'
 import Home from './routes/Home'
 import SearchModal from './Products/SearchModal'
 import ProductPage from './Products/ProductPage/ProductPage'
-import Collections from './routes/Collections'
-import CollectionPage from './routes/CollectionPage'
+import Collections from './routes/collections/Collections'
+import CollectionPage from './routes/collections/CollectionPage'
+import CreateCollection from './routes/collections/CreateCollection'
 import SideBar from './layout/SideBar'
-import SideBarCart from './cart/SideBarCart'
+import Cart from './cart/SideBarCart'
 import ScrollToTop from './utils/ScrollToTop'
 import Provider from '../Context/ProductsProvider'
 import CartProvider from '../Context/CartProvider'
@@ -51,7 +52,7 @@ const App=()=> {
               //in some pages I don't want the navbar to apper as in checkout page  
                 window.location.href.indexOf("/checkout") == -1
                 ?<React.Fragment>
-                      <SideBarCart setSlideNow={setSlideNowFun} slideNow={slideNow} />
+                      <Cart setSlideNow={setSlideNowFun} slideNow={slideNow} />
                       <SideBar ref={SideBarRef} />
                       <div className="offsetNavbar"></div>
                       <Navbar ref={NavbarRef}  setSlideNow={setSlideNowFun}  setDisplaySearchModal={setDisplaySearchModalFun}/>
@@ -63,8 +64,11 @@ const App=()=> {
                 <ScrollToTop/>
                 <Switch>      
                    <Route exact path="/"><Home /></Route>
+
                    <Route exact path="/collections"> <Collections /></Route>
                    <Route path="/collections/:collectionTitle"><CollectionPage /></Route>
+                   <Route path="/collectioncreation"><CreateCollection /></Route>
+
                    <Route path="/contact/register"><Contact register={true} /></Route>
                    <Route path="/shop"><Shop /></Route>
                    <Route path="/product/create"><CreateProduct /></Route>
@@ -77,7 +81,7 @@ const App=()=> {
                    <Route path="/contact"><Contact  register={false}/></Route>
 
                    <Route path="/account"><Account /></Route>
-                   <Route path="/adresses"><Adresses /></Route>
+                   <Route path="/addresses"><Adresses /></Route>
                 </Switch>
                 <Footer/>
             </Router>  

@@ -126,12 +126,7 @@ const SignUp=({url})=> {
 
     return (
         <Container>
-            <div css={css`
-            width:600px;
-            display:flex;
-            align-items:center;
-            flex-direction:column;
-            `}>
+            <FlexCol width="600px">
                  <ReCAPTCHA  
                  sitekey="6Leex9QZAAAAAJnjaE1JuH-L6owOoGarmEd9qHTz" 
                  ref={reRef}  
@@ -187,7 +182,7 @@ const SignUp=({url})=> {
                      <span>got an account ? </span>
                      <Link to={`login`} css={faintLink}>login</Link>
                  </div>
-            </div>
+            </FlexCol>
         </Container>
     )
 }

@@ -38,12 +38,7 @@ const Login=({url})=> {
 
     return (
          <Container verticalCenter>
-                <div css={css`
-                width:500px;
-                display:flex;
-                align-items:center;
-                flex-direction:column;
-                `}>
+                <FlexCol width="500px">
                      <H1>Login</H1>
                      <LightParagraph center mgb={1} mgt={2}>Please enter your e-mail and password:</LightParagraph>
                      <p></p>
@@ -69,7 +64,7 @@ const Login=({url})=> {
                           <span> Don't have an account?</span>
                           <Link to={`/account/register`} css={faintLink}>Create one</Link>
                      </div>
-                </div>
+                </FlexCol>
          </Container>
     )
 }

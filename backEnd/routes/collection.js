@@ -17,7 +17,25 @@ router.get('/',async (req,res)=>{
 })
 
 
-router.post('/create',verifyToken,(req,res)=>{
-   
+router.post('/create',async(req,res)=>{
+    try {
+        const checkTitlePromise= await  CollectionModel.findOne({title:req.body.title})
+        if(checkTitlePromise != null) throw new Error('TITLE_EXISTS')
+
+        const collection = new CollectionModel({...req.body})
+        const saveCollectionPromise = await collection.save()
+        if(saveCollectionPromise == undefined || saveCollectionPromise==null) throw new Error('SOMETHNG_WENT_WRONG')
+       
+        res.send('POSTED WITH SUCCES')
+
+    } catch (error) {
+        if(error.message =="TITLE_EXISTS") {
+            console.log(error)
+            res.status(403).send('TITLE_EXISTS')
+        }
+        if(error.message =="SOMETHNG_WENT_WRONG") res.status(403).send('SOMETHNG_WENT_WRONG')
+  
+    }
 })
+
 module.exports = router

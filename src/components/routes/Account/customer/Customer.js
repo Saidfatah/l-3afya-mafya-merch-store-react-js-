@@ -3,9 +3,12 @@ import axios from 'axios'
 import Order from '../Order'
 import {getUser} from "../../../Auth/Auth"
 import {H1,Container,LightParagraph,Button,FlexRow,Border,FlexItem,SmallText} from '../../../../Style/global'
+import {Link} from 'react-router-dom';
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
 
 
-const Customer=(props)=> {
+const Customer=({history})=> {
     let [orders,setOrders]=useState([])
 
     useEffect(()=>{
@@ -46,7 +49,9 @@ const Customer=(props)=> {
                        <SmallText>No addresses</SmallText>
                        <Border />
                        <LightParagraph>No addresses are currently saved</LightParagraph>
-                       <Button  width="100%">MANAGE ADDRESSES</Button>
+                       <Button width="100%">
+                            <Link to="/addresses" css={css`color:#fff;`} > MANAGE ADDRESSES</Link>
+                       </Button>
                  </FlexItem>
             </FlexRow>
         </Container>

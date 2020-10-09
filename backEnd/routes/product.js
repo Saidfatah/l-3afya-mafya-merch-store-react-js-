@@ -89,23 +89,19 @@ router.post('/create',verifyToken,async (req,res)=>{
             if(error.message =="SOMETHNG_WENT_WRONG") res.status(403).send('SOMETHNG_WENT_WRONG')
         }
 })
+
 router.post('/uploadImages/:title',(req,res)=>{
          upload(req,res,(err)=>{
              if(err) return console.log(err)
-             console.log('file uploaded image')
-             console.log(req.body)
              if(res.file != undefined)
              {
-                console.log('file uploaded image')
                  res.send('file uploaded')
              }
              else
              {
                  res.send('no file selected')
-             }
-             
+             }    
          })
-      
 })
 
 module.exports.router = router

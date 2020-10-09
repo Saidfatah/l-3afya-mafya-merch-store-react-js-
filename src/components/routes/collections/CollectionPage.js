@@ -1,7 +1,7 @@
-import React,{useContext,useEffect} from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
-import Products from '../Products/Products'
-import {H1} from '../../Style/global'
+import Products from '../../Products/Products'
+import {H1} from '../../../Style/global'
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 

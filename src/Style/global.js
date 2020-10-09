@@ -18,18 +18,32 @@ export const faintLink = css`
         color: rgba(92,92,92,0.5);
     }
 `
-export const link_underlined = css`
-    cursor: pointer;
-    border: none;
-    padding: 0;
-    font-size: .6rem;
-    color:var(--colorGrey);
-    $:before{
-        cursor: pointer;
-        top: 100%;
-        height: 2px;
-}
+export const Underlined =styled.a(props=>{
+   return `
+   cursor: pointer;
+   border: none;
+   padding: 0;
+   z-index: 1;
+   margin-right:1rem;
+   font-size: .6rem;
+   position:relative;
+   color:var(--colorGrey);
+    :after{
+      content: '';
+      position:absolute;
+      top: 100%;
+      left: 0;
+      height:1px;
+      width:100%;
+      z-index:-1;
+      background-color: var(--colorGrey);
+      transition: all .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+   }
+   :hover:after{
+      width:0%;
+   }
 `
+})
 export const Button =styled.button(props=>{
    return`
     padding: .75rem 2rem ;
@@ -69,6 +83,26 @@ export const Button =styled.button(props=>{
             :"color:var(--colorGrey);"
         }
     }
+`})
+export const ButtonSecondary =styled.button(props=>{
+   return`
+    padding: .25rem .5rem ;
+    color: #fff;
+    border:none;
+    background-color: ${props.color?props.color:'var(--colorPrimary)'};
+    transition: all .2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    cursor: pointer;
+    border-radius:12px;
+    >*{
+       color:#fff;
+    }
+    i{
+       margin-left:.25rem;
+    }
+    :hover{
+      box-shadow: 0px 0px 6px 5px var(--colorShadow);
+    }
+
 `})
 export const H1 =styled.h1(props=>{
    return`
@@ -115,7 +149,7 @@ export const RawLink =styled.a(props=>{
 `})
 export const FlexCol =styled.div(props=>{
    return`
-     width:100%;
+     width:${props.width?props.width:'100%'}; 
      display:flex;
      flex-direction:column;
      align-items:center;
@@ -133,6 +167,8 @@ export const FlexWrap =styled.div(props=>{
      width:100%;
      display:flex;
      flex-wrap:wrap;
+     height:${props.height?props.height:'fit-content'};
+     overflow-y:${props.overflow?'scroll':'hidden'};
      margin-left:${props.mgl?props.mgl:'0'}rem;
      margin-bottom:${props.mgb?props.mgb:'0'}rem;
      margin-top:${props.mgt?props.mgt:'0'}rem;
@@ -152,6 +188,7 @@ export const FlexRow =styled.div(props=>{
 export const FlexItem =styled.div(props=>{
    return`
      flex:${props.flex};
+     width:${props.width};
      margin:1rem;
    `
 })
@@ -162,7 +199,7 @@ export const Container =styled.div(props=>{
     ? "margin: 1rem auto;"
     :  "" 
     }
-   height:calc(100vh - 74px);
+   min-height:calc(100vh - 74px);
    padding:1rem;
    ${props.verticalCenter
     ?`
@@ -198,20 +235,34 @@ export const Modal=styled.div(props=>{
    flex-direction:column; 
    width:${props.width?props.width :'400px'} ;
    height: ${props.height?props.height : '100vh'};
-   top: ${props.top?props.top:0}px;;
+   top: ${props.top?props.top:0}px;
+   ${
+      props.padding
+      ?"padding:"+(props.padding)+"rem;"
+      :""
+   }
    ${
       props.left
-      ?"left:"+(props.left||-400)+"px"
+      ?"left:"+props.left+"px;"
       :""
    }
    ${
       props.right
-      ?"right:"+(props.right||0)+"px"
+      ?"right:"+props.right+"px;"
       :""
    }
    display: ${ props.display?props.display:"flex"};
    opacity:${ props.opacity?props.opacity:1};
    overflow-y: ${ props.overflowY};
+   ${
+      props.center
+      ?`
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      `
+      :""
+   }
    `
 })
 export const ModalBackground=styled.div(props=>{
@@ -223,7 +274,7 @@ export const ModalBackground=styled.div(props=>{
    position: absolute;
    right: 0;
    top: 0;
-   z-index: 90;
+   z-index: 99;
    transition: all .4s ease-in;
    `
 })
@@ -245,7 +296,7 @@ export const LightTitle =styled.h2(props=>{
 export const LightParagraph =styled.p(props=>{
    return`
    color:var(--colorGreyLight);
-   font-size:.8rem;
+   font-size:${props.size?props.size:.8}rem;
    line-height:1.65;
    width:100%;
    margin-bottom:${props.mgb?props.mgb:1.5}rem;
@@ -279,6 +330,16 @@ export const Err =styled.p(props=>{
    margin-bottom:.5rem;
    background:var(--colorPrimary);
 `})
+export const Success =styled.p(props=>{
+   return`
+   color:#fff;
+   padding:.25rem;
+   font-size:.7rem;
+   border-radius:12px;
+   text-align:center;
+   margin-bottom:.5rem;
+   background:green;
+`})
 export const Border =styled.p(props=>{
    return`
    height:1px;
@@ -286,8 +347,6 @@ export const Border =styled.p(props=>{
    width:100%;
    background:var(--colorGreyLight);
 `})
-
-
 export const LightList =styled.ul(props=>{
    return`
    color:var(--colorBlack);

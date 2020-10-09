@@ -39,7 +39,7 @@ const SideBar=forwardRef((props,ref) =>{
     return (
         <div>
             <ModalBackground  ref={pageShdowCover} onClick={slideOutOut} />
-            <Modal  ref={sideBarContainer}>
+            <Modal  ref={sideBarContainer} left={-400}>
                 <div css={styles.sideBar__body} >
                     <i className="far fa-times-circle Close" onClick={slideOutOut}></i>
                     <div className="sideBar__links">
