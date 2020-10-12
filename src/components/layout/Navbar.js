@@ -3,7 +3,7 @@ import {CartContext} from '../../Context/CartProvider'
 import {jwtCheck,getUser} from "../Auth/Auth"
 import {Link} from "react-router-dom";
 /** @jsx jsx */
-import { jsx, css, Global, ClassNames } from '@emotion/core'
+import { jsx, css} from '@emotion/core'
 
 const  Navbar=forwardRef((props,ref)=> {
     const {setSlideNow,setDisplaySearchModal}=props
@@ -13,49 +13,74 @@ const  Navbar=forwardRef((props,ref)=> {
     return (
         <div css={styles.navBar}>
             <div css={styles.navBar__left}>
-                <a className="navBar__Link sidemenu noHide" 
-                  onClick={e=> {
-                      document.body.style.overflowY="hidden" 
-                      ref.current.slideSideBarIn() 
-                      }}>
-                 <i className="fas fa-bars"></i></a>
-                 <Link className="navBar__Link no-sidemenu" to="/shop">SHOP</Link>
-                 <Link className="navBar__Link no-sidemenu" to="/collections">COLLECTIONS</Link>
-                 <Link className="navBar__Link no-sidemenu" to="/contact">CONTACT</Link>
+                <a  css={css`${styles.navBarLink};${styles.showOnMobile}`} onClick={e=>{document.body.style.overflowY="hidden" ; ref.current.slideSideBarIn() }}> <i className="fas fa-bars"></i> </a>
+                 <Link css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo}`} to="/shop">SHOP</Link>
+                 <Link css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo}`} to="/collections">COLLECTIONS</Link>
+                 <Link css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo}`} to="/contact">CONTACT</Link>
             </div>
+
             <div css={styles.navBar__middle}>
-                <Link className="navBar__Link noHide  noborder" to="/">
+                <Link css={css`${styles.navBarLink};`} to="/">
                     <img css={styles.navBar__logo} src={'../../images/LOGO.png'}/>
                 </Link>
             </div>
+
             <div css={styles.navBar__right}>
-               <a className="navBar__Link sidemenu noHide" 
-                 onClick={e=> {
-                      document.body.style.overflowY="hidden" 
-                      setSlideNow(true)
-                      }}>
-               <i className="fas fa-shopping-bag"></i></a>
-               <Link className="navBar__Link no-sidemenu" to="/account">Account</Link>
-               
-             {jwtCheck() && JSON.parse(getUser()).rule =="admin"
+                <a  css={css`${styles.navBarLink};${styles.showOnMobile}`} onClick={e=> {document.body.style.overflowY="hidden";setSlideNow(true)}}> <i className="fas fa-shopping-bag"></i> </a>
+               <Link css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo}`} to="/account">Account</Link>  
+               <a css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo}`} onClick={e=>{setDisplaySearchModal(true);document.body.style.overflowY="hidden"}}>Search</a>        
+              {
+               jwtCheck() && JSON.parse(getUser()).rule =="admin"
                ?<React.Fragment>
-                   <Link className="navBar__Link no-sidemenu" to="/product/create">Add  Product</Link>
-                   <Link className="navBar__Link no-sidemenu" to="/collectioncreation" >Add  Collection</Link>
+                   <Link css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo}`} to="/product/create">Add  Product</Link>
+                   <Link css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo}`} to="/collectioncreation" >Add  Collection</Link>
                </React.Fragment>
-               :<React.Fragment>
-                    <a className="navBar__Link no-sidemenu" onClick={e=> {setDisplaySearchModal(true);document.body.style.overflowY="hidden"}}>
-                       Search
-                    </a>
-                    <a className="navBar__Link no-sidemenu" onClick={e=> {setSlideNow(true);document.body.style.overflowY="hidden"}}>
-                       Cart(<span>{cart.length}</span>)
-                    </a>
+               :<React.Fragment> 
+                    <a css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo}`} onClick={e=> {setSlideNow(true);document.body.style.overflowY="hidden"}}>Cart(<span>{cart.length}</span>) </a>
                </React.Fragment>
-             }
+              }
             </div>
         </div>
     )
 })
+
+
 const styles ={
+    navBarLink :css`
+    font-size: 13px;
+    color: #fff;
+    padding: 0 1rem;
+    line-height: 1.6em;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    `,
+    notLogo :css`
+    :after{
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        height: 15px;
+        width: 0;
+        z-index:-1;
+        
+        background-color: var(--colorPrimary);
+        transition: all .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    :hover{
+        :after{
+            width: 90%;
+        }
+      }
+    `,
+    hideOnMobile :css`
+    @media all and (max-width :920px){display: none ;}
+    `,
+    showOnMobile :css`
+    display: none ;
+    @media all and (max-width :920px){display: inline ;}
+    `,
     navBar :css`
     display: flex;
     align-items: center;

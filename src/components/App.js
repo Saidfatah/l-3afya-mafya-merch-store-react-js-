@@ -2,7 +2,7 @@
 //#region imports
 import React,{useRef,useState,useEffect} from 'react'
 import { BrowserRouter as Router,Switch,Route} from "react-router-dom"
-import '../Style/GlobalStyles.css'
+import '../Style/App.css'
 import Navbar from './layout/Navbar'
 import Footer from './layout/Footer'
 import Contact from './routes/info/Contact'

@@ -1,4 +1,4 @@
-import React,{useRef} from 'react'
+import React,{useRef,useState,useEffect} from 'react'
 import ProductItem from '../Products/ProductItem'
 import {easer} from '../utils/funcs1'
 
@@ -12,59 +12,83 @@ const Slider=(props)=> {
     const btn_leftRef= useRef()
     const btn_rightRef= useRef()
     const recentlyViewd__ContainerRef= useRef()
-    const productItemWidth = 300
+    const productItemWidth =parseInt(window.innerWidth) > 460 ? 300 : 200
+    const [windowWidth, setwindowWidth] = useState(0)
+ 
+    useEffect(() => {
+        setwindowWidth(parseInt(window.innerWidth))
 
-     const countProducts=(dir)=>{
+        if( recentlyViewd__ContainerRef.current && windowWidth <= 460)
+           recentlyViewd__ContainerRef.current.style.left=60+'px'
+
+        const listner =  window.addEventListener('resize', e=>{
+            const docWidth =parseInt(window.innerWidth)
+            setwindowWidth(docWidth)
+            console.log(docWidth)
+        });
+        return () => {
+            window.removeEventListener('resize',listner)
+        }
+    }, [recentlyViewd__ContainerRef.current])
+
+    const countProducts=(dir)=>{
         const productsContainerWidth=parseInt(recentlyViewd__ContainerRef.current.offsetWidth) ;
         const recentlyVistedWidth=parseInt(recentlyViewdRef.current.offsetWidth) ;
         const productsContainerX= Math.abs(parseInt(recentlyViewd__ContainerRef.current.offsetLeft))-16 ;
-        const productWidth =productItemWidth+16;
 
-        const overFlowProductsLeft=Math.round(productsContainerX/productWidth)
-        const overFlowedProductsRight=Math.round((productsContainerWidth - (productsContainerX+16+recentlyVistedWidth))/productWidth)
+        const overFlowProductsLeft=Math.round(productsContainerX/(productItemWidth+16))
+        const overFlowedProductsRight=Math.round((productsContainerWidth - (productsContainerX+16+recentlyVistedWidth))/(productItemWidth+16))
+
         return dir>0 ? overFlowedProductsRight : overFlowProductsLeft ;
-     }
-     const slide = (dir)=>{
+    }
+    const slide = (dir)=>{
           const overflowProducts = countProducts(-dir);
-          const productWidth =productItemWidth+16;
-          const Slide_amount = dir * productWidth *(overflowProducts >=3 ? 3:overflowProducts)
-          const X= parseInt(recentlyViewd__ContainerRef.current.offsetLeft);
+          let Slide_amount = 0
+          console.log({overflowProducts})
+          if(overflowProducts<= 0)return ;
+          if(windowWidth > 460)
+            Slide_amount = dir *( productItemWidth+16 )*(overflowProducts >=3 ? 3:overflowProducts)
+          else Slide_amount= ( dir * productItemWidth )
+
+          const X= parseInt(recentlyViewd__ContainerRef.current.offsetLeft)
           const easer_calb=(value)=> recentlyViewd__ContainerRef.current.style.left=(value )+'px'
           easer(X, X + Slide_amount,easer_calb,100)
-          countProducts(-dir);
-     }
-     const slideStoriesLeft = (e)=>{e.preventDefault(); slide(1)}
-     const slideStoriesRight = (e)=>{e.preventDefault();  slide(-1)}
+          countProducts(-dir)
+    }
+    const slideStoriesLeft = (e)=>{e.preventDefault(); slide(1)}
+    const slideStoriesRight = (e)=>{e.preventDefault();  slide(-1)}
+    
+    const SliderButtons=()=>{
+        if(items.length > 6 || (items.length <= 6 && windowWidth <= 460)) 
+        return <>
+                <a 
+                href="#" 
+                css={css`${styles.stories__btn};${styles.btn_left}`} 
+                ref={btn_leftRef} 
+                onClick={slideStoriesLeft}
+                >
+                    <div css={css`${styles.btn__image};${styles.image_left}`} ></div>
+                </a>
+                <a 
+                href="#" 
+                css={css`${styles.stories__btn};${styles.btn_right}`} 
+                ref={btn_rightRef} 
+                onClick={slideStoriesRight}
+                >
+                    <div css={css`${styles.btn__image};${styles.image_right}`} ></div>
+                </a>  
+               </>
+       
+       return null 
+    }
+
 
     return (
             <div css={styles.recentlyViewd} ref={recentlyViewdRef}>
                 <div>
-                    {
-                        items.length>5 
-                        ?<>
-                         <a 
-                         href="#" 
-                         css={css`${styles.stories__btn};${styles.btn_left}`} 
-                         ref={btn_leftRef} 
-                         onClick={slideStoriesLeft}
-                         >
-                             <div css={css`${styles.btn__image};${styles.image_left}`} ></div>
-                         </a>
-                         <a 
-                         href="#" 
-                         css={css`${styles.stories__btn};${styles.btn_right}`} 
-                         ref={btn_rightRef} 
-                         onClick={slideStoriesRight}
-                         >
-                             <div css={css`${styles.btn__image};${styles.image_right}`} ></div>
-                         </a>  
-                        </>
-                        :null
-                    }
+                   <SliderButtons />
                    <div css={styles.recentlyViewd__Container} ref={recentlyViewd__ContainerRef}>
-                      {
-                      items.map((product,index)=><ProductItem  key={index}   product={product} cardSize="small" />)
-                      }
+                      {  items.map((product,index)=><ProductItem  key={index}   product={product} cardSize="small" />)}
                    </div>
                 </div>
             </div>
@@ -88,7 +112,7 @@ const styles ={
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 999;
+    z-index: 60;
     :focus{
         outline: none;
     }

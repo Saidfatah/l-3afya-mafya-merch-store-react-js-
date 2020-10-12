@@ -2,9 +2,7 @@ import React,{useContext,useState,useEffect} from 'react'
 import {MyContext} from '../../Context/ProductsProvider'
 import Products from '../Products/Products'
 import {useParams} from "react-router-dom";
-import {H1} from '../../Style/global'
-/** @jsx jsx */
-import { jsx,css } from '@emotion/core'
+import {H1,Input,Container,LightParagraph} from '../../Style/global'
 
 const Search=(props)=> {
     const {searchResult,getProducts}=useContext(MyContext)
@@ -40,51 +38,26 @@ const Search=(props)=> {
 
     const searchFrom =()=>{
         return <div>
-        <h1 className="textCenter">Search</h1>
-        <p className="textCenter">Enter a word to search our products:</p>
-        <input type="text" onKeyPress={searchSubmit} placeholder="Search..."/>
+        <H1>Search</H1>
+        <LightParagraph >Enter a word to search our products:</LightParagraph>
+        <Input type="text" onKeyPress={searchSubmit} placeholder="Search..."/>
         </div>
     }
     const ResultsDsiplay=()=>{
         return <div>
         <H1>Search</H1>
-        <h2>{searchCount} results for "{searchQuery}"</h2>
+        <LightParagraph>{searchCount} results for "{searchQuery}"</LightParagraph>
         <Products productsFromSearch={products} productSize="small" />
        </div>
     }
     return (
-        <div css={styles.searchPage}>
+        <Container verticalCenter>
              {products.length<=0 ?searchFrom():ResultsDsiplay()}
-        </div>
+        </Container>
 
     )
 }
 
-const styles ={
-    searchPage:css` 
-    min-height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    input{
-        width:182;
-        height: 143;
-        margin-top: 1rem;
-    }
-    h1{
-        margin-bottom: 1rem;
-       font-size: 13px;
-    }
-    p{
-        margin-bottom: 1rem;
-        font-size: 13px;
-        color: var(--colorGreyLight);
-     }
-     
-    `,
-}
+
 
 export default Search
