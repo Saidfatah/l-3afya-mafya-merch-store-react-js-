@@ -1,6 +1,5 @@
-import React,{useState,useRef,useEffect} from 'react'
-import {Link} from "react-router-dom";
-import {Button,Container,H1,LightParagraph,FlexCol,faintLink,Input,Err} from '../../../../Style/global'
+import React,{useState,useRef} from 'react'
+import {Button,Container,H1,LightParagraph,FlexCol,Input,Err,UnderlinedLink, FlexRow} from '../../../../Style/global'
 import ReCAPTCHA from "react-google-recaptcha"
 
 /** @jsx jsx */
@@ -125,7 +124,7 @@ const SignUp=({url})=> {
    </Container>
 
     return (
-        <Container>
+        <Container verticalCenter>
             <FlexCol width="600px">
                  <ReCAPTCHA  
                  sitekey="6Leex9QZAAAAAJnjaE1JuH-L6owOoGarmEd9qHTz" 
@@ -178,10 +177,12 @@ const SignUp=({url})=> {
                      <Button type='submit' disabled={!canSubmit} width='100%' >CREATE MY ACCOUNT</Button>
                  </FlexCol>
                  </form>
+                 <FlexRow center>  
                  <div>
                      <span>got an account ? </span>
-                     <Link to={`login`} css={faintLink}>login</Link>
+                     <UnderlinedLink to={`login`} size={1}>Create one</UnderlinedLink>
                  </div>
+                 </FlexRow>
             </FlexCol>
         </Container>
     )

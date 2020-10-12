@@ -1,8 +1,9 @@
 import React,{useEffect,useState,useContext} from 'react'
-import {ImagesContext} from '../../Context/ImagesProvder'
 import {CartContext} from '../../Context/CartProvider'
+import Quantity from '../layout/Quanitity'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
+import {Underlined,FlexRow} from '../../Style/global'
 
 const CartItem=(props)=> {
     const {itemName,itemPrice,quantity,itemId,images}= props.cartItem
@@ -30,12 +31,10 @@ const CartItem=(props)=> {
                  <div>{itemName}</div>
                  <div>{itemPrice}</div>
                  <div css={styles.cartItem__action}>
-                     <div css={styles.quantity}>
-                         <span  css={styles.quantity__icon} onClick={updateQuantity}>-</span>
-                         <input type="text" onChange={e=>e.preventDefault()} value={quantityCounter}/>
-                         <span  css={styles.quantity__icon} onClick={updateQuantity}>+</span>
-                     </div>
-                     <a  className="btn" onClick={e=>removeItem(itemId)}>remove</a>
+                 <FlexRow justify="space-between">
+                     <Quantity {...{updateQuantity,quantity,small:true}}/>
+                     <Underlined onClick={e=>removeItem(itemId)}>remove</Underlined>
+                 </FlexRow>
                  </div>
             </div>
 
@@ -60,7 +59,12 @@ const styles ={
     display: flex;
     align-items: center;
     `,
-    quantity :css` height:40px;
+    quantity :css` 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    line-height: 1.65;
+    height:40px;
     width: 98px;
     margin-right: 2rem;`,
     quantity__icon :css`cursor: pointer;

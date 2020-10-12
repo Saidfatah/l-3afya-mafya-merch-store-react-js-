@@ -3,11 +3,12 @@ import {MyContext} from '../../../Context/ProductsProvider'
 import ImagesProvder from '../../../Context/ImagesProvder'
 import ProductImages from './ProductImages'
 import RecentlyViewd from './RecentlyViewd'
+import Quantity from '../../layout/Quanitity'
 import AddToCart from './AddToCart'
 import Related       from './Related'
 import cookie from 'js-cookie'
 import { useParams } from 'react-router-dom'
-
+import {H1} from '../../../Style/global'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 
@@ -64,9 +65,12 @@ const ProductPage=()=>{
     return (
         <div css={styles.productPage}>
             <div  css={styles.product__Info__wrapper}>
+                 <ImagesProvder>
+                    <ProductImages id={id} />
+                 </ImagesProvder>
                  <div  css={styles.product__Info__wrapper__wrapper}>
                      <div  css={styles.product__Info}>
-                         <h2>{product.title}</h2>
+                         <H1>{product.title}</H1>
                          <p>{product.price}.00$</p>
                          <div  css={styles.border}></div>
                          <ul  css={styles.product__charactersristics}>
@@ -84,17 +88,10 @@ const ProductPage=()=>{
                          </ul>
                          :''
                          }
-                         <div css={styles.quantity}>
-                             <span css={styles.quantityIcon} onClick={updateQuantity}>-</span>
-                             <input type="text" onChange={e=>e.preventDefault()} value={quantity}/>
-                             <span css={styles.quantityIcon} onClick={updateQuantity}>+</span>
-                         </div>
+                         <Quantity {...{updateQuantity,quantity}}/>
                          <AddToCart  id={id} quantity={quantity} selectedSize={selectedSize}  />
                      </div>
                  </div>
-                 <ImagesProvder>
-                    <ProductImages id={id} />
-                 </ImagesProvder>
             </div>
             <Related id={id}/>
             <div className="border-faint mgb5 "></div>
@@ -102,35 +99,42 @@ const ProductPage=()=>{
         </div>
     )
 }
+
 const styles ={
     productPage :css` 
     height: fit-content;
     position: relative;
     height: fit-content;
     margin-top: 75px;`,
+
+    product__Info__wrapper :css`
+    min-height: 100vh;
+    display:flex;
+    @media (max-width :920px){
+        flex-direction:column;
+      }
+    `,
     product__Info__wrapper__wrapper :css`
-    width: 30%;
-    height: 1600px;
-    position: absolute;
-    top: 0;
-    right: 0;
     padding: 1rem;
-    height: 100%;`,
-    product__Info__wrapper :css`height: 100vh;`,
+    height: 100%;
+    flex:1;
+    @media (max-width :920px){
+      margin-top:2rem;
+    }
+    `,
     product__Info:css` 
     height: 100%;
     width: 100%;
-    color: var(--colorGrey);
-    h2{
-        font-size: 20px;
-        font-weight: 400;
-        margin-bottom: 1.5rem;
+    p{ 
         color: #000;
+        text-align:center
     }
-    p{ color: #000;}
+    ul{
+        color:var(--colorGreyLight);
+    }
     `,
     product__charactersristics:css`
-    product__charactersristics
+    padding:1rem;
     li{
         margin-bottom: 1rem;
     }
@@ -163,25 +167,25 @@ const styles ={
     margin-bottom: 1rem;
     background-color: var(--colorGreyFaint);
     `,
-    quantity:css`border: 1px solid var(--colorGrey);
+    quantity:css`
+    border: 1px solid var(--colorGreyLight);
     display: flex;
     height: 45px;
     width: 139px;
     padding: 0 .5rem;
     justify-content: space-between;
     align-items: center;
-    font-family: "Century Gothic",sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    color: #7c7676;
+    color:var(--colorGreyLight);
     line-height: 1.65;
+    span,input{
+        color:var(--colorGreyLight);
+    }
     input{
         border: none;
         margin: 0;
         text-align: center;
         width: 35px;
         padding: 0;
-    
     }
     input:focus{
         outline: none;

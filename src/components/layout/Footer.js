@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from "react-router-dom";
 /** @jsx jsx */
 import { jsx, css} from '@emotion/core'
-import {Button} from '../../Style/global'
+import {Button,Input} from '../../Style/global'
 import SocialLinks from './Social'
 const  Footer=() =>{
   if(window.location.href.indexOf("/checkout") != -1)return null
@@ -28,8 +28,8 @@ const  Footer=() =>{
                          <div css={styles.newsletter}>
                              {/* <p>You have been subscribed to our newsletter.</p> */}
                              <form>
-                             <input />
-                             <Button type="submit" > SUBSCRIBE </Button>
+                             <Input />
+                             <Button type="submit" width="100%" > SUBSCRIBE </Button>
                             </form>
                          </div>
                        

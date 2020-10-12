@@ -6,10 +6,9 @@ const OrderModel = require('../Models/Order')
 
 
 router.get('/',async (req,res)=>{
-  console.log('getting the orders')
      try {
           const ordersGet =await OrderModel.find({}).populate('clientId').populate('orders.product').exec()
-          console.log(ordersGet[0].orders[0])
+          console.log(ordersGet)
           if(ordersGet[0] == undefined) throw new Error('no orders')
           res.json(ordersGet)
 

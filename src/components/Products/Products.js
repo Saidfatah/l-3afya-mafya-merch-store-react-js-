@@ -35,20 +35,17 @@ const  Products=(props)=> {
     },[products.length])
 
     const getMaxDisplayProducts=()=>{
-           console.log('max products ')
            let searchedProducts
             if(maxDisplay <= 0)searchedProducts =productsFromSearch
             else searchedProducts =productsFromSearch.slice(1, maxDisplay + 1)
          
             setMaxProducts(searchedProducts.map((product,index)=><ProductItem 
             key={index}  
-            cardSize={productSize} 
             product={product} 
             />))
     }
    
     const getAllProducts=()=>{
-        
         if(products == undefined)return ; 
         const allProducts= products.map((product,index)=><ProductItem 
               key={index}  

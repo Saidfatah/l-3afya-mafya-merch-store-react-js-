@@ -1,7 +1,6 @@
 import React,{useEffect,useState,useContext} from 'react'
 import {CollectionsContext} from '../../../Context/CollectionsProvider'
-import {MyContext} from '../../../Context/ProductsProvider'
-import ProductItem from '../ProductItem'
+import Slider from '../../layout/Slider'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 import {H1} from '../../../Style/global'
@@ -9,7 +8,6 @@ import {H1} from '../../../Style/global'
 const Related=(props)=> {
     const [relatedProducts,setRelatedProducts]=useState([])
     const {getCollections}= useContext(CollectionsContext)
-    const {getProducts}= useContext(MyContext)
     const {id}=props
 
 
@@ -31,16 +29,6 @@ const Related=(props)=> {
                      });
                      setRelatedProducts(relatedProductsPRODUCTS)
                  }
-                //   relatedProductsIds =res.data[1].products
-                // productIds.indexOf(id) != -1)
-                // let relatedProductsIds ;
-
-          
-                  
-                //  relatedProductsIds = relatedProductsIds.splice(0,3)
-
- 
-
             }catch(error){ console.log(error)}
            
         })
@@ -50,9 +38,7 @@ const Related=(props)=> {
     return (
         <div css={styles.related}>
             <H1 mgb={2}>Related Products</H1>
-            <div css={styles.related__Container}>
-                    {relatedProducts.map((product,index)=><ProductItem  key={index}   product={product}  cardSize="medium"/>)}
-           </div>
+            <Slider items={relatedProducts}/>
         </div>
     )
 }

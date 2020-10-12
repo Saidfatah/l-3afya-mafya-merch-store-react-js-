@@ -103,6 +103,7 @@ const ProductForm=()=> {
         setCharacteristics([...characteristics,charcter])
     }
     const removeCharacter=e=>{
+        console.log('clickk')
         if(e.target.classList.contains('remove')){
             const nodeListOfCharacters= Array.from(e.target.parentElement.parentElement.querySelectorAll('li'))
             let chracterList = [...characteristics]
@@ -143,11 +144,11 @@ const ProductForm=()=> {
                   css={styles.add}
                   > add </button>
              </div>
-             <ul  ref={charcteristcRef} onClick={removeCharacter}>
+             <ul  ref={charcteristcRef} >
                  {
                   characteristics.map((char,index)=><li  id={index}  key={index}>
                       <span>{char}</span> 
-                      <button css={styles.remove}>remove</button>
+                      <button css={styles.remove} onClick={removeCharacter}>remove</button>
                   </li>)
                  } 
              </ul>

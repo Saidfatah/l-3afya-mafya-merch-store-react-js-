@@ -41,12 +41,6 @@
   a{
     text-decoration: none;
   }
-  input{
-    padding: .75rem 2rem ;
-    margin-bottom: 1rem ;
-    border: 1px solid #fff;
-    background: transparent;
-  }
 
 
 /* #endregion*/
@@ -56,13 +50,9 @@
   margin-bottom:74px;
 
 }
-.raw__Link{
-  color:var(--colorGrey);
-}
 .activeRoute{
   font-weight: 600;
 }
-
 .border{
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -77,25 +67,12 @@
   height: 1px;
   background-color:var(--colorGreyFaint) ;
 }
-
-
 .selected-Size{
   color : var(--colorPrimary)
 }
-
 .error{
   color: var(--colorError);
 }
-
-.smallTextG{
-  color: var(--colorGreyLight);
-  font-size: .8rem;
-}
-.smallTextB{
-  color: var(--colorGreyDark);
-  font-size: .8rem;
-}
-
 /* #endregion */
 
 /*#region overdingsome  material ui  */

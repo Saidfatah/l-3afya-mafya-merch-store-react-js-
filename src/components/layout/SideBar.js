@@ -46,8 +46,8 @@ const SideBar=forwardRef((props,ref) =>{
                          <Link className="sideBar__Link" to="/shop"  onClick={slideOutOut}>SHOP</Link>
                          <Link className="sideBar__Link" to="/collections"  onClick={slideOutOut}>COLLECTIONS</Link>
                          <Link className="sideBar__Link" to="/contact"  onClick={slideOutOut}>CONTACT</Link>
-                         <Link className="sideBar__Link faintLink noBorder" to="/account"  onClick={slideOutOut}>Account</Link>
-                         <a className="sideBar__Link faintLink noBorder"  onClick={slideOutOut}>Search</a>
+                         <Link className="sideBar__Link " to="/account"  onClick={slideOutOut}>Account</Link>
+                         <Link className="sideBar__Link " to="/search"  onClick={slideOutOut}>Search</Link>
                     </div>
                 </div>
                 <div css={styles.sideBar__bottom}>  
@@ -62,6 +62,7 @@ const styles ={
     sideBar__body :css`
     height: calc(100vh - 48px);
     padding:0 2rem;
+    padding-top:1rem;
     `,
     sideBar__bottom:css`
     height: 48px;

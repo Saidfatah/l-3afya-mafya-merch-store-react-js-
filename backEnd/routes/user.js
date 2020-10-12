@@ -104,12 +104,16 @@ router.post('/register',async(req,res)=>{
 })
 
 router.post('/update',async(req,res)=>{
-    const {id,addresses}=  req.body
     try {      
-        const targetDoc=await UserModel.findOne({_id:id});
+        const {id,addresses}=  req.body
+        if (!id || addresses.lenght>0) throw new Error('SOMTHING_WENT_WRONG')
+      
+        const existingUser = await UserModel.findOne({ _id: id });
+        if (!existingUser) throw new Error('INVALID_ID')
+
 
         const update = { addresses};
-        const updateResponse = await targetDoc.updateOne(update);
+        const updateResponse = await existingUser.updateOne(update);
         const updatedDoc = await UserModel.findOne({_id:id});
 
         jwt.sign(
@@ -131,6 +135,14 @@ router.post('/update',async(req,res)=>{
 
     } catch (error) {
        console.log(error)
+        if(error.message=="SOMTHING_WENT_WRONG"){
+         res.statusMessage='SOMTHING_WENT_WRONG';
+         res.sendStatus(403) 
+        }
+        if(error.message=="INVALID_ID"){
+         res.statusMessage='INVALID_ID';
+         res.sendStatus(403)  
+        }
     }
 })
 

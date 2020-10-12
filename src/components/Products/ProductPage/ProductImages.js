@@ -39,12 +39,11 @@ const ProductImages=(props)=> {
         </div>
     )
 }
+
+
 const styles ={
-    product_images :css`background-color:pink,
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 70%;`,
+    product_images :css`
+    flex:3;`,
     imageSlider :css` 
     width: 100%;
     height: 500px;

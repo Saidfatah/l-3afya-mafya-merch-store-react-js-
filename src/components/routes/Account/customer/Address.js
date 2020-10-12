@@ -1,18 +1,26 @@
 import React from 'react'
+import {logOut} from "../../../Auth/Auth"
 import {H1,Container,LightParagraph,Button,FlexWrap,Underlined,Border,FlexItem,SmallText} from '../../../../Style/global'
 
 const Address=({address,modifiable,setdisplayAddressModal,setaddresToModify,index})=> {
     const {firstName, lastName,company,phone,address1,address2,city,country,zipcode,isDefault}=address
     return (
         <FlexItem width="200px" >
-            <SmallText>
-               {
-                   isDefault
-                   ?'Default address'
-                   :'Address '+index
-               }
-            </SmallText>
-            <Border />
+            {
+                modifiable
+                ?<><SmallText>
+                {
+                    isDefault
+                    ?'Default address'
+                    :'Address '+index
+                }
+                </SmallText>
+                <Border />
+                </>
+                :null
+            }
+            
+            
             <LightParagraph mgb={.5}>{firstName + ' ' + lastName}</LightParagraph>
             <LightParagraph mgb={.25}>{company}</LightParagraph>
             <LightParagraph mgb={.25}>{address1}</LightParagraph>

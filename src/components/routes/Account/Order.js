@@ -1,13 +1,12 @@
 import React ,{useState}from 'react'
 /** @jsx jsx */
 import { jsx,css } from '@emotion/core'
-import {FlexCol,FlexWrap} from '../../../Style/global'
+import {FlexCol,FlexWrap,LightParagraph,SmallText} from '../../../Style/global'
 
 const Order =(props)=> {
     const{order}=props
 
     if(order == undefined) return <div>no orders </div>
-    
     const OrderItem=({item})=>{
        return <div  css={styles.overview__item}>
           <div css={styles.item__identity}>
@@ -25,31 +24,29 @@ const Order =(props)=> {
 
     return (
         <div css={styles.order}>
-                <FlexWrap>
+                <FlexWrap overflow>
                     {
                         order.orders
                         .map(product=>({...product.product,productId:product._id,quantity:product.quantity}))
                         .map((product,index)=><OrderItem item={product} key={index} />)
                     }
                 </FlexWrap>
-     
-             
-               <div> 
-               client name : 
-               <span>{order.clientId.firstname +' ' + order.clientId.lastname  }</span>
-               </div>
-            
-                <div css={styles.cost}> 
-                     <span>total cost</span> 
-                     <span css={styles.money}>{order.cost}$</span>
-                </div>
-            </div>
+           
+               <LightParagraph mgb={0.25}> client name :
+               <SmallText>{order.clientId.firstname +' ' + order.clientId.lastname  }</SmallText>
+                </LightParagraph>
+               
+               <LightParagraph mgb={0.25}>  total cost:
+               <SmallText>{order.cost}$</SmallText>
+                </LightParagraph>
+              
+        </div>
     )
 }
 
 const styles ={
     order:css` 
-    box-shadow: 0px 0px 10px 3px rgba(45, 55, 97, 0.2) ;
+    box-shadow: 0px 0px 7px 3px rgba(45, 55, 97, 0.2) ;
     margin-bottom:1rem;
     padding:1rem;
     `,

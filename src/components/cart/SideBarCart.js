@@ -2,8 +2,8 @@ import React ,{createRef,useContext,useEffect}from 'react'
 import CartItem from './CartItem'
 import {CartContext} from '../../Context/CartProvider'
 import ImagesProvder from '../../Context/ImagesProvder'
-import {Link} from "react-router-dom";
-import {Button,Modal,ModalBackground} from '../../Style/global'
+import {Link} from "react-router-dom"
+import {Button,Modal,ModalBackground,ButtonLink} from '../../Style/global'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 
@@ -47,24 +47,21 @@ const SideBarCart=(props)=>{
 
 
     const CheckOutBtn=()=>{
-        return  <Link 
-         to="/checkout/information"
-        
-         onClick={slideOutOut}>
-             <Button >
+        return<ButtonLink width="100%" to="/checkout/information" onClick={slideOutOut} >
                 CHECKOUT .$
                 {
                 cart.map(item=>item.itemPrice * item.quantity).reduce((a, b)=> a + b , 0)
                 }
-             </Button>
-        </Link>
+             </ButtonLink>
     }
+
     const Top =()=>{
         return <div css={styles.cart__top}>
         <h1>Cart</h1>
         <i className="far fa-times-circle Close" onClick={slideOutOut}></i>  
    </div>
     }
+    
     const Body =()=>{
         return<div css={styles.cart__body}>  
         <ImagesProvder>

@@ -17,9 +17,6 @@ const Search=(props)=> {
     
     useEffect(()=>{
         let productsSearched= searchResult
-        console.log({searchResult})
-        console.log({query})
-        console.log({hasPram})
 
         if(searchResult.length>0 && !hasPram) {
             setProducts(productsSearched)
@@ -52,7 +49,7 @@ const Search=(props)=> {
         return <div>
         <H1>Search</H1>
         <h2>{searchCount} results for "{searchQuery}"</h2>
-        <Products productsFromSearch={products} />
+        <Products productsFromSearch={products} productSize="small" />
        </div>
     }
     return (

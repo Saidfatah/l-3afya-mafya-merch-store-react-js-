@@ -1,11 +1,9 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 import styled from '@emotion/styled'
+import {Link} from 'react-router-dom'
 
-export const raw_link = css`
-    font-size: .8rem;
-    color:var(--colorBlack)
-`
+
 export const iconeB = css`
     font-size: 1rem;
     margin-right: .25rem;
@@ -18,14 +16,99 @@ export const faintLink = css`
         color: rgba(92,92,92,0.5);
     }
 `
+export const UnderlinedLink=styled(Link)`
+cursor: pointer;
+border: none;
+padding: 0;
+z-index: 1;
+margin-right:1rem;
+margin-left:.5rem;
+font-size: ${(props)=>(props.size?props.size:.6)}rem;
+position:relative;
+color:var(--colorGrey);
+ :after{
+   content: '';
+   position:absolute;
+   top: 100%;
+   left: 0;
+   height:1px;
+   width:100%;
+   z-index:-1;
+   background-color: var(--colorGrey);
+   transition: all .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+:hover:after{
+   width:0%;
+}
+`
+export const RawLink=styled(Link)`
+cursor: pointer;
+border: none;
+padding: 0;
+z-index: 1;
+margin-right:1rem;
+margin-left:.5rem;
+font-size: ${(props)=>(props.size?props.size:.6)}rem;
+position:relative;
+color:${props=>props.active?"var(--colorBlack)":"var(--colorGrey)"};
+`
+export const ButtonLink=styled(Link)`
+padding: .75rem 2rem ;
+color: #fff;
+background-color: transparent;
+border: 1px solid #000;
+position: relative;
+z-index: 1;
+text-align:center;
+transition: all .5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+cursor: pointer;
+width: ${props=>(props.width ? props.width:'fit-content')};
+margin-top:  ${props=>(props.marginTop ? props.marginTop :0)}rem;
+${
+   props=>(
+      props.collection
+      ?`color:var(--colorGrey);
+      border-color: #fff;`
+      :''
+   )
+}
+&:before{
+     content: '';
+     position: absolute;
+     z-index: -1;
+     height: 100%;
+     width: 100%;
+     top: 0;
+     left: 0;
+     ${props=>(props.collection?"background-color: #fff;":"background-color: var(--colorGrey);")}
+     transition: all .5s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+     transform-origin: left center;
+     //I want to change style on hover 
+}
+
+&:hover{
+    :before{
+     width:0%;
+    }
+    ${
+        props=>(
+         props.collection
+         ?"color:#fff;"
+         :"color:var(--colorGrey);"
+        )
+    }
+}
+`
 export const Underlined =styled.a(props=>{
    return `
    cursor: pointer;
    border: none;
    padding: 0;
+   height: fit-content;
+   width:fit-content;
    z-index: 1;
    margin-right:1rem;
-   font-size: .6rem;
+   font-size: ${props.size?props.size:.6}rem;
    position:relative;
    color:var(--colorGrey);
     :after{
@@ -77,6 +160,9 @@ export const Button =styled.button(props=>{
     }
     
     &:hover{
+        :before{
+         width:0%;
+        }
         ${
             props.collection
             ?"color:#fff;"
@@ -104,6 +190,8 @@ export const ButtonSecondary =styled.button(props=>{
     }
 
 `})
+
+
 export const H1 =styled.h1(props=>{
    return`
     margin-bottom:${props.mgb?props.mgb:0}rem ;
@@ -118,35 +206,15 @@ export const HM =styled.h1(props=>{
    font-size: 1.1rem;
    line-height: 1.3em;
 `})
-export const Grid =styled.div(props=>{
-   return`
-    display:flex;
-    flex-direction:"row"   ;
-    justify-content:"space-between" ;
-    width:100%;
-    
-    align-Items="center";
-    ${
-        props.cp
-        ?`
-        width: 300px !important;
-        margin: 0 auto;
-        margin-bottom: 2rem !important;`
-        :''
-    }
-`})
+
 export const Card =styled.div(props=>{
    return`
-    border:1px solid black ; 
-    padding:1rem;
+    border:1px solid var(--colorGreyLight) ; 
     border-radius:8px;
     margin-bottom:1rem;
 `})
-export const RawLink =styled.a(props=>{
-   return`
-   font-size: .8rem;
-   color:var(--colorBlack)
-`})
+
+
 export const FlexCol =styled.div(props=>{
    return`
      width:${props.width?props.width:'100%'}; 
@@ -168,7 +236,7 @@ export const FlexWrap =styled.div(props=>{
      display:flex;
      flex-wrap:wrap;
      height:${props.height?props.height:'fit-content'};
-     overflow-y:${props.overflow?'scroll':'hidden'};
+     ${props.overflow?"overflow-y:scroll":""}
      margin-left:${props.mgl?props.mgl:'0'}rem;
      margin-bottom:${props.mgb?props.mgb:'0'}rem;
      margin-top:${props.mgt?props.mgt:'0'}rem;
@@ -178,11 +246,19 @@ export const FlexRow =styled.div(props=>{
    return`
      width:100%;
      display:flex;
+     align-items:center;
+     justify-content:${props.justify?props.justify:'right'};
      margin-bottom:${props.mgb?props.mgb:'0'}rem;
      margin-top:${props.mgt?props.mgt:'0'}rem;
+     ${props.checkout
+      ?"margin:0 auto; margin-bottom: 2rem !important;width: 300px !important;"
+      :""
+      }
      >*{
-         width:100%
+         width:${!props.no100?"100%":"fit-content"}
      }
+        
+       
    `
 })
 export const FlexItem =styled.div(props=>{
@@ -211,20 +287,28 @@ export const Container =styled.div(props=>{
     :' '
     }
 `})
+
+
 export const Input =styled.input(props=>{
    return`
+      padding: .75rem 2rem ;
+      background: transparent;
       border:1px solid var(--colorGreyFaint);
-      color:var(--colorGreyLight);
+      color:var(--colorBlack);
       transition:all .3s ease-in ; 
       font-size:.9rem;
-       :focus{
+      ${ props.width ? ("width:"+ props.width+";"):""}
+      margin-bottom:${props.mgb?props.mgb:1}rem; 
+      :focus{
            outline:none;
            border:1px solid var(--colorGreyLight);
       }
-       ::placeholder{
-        color:var(--colorBlack);
+      ::placeholder{
+        color:var(--colorGreyLight);
       }
 `})
+
+
 export const Modal=styled.div(props=>{
    return `
    background-color: #fff;
@@ -278,6 +362,9 @@ export const ModalBackground=styled.div(props=>{
    transition: all .4s ease-in;
    `
 })
+
+
+
 export const BlackTitle =styled.h2(props=>{
    return`
    color:var(--colorBlack);
@@ -299,9 +386,9 @@ export const LightParagraph =styled.p(props=>{
    font-size:${props.size?props.size:.8}rem;
    line-height:1.65;
    width:100%;
-   margin-bottom:${props.mgb?props.mgb:1.5}rem;
+   margin-bottom:${props.mgb != undefined?props.mgb:1.5}rem;
    margin-top:${props.mgt?props.mgt:0}rem;
-   text-align:${props.center ? 'center':''}
+   text-align:${props.center ? 'center':'left'};
 `})
 export const BlackHighlight =styled.p(props=>{
    return`
@@ -314,12 +401,13 @@ export const BlackHighlight =styled.p(props=>{
    text-transform: uppercase;
    margin-bottom:2rem;
 `})
-export const SmallText =styled.p(props=>{
+export const SmallText =styled.span(props=>{
    return`
    color:var(--colorBlack);
    font-size:.7rem;
    margin-bottom:.5rem;
 `})
+
 export const Err =styled.p(props=>{
    return`
    color:#fff;
@@ -340,6 +428,7 @@ export const Success =styled.p(props=>{
    margin-bottom:.5rem;
    background:green;
 `})
+
 export const Border =styled.p(props=>{
    return`
    height:1px;

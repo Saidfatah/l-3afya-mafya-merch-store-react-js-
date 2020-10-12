@@ -1,63 +1,65 @@
-import React from 'react'
-import {Button,FormControlLabel,Radio,RadioGroup} from '@material-ui/core';
-import {Link} from "react-router-dom";
-
+import React,{useState} from 'react'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
-import {Grid ,Card} from '../../../Style/global'
+import {FlexRow,LightParagraph,SmallText ,FlexCol,ButtonLink,RawLink,H1,Border,Card} from '../../../Style/global'
 
 const ShipingInfo=()=> {
+        const [shippingOptions, setshippingOptions] = useState([
+            {title:"International Economy (up to 25 days)",price:15.34},
+            {title:"USPS Priority Mail International ",price:52.99},
+            {title:"USPS Priority Mail Express International",price:72.24},
+            {title:"DHL Express",price:85.98}
+        ])
+        const [selectedIndex, setselectedIndex] = useState(0)
+    
+    const RadioGroup=()=>{
+        const RadioItem = ({title,price,index})=>{
+            return <FlexCol>
+                  <FlexRow no100={true} justify="space-between" css={css`cursor: pointer;padding:1rem;`} onClick={e=>setselectedIndex(index)} >
+                      <FlexRow no100={true} justify="flex-start">
+                          { selectedIndex == index  
+                          ? <i css={css`color:var(--colorGreyDark);margin-right:1rem;`} className="fas fa-dot-circle"></i> 
+                          : <i css={css`color:var(--colorGreyLight);margin-right:1rem;`}  className="far fa-circle"></i>}
+                          <LightParagraph  size={.8} mgb={0} >{title}</LightParagraph>
+                      </FlexRow>
+                      <SmallText  css={css`font-weight:bold;`}>${price}</SmallText>
+                  </FlexRow>
+                  {index < (shippingOptions.length-1)?<Border css={css`margin-bottom:0;`} />:null}
+            </FlexCol>
+        
+        }
+        return (
+            <Card>
+              {shippingOptions.map((option,index)=><RadioItem key={index} index={index} title={option.title} price={option.price}  />)}
+            </Card>
+        )
+    }
     return (
         <div>
-           <Card >
-               <Grid >
-                  <span className="smallTextG">Contact</span>
-                  <span className="smallTextB">sad_fatah@outlook.com</span>
-                  <Link to="checkout/information" className="raw__Link">Change</Link>
-               </Grid>
-               <div className='border'></div>
-               <Grid >
-                    <span className="smallTextG">Contact</span>
-                    <span className="smallTextB">ASKJALKSLASA, ASASA, 4500 OUARZAZATE , Morocco</span>
-                    <Link to="checkout/information" className="raw__Link">Change</Link>
-               </Grid>
+           <Card>
+              <FlexRow   css={css`padding:1rem;`} >
+                  <LightParagraph size={.8} mgb={0} >Contact</LightParagraph>
+                  <LightParagraph size={.8} mgb={0} >sad_fatah@outlook.com</LightParagraph>
+                  <RawLink to="checkout/information">Change</RawLink>
+               </FlexRow>
+               <Border css={css`margin-bottom:0;`}/>
+               <FlexRow   css={css`padding:1rem;`} >
+                    <LightParagraph size={.8} mgb={0} >Contact</LightParagraph>
+                    <LightParagraph size={.8} mgb={0} >ASKJALKSLASA, ASASA, 4500 OUARZAZATE , Morocco</LightParagraph>
+                    <RawLink to="checkout/information" >Change</RawLink>
+               </FlexRow>
            </Card>
-           <h2 className="h-medium mgb1 mgt2">Return to information</h2>
-           <Card >
-               <RadioGroup row aria-label="position" name="position" defaultValue="International Economy (up to 25 days)">
-                   <Grid container direction="row"   justify="space-between"  alignItems="center">
-                     <FormControlLabel value="International Economy (up to 25 days)" 
-                                       control={<Radio color="primary" />} 
-                                       label="International Economy (up to 25 days)" />
-                     <div className="bill__total smallMoney">$18.76</div>
-                   </Grid>
-                   <div className='border'></div>
-                   <Grid container direction="row"   justify="space-between"  alignItems="center">
-                       <FormControlLabel value="USPS Priority Mail International" 
-                                         control={<Radio color="primary" />} 
-                                         label="USPS Priority Mail International" />
-                       <div className="bill__total smallMoney">$58.18</div>
-                   </Grid>
-                   <div className='border'></div>
-                   <Grid container direction="row"   justify="space-between"  alignItems="center">
-                       <FormControlLabel value="USPS Priority Mail Express International" 
-                                         control={<Radio color="primary" />} 
-                                         label="USPS Priority Mail Express International" />
-                       <div className="bill__total smallMoney">$78.13</div>
-                   </Grid>
-                   <div className='border'></div>
-                   <Grid container direction="row"   justify="space-between"  alignItems="center">
-                       <FormControlLabel value="DHL Express" 
-                                         control={<Radio color="primary" />} 
-                                         label="DHL Express" />
-                       <div className="bill__total smallMoney">$101.37</div>
-                   </Grid>
-               </RadioGroup>
-            </Card>
-           <Grid >
-               <Link to="/checkout/information" className="raw__Link"><i class="fas fa-angle-left iconeB"></i>Return to information</Link>
-               <Button variant="contained" color="primary"  className="btnGrey"> Continue to payment</Button>
-           </Grid>
+
+           <LightParagraph mgt={2} mgb={1} >Shipping method</LightParagraph>
+           <RadioGroup/>
+
+           <FlexRow >
+               <RawLink to="/checkout/information" size={1}>
+                     <i class="fas fa-angle-left iconeB"></i>
+                     Return to information
+               </RawLink>
+               <ButtonLink width="400px"> Continue to payment</ButtonLink>
+           </FlexRow>
         </div>
     )
 }

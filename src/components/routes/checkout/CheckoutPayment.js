@@ -1,7 +1,5 @@
 import React from 'react'
-import {Button} from '@material-ui/core';
-import {Link} from "react-router-dom";
-import {Grid ,Card} from '../../../Style/global'
+import {FlexRow,ButtonLink,LightParagraph,Border ,RawLink,Card} from '../../../Style/global'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 
@@ -11,31 +9,37 @@ const CheckoutPayment=(props)=> {
     return (
         <div>
             <Card >
-               <Grid >
-                  <span className="smallTextG">Contact</span>
-                  <span className="smallTextB">sad_fatah@outlook.com</span>
-                  <Link to="checkout/information" className="raw__Link">Change</Link>
-               </Grid>
-               <div  css={styles.border}></div>
-               <Grid >
-                    <span className="smallTextG">Contact</span>
-                    <span className="smallTextB">ASKJALKSLASA, ASASA, 4500 OUARZAZATE , Morocco</span>
-                    <Link to="checkout/information" className="raw__Link">Change</Link>
-               </Grid>
-               <div className='border'></div>
-               <Grid >
-                    <span className="smallTextG">Method</span>
-                    <span className="smallTextB">
-                         {method || 'DHL Express'} 
-                         <span  css={css`${styles.bill__total};${styles.smallMoney}`}>$100.37</span>
-                    </span>
-                    <Link to="checkout/information" className="raw__Link">Change</Link>
-               </Grid>
+               <FlexRow no100={true} justify="space-between" css={css`padding:1rem;`}  >
+                  <LightParagraph size={.8} mgb={0} css={css`width:100px;`}>Contact</LightParagraph>
+                  <LightParagraph size={.8} mgb={0}>sad_fatah@outlook.com</LightParagraph>
+                  <RawLink to="checkout/information" >Change</RawLink>
+               </FlexRow>
+
+               <Border css={css`margin-bottom:0;`} />
+               <FlexRow no100={true} justify="space-between" css={css`padding:1rem;`}  >
+                    <LightParagraph size={.8} mgb={0} css={css`width:100px;`}>Contact</LightParagraph>
+                    <LightParagraph size={.8} mgb={0}>ASKJALKSLASA, ASASA, 4500 OUARZAZATE , Morocco</LightParagraph>
+                    <RawLink to="checkout/information" >Change</RawLink>
+               </FlexRow>
+
+               <Border css={css`margin-bottom:0;`} />
+               <FlexRow no100={true} justify="space-between"  css={css`padding:1rem;`} >
+                    <LightParagraph size={.8} mgb={0} css={css`width:100px;`} >Method</LightParagraph>
+                    <LightParagraph size={.8} mgb={0} >
+                         {method || 'DHL Express '} 
+                         <span   css={css`${styles.bill__total};${styles.smallMoney}`}>$100.37</span>
+                    </LightParagraph>
+                    <RawLink to="checkout/information" >Change</RawLink>
+               </FlexRow>
             </Card>
-            <Grid >
-               <Link to="/checkout/information" className="raw__Link"><i class="fas fa-angle-left iconeB"></i>Return to shipping</Link>
-               <Button variant="contained" color="primary"  className="btnGrey"> Pay now</Button>
-           </Grid>
+
+            <FlexRow >
+               <RawLink to="/checkout/information" size={1}>
+                   <i className="fas fa-angle-left iconeB"></i>
+                   Return to shipping
+              </RawLink>
+               <ButtonLink width="400px"> Pay now</ButtonLink>
+           </FlexRow>
         </div>
     )
 }

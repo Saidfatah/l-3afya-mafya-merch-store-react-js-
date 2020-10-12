@@ -1,8 +1,8 @@
-import React ,{useState,useContext,useEffect}from 'react'
+import React ,{useState,useEffect}from 'react'
 import Order from './Order'
 import axios from 'axios'
-import {MyContext} from '../../../Context/ProductsProvider'
-import {H1,Container,LightParagraph,Button,FlexRow,Border,FlexItem,SmallText} from '../../../Style/global'
+import {getUser,logOut} from '../../Auth/Auth'
+import {H1,Container,LightParagraph,Border,Underlined,SmallText} from '../../../Style/global'
 
 const Admin=()=> {
     let [orders,setOrders]=useState([])
@@ -13,7 +13,6 @@ const Admin=()=> {
              try {
                  axios.get("http://localhost:4000/order",{cancelToken:sourse.token})
                  .then(res=>{
-                     console.log(res.data)
                      setOrders(res.data)
                  })
                  .catch(err=>console.log(err))
@@ -31,12 +30,13 @@ const Admin=()=> {
     return (
          <Container nomargin={true}>
          <H1 >admin</H1>
+         <Underlined onClick={logOut}>Logout</Underlined> 
          <LightParagraph>Welcome back, {JSON.parse(getUser()).firstname}!</LightParagraph>
    
          <SmallText>Latest orders</SmallText>
          <Border />
-         {   orders.length>0 ?
-             orders.map((order,index)=><Order key={index} order={order} />)
+         {   orders.length>0 
+             ?orders.map((order,index)=><Order key={index} order={order} />)
              :<LightParagraph>No orders for the moment</LightParagraph>
          }
         

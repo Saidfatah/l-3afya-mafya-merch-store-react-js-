@@ -1,6 +1,6 @@
 import React ,{forwardRef,useImperativeHandle,useContext}from 'react'
 import {CartContext} from '../../Context/CartProvider'
-import {jwtCheck,logOut} from "../Auth/Auth"
+import {jwtCheck,getUser} from "../Auth/Auth"
 import {Link} from "react-router-dom";
 /** @jsx jsx */
 import { jsx, css, Global, ClassNames } from '@emotion/core'
@@ -37,11 +37,10 @@ const  Navbar=forwardRef((props,ref)=> {
                <i className="fas fa-shopping-bag"></i></a>
                <Link className="navBar__Link no-sidemenu" to="/account">Account</Link>
                
-             {jwtCheck()
+             {jwtCheck() && JSON.parse(getUser()).rule =="admin"
                ?<React.Fragment>
                    <Link className="navBar__Link no-sidemenu" to="/product/create">Add  Product</Link>
                    <Link className="navBar__Link no-sidemenu" to="/collectioncreation" >Add  Collection</Link>
-                   <Link className="navBar__Link no-sidemenu" to="/account" onClick={logOut}>Logout</Link>
                </React.Fragment>
                :<React.Fragment>
                     <a className="navBar__Link no-sidemenu" onClick={e=> {setDisplaySearchModal(true);document.body.style.overflowY="hidden"}}>

@@ -10,6 +10,7 @@ const ProductItem=(props)=> {
     const {cardSize}=props
 
     useEffect(() => {
+        console.log({cardSize})
         setImage(img1,'/images/products/'+title+'/'+images[0]) 
         setImage(img2,'/images/products/'+title+'/'+images[1]) 
     }, [title])
@@ -48,7 +49,7 @@ const ProductItem=(props)=> {
 const styles ={
     card :css` 
     width: 300px;
-    height:450px;
+    height:fit-content;
     margin-bottom: 2rem;
     cursor: pointer;
     `,
@@ -62,7 +63,7 @@ const styles ={
      
     `,
     card__image :css` 
-    height:300px;
+    height:350px;
     width: 100%;
     position: relative;
     img{

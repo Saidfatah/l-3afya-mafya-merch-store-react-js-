@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {Link} from "react-router-dom";
 import axios from 'axios'
-import {Button,Container,H1,LightParagraph,FlexCol,faintLink,Input} from '../../../../Style/global'
+import {Button,Container,H1,LightParagraph,FlexCol,Input,UnderlinedLink} from '../../../../Style/global'
 /** @jsx jsx */
 import { jsx ,css} from '@emotion/core'
 
@@ -17,7 +17,6 @@ const Login=({url})=> {
                     const loginPromise = await axios.post('http://localhost:4000/users/login',{email,password})
                     if(loginPromise.data.user == undefined) throw new Error('no user found ') ; 
                
-                     console.log(loginPromise.data)
                      if(loginPromise.data.user == undefined) throw new Error('no user found ') ; 
                      
                      localStorage.setItem('token',loginPromise.data.token)
@@ -62,7 +61,7 @@ const Login=({url})=> {
                      </FlexCol>
                      <div>
                           <span> Don't have an account?</span>
-                          <Link to={`/account/register`} css={faintLink}>Create one</Link>
+                          <UnderlinedLink to={`/account/register`} size={1}>Create one</UnderlinedLink>
                      </div>
                 </FlexCol>
          </Container>

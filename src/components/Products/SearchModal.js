@@ -5,7 +5,7 @@ import Products from '../Products/Products'
 import {getParentRecursive} from '../utils/funcs1'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
-import {Modal} from '../../Style/global'
+import {Modal,Input} from '../../Style/global'
 
 const  SearchModal = (props)=> {
     const searchModalRef = createRef()
@@ -40,8 +40,8 @@ const  SearchModal = (props)=> {
        searchModalRef.current.style.display='none'
        searchModalRef.current.style.opacity='0'
        document.body.style.overflowY="scroll" 
-
    }
+
    const fadeOutFunc=e=>{
        fadeOut();
        setDisplaySearchModal(false)
@@ -63,18 +63,29 @@ const  SearchModal = (props)=> {
             setResultsCount(resultsFiltered.length)
         })
    }
+
+   const modalProps={
+    ref:searchModalRef,
+    height:"100%" ,
+    width:"100%" ,
+    left:0 ,
+    display:display?"flex":"none" ,
+    opacity:0 ,
+    overflowY:"scroll" ,
+   }
   
     return (
-        <Modal ref={searchModalRef} 
-        height="100%" 
-        width="100%" 
-        left={0}  
-        display={display?"flex":"none"} 
-        opacity={0} 
-        overflowY="scroll" 
-        >      
+        <Modal {...modalProps} >      
             <div css={styles.resultsModal__top}>
-                    <input  placeholder="Search..." onChange={search}/>
+                    <Input css={css`
+                       border:none;
+                       :focus{
+                       outline:none;
+                       border:none;
+                       }`} 
+                      placeholder="Search..." 
+                      onChange={search}
+                      />
                     <i className="far fa-times-circle Close" onClick={fadeOutFunc}></i>
             </div>
             <div  css={styles.resultsModal_results}>
@@ -87,7 +98,11 @@ const  SearchModal = (props)=> {
                      }
                 </div>
                 <div  onClick={e=>{if(getParentRecursive(e.target,'card'))fadeOutFunc(e)}}>
-                   <Products productsFromSearch={results} productSize="small" maxDisplay={resultsCount>=5?5:-1}/>
+                    {
+                        display && resultsCount > 0 
+                        ?<Products productsFromSearch={results} productSize="small" maxDisplay={resultsCount >= 5 ? 5:-1}/>
+                        :null
+                    }
                 </div>
             </div>
         </Modal>
