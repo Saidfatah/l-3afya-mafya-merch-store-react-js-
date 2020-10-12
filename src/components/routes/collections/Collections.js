@@ -62,6 +62,7 @@ const styles ={
     width: 395px;
     position: relative;
     margin-right: 2rem;
+    margin-bottom:2rem;
     background-image: linear-gradient(to top, rgba(4,4,4,0.65), rgba(54,54,54,0.2));
     :after{
         position: absolute;
@@ -82,7 +83,7 @@ const styles ={
     position: absolute;
     bottom: 50px;
     left: 30px;
-    z-index: 99;
+    z-index:60;
     h2{
         color: #fff;
         font-size: 22px;

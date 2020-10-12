@@ -1,5 +1,3 @@
-
-//#region imports
 import React,{useRef,useState,useEffect} from 'react'
 import { BrowserRouter as Router,Switch,Route} from "react-router-dom"
 import '../Style/App.css'
@@ -25,7 +23,8 @@ import ScrollToTop from './utils/ScrollToTop'
 import Provider from '../Context/ProductsProvider'
 import CartProvider from '../Context/CartProvider'
 import CollectionsProvider from '../Context/CollectionsProvider'
-//#endregion
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
 
 
 const App=()=> {
@@ -54,7 +53,7 @@ const App=()=> {
                 ?<React.Fragment>
                       <Cart setSlideNow={setSlideNowFun} slideNow={slideNow} />
                       <SideBar ref={SideBarRef} />
-                      <div className="offsetNavbar"></div>
+                      <div css={css`margin-bottom:74px;`}></div>
                       <Navbar ref={NavbarRef}  setSlideNow={setSlideNowFun}  setDisplaySearchModal={setDisplaySearchModalFun}/>
                       <SearchModal  ref={SearchModalRef}  display={displaySearchModal}  setDisplaySearchModal={setDisplaySearchModalFun}/> 
                   </React.Fragment>

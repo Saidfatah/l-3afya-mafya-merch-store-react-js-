@@ -10,7 +10,7 @@ const ProductItem=(props)=> {
     const {cardSize}=props
 
     useEffect(() => {
-        console.log({cardSize})
+        console.log(cardSize)
         setImage(img1,'/images/products/'+title+'/'+images[0]) 
         setImage(img2,'/images/products/'+title+'/'+images[1]) 
     }, [title])
@@ -25,15 +25,17 @@ const ProductItem=(props)=> {
                    ${cardSize!='noSize' 
                              ?(cardSize =='small'
                                   ?styles.cardSmall
-                                  :styles.cardMedium)
-                             :'' }` 
+                                  :styles.cardMedium
+                              )
+                             :'' 
+                            }` 
                              } >
                  <div css={css`${styles.card__image};  
-                      ${cardSize !='noSize'
-                             ?(cardSize =='small'
-                                   ?'height:225px;' 
-                                   :'height:250px; ')
-                             :''}`}> 
+                      ${(()=>{
+                               if(cardSize =="noSize")return ""
+                               if(cardSize =='small')return 'height:180px;' 
+                               if(cardSize =='noSize')return 'height:200px;' 
+                     })() }`}> 
                      <div css={styles.card__image1}> <img ref={img1}  src="" alt="loading ..."/> </div>
                      <div  css={styles.card__image2}> <img ref={img2}  src="" alt="loading ..."/> </div>
                  </div>

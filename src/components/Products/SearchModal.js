@@ -5,7 +5,7 @@ import Products from '../Products/Products'
 import {getParentRecursive} from '../utils/funcs1'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
-import {Modal,Input} from '../../Style/global'
+import {Modal,Input,RawLink} from '../../Style/global'
 
 const  SearchModal = (props)=> {
     const searchModalRef = createRef()
@@ -93,14 +93,14 @@ const  SearchModal = (props)=> {
                      <h2><span>{resultsCount||0}</span> results </h2>
                      {
                          resultsCount>5
-                         ? <Link className="raw__Link" to={"/search/"+searchQuery} onClick={fadeOutFunc} >View all</Link>
+                         ? <RawLink to={"/search/"+searchQuery} onClick={fadeOutFunc} >View all</RawLink>
                          :null
                      }
                 </div>
                 <div  onClick={e=>{if(getParentRecursive(e.target,'card'))fadeOutFunc(e)}}>
                     {
                         display && resultsCount > 0 
-                        ?<Products productsFromSearch={results} productSize="small" maxDisplay={resultsCount >= 5 ? 5:-1}/>
+                        ?<Products productsFromSearch={results} productSize="medium" maxDisplay={resultsCount >= 5 ? 5:-1}/>
                         :null
                     }
                 </div>

@@ -27,6 +27,7 @@ const  Products=(props)=> {
             />))
         }else
         {
+            console.log({maxDisplay})
             if( maxDisplay != -1 && maxDisplay != undefined )return getMaxDisplayProducts()   
             getAllProducts()
         }
@@ -40,6 +41,7 @@ const  Products=(props)=> {
             else searchedProducts =productsFromSearch.slice(1, maxDisplay + 1)
          
             setMaxProducts(searchedProducts.map((product,index)=><ProductItem 
+            cardSize={productSize} 
             key={index}  
             product={product} 
             />))
