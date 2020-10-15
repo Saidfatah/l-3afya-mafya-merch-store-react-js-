@@ -202,7 +202,6 @@ export const H1 =styled.h1(props=>{
 export const HM =styled.h1(props=>{
    return`
    color: var(--colorGreyDark);
-   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
    font-size: 1.1rem;
    line-height: 1.3em;
 `})
@@ -394,7 +393,6 @@ export const BlackHighlight =styled.p(props=>{
    return`
    color:var(--colorBlack);
    font-size:20px;
-   font-family: "Century Gothic",sans-serif;
    font-weight: 400;
    letter-spacing:10px;
    font-style: normal;
@@ -434,7 +432,7 @@ export const Border =styled.p(props=>{
    height:1px;
    margin-bottom:1rem;
    width:100%;
-   background:var(--colorGreyLight);
+   background:${props.color?props.color:"var(--colorGreyLight)"};
 `})
 export const LightList =styled.ul(props=>{
    return`

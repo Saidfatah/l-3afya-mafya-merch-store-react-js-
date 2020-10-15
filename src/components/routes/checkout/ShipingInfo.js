@@ -58,7 +58,7 @@ const ShipingInfo=()=> {
                      <i class="fas fa-angle-left iconeB"></i>
                      Return to information
                </RawLink>
-               <ButtonLink width="400px"> Continue to payment</ButtonLink>
+               <ButtonLink to="/checkout/payment" width="400px"> Continue to payment</ButtonLink>
            </FlexRow>
         </div>
     )

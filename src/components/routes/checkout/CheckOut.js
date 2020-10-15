@@ -1,65 +1,20 @@
-import React,{useState,useContext,useEffect,useRef} from 'react'
-import {CartContext} from '../../../Context/CartProvider'
+import React,{useRef} from 'react'
+import CheckoutAddressProvider from '../../../Context/CheckoutAddress'
 import InfoFrom from './InfoFrom'
 import ShipingInfo from './ShipingInfo'
-import {Switch,Route,useRouteMatch,Link} from "react-router-dom";
+import CheckoutOverview from './CheckoutOverview'
+import {Switch,Route,useRouteMatch} from "react-router-dom";
 import CheckoutPayment from './CheckoutPayment'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
-import {FlexRow ,RawLink,ButtonLink} from '../../../Style/global'
+import {FlexRow ,RawLink} from '../../../Style/global'
 
 const CheckOut=()=> {
-    const [products,setProducts]=useState([])
-    const {cart} = useContext(CartContext)
     const LinksRef= useRef()
     let {  path,url } = useRouteMatch();
+    
 
-    useEffect(()=>{
-     setProducts(cart.map(item=>({ title:item.itemName, price:item.itemPrice, quantity:item.quantity, images:item.images})))
-    },[products.lenght>0])
-   
-    const CheckoutOverview=()=>{
-        return <div  css={styles.checkout__overview}>
-        <div > 
-             {
-               products.map((item,index)=><div key={index}  css={styles.overview__item}>
-                     <div css={styles.item__identity}>
-                         <div  css={styles.item__image}>
-                             <img src={'/images/products/'+item.title+'/'+item.images[0]} />
-                             <div  css={styles.item__quantity}>{item.quantity}</div>
-                         </div>
-                         <div  css={styles.item__title}><span>{item.title}</span></div>
-                     </div>
-                     <div  css={css`${styles.item__price};${styles.smallMoney}`} >${item.price * item.quantity}.00 </div>
-                 </div>)
-             }
-        </div>
-        <div  css={styles.border}></div>
-        <div css={styles.overview__line}> 
-              <div>SubTotal</div>
-              <div>  
-                  <span  css={css`${styles.bill__total};${styles.smallMoney}`}>
-                  ${products.map(item=>item.price * item.quantity).reduce((a, b)=> a + b , 0)}
-                  .00
-                  </span> 
-              </div>
-        </div>
-        <div css={styles.overview__line}> 
-              <div>Shinping</div>
-              <div> <span css={styles.currency}>Calculated at next step</span>  </div>
-        </div>
-        <div  css={styles.border}></div>
-        <div css={styles.overview__line}> 
-            <div>Total</div>
-            <div> 
-                <span css={styles.currency}>USD</span>
-                <span  css={css`${styles.bill__total};${styles.bigMoney}`}>
-                 ${products.map(item=>item.price * item.quantity).reduce((a, b)=> a + b , 0)}.00
-                 </span> 
-            </div>
-        </div>
-    </div>
-    }
+    const windowHref=  window.location.href
     const CheckOutRouter=()=>{
         return  <div  css={styles.checkout__gateways}>
             <FlexRow  checkout={true}  ref={LinksRef} >
@@ -89,12 +44,13 @@ const CheckOut=()=> {
          
          </div>
     }
-    const windowHref=  window.location.href
-  
+
     return (
     <div css={styles.checkout}>
-         <CheckOutRouter />
-         <CheckoutOverview />
+        <CheckoutAddressProvider>
+             <CheckOutRouter />
+             <CheckoutOverview />
+        </CheckoutAddressProvider>
      </div>
     )
 }

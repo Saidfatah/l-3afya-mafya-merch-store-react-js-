@@ -55,39 +55,33 @@ const SideBarCart=(props)=>{
              </ButtonLink>
     }
 
-    const Top =()=>{
-        return <div css={styles.cart__top}>
-        <h1>Cart</h1>
-        <i className="far fa-times-circle Close" onClick={slideOutOut}></i>  
-   </div>
-    }
-    
-    const Body =()=>{
-        return<div css={styles.cart__body}>  
-        <ImagesProvder>
-         {cart.length>0
-             ? cart.map((item,index)=><CartItem key={index} cartItem={item}/>) 
-             :<div css={styles.cart__empty}><div> Your cart is empty</div></div>
-         }
-        </ImagesProvder>
-        <div css={styles.cart__bottom}>  
-         {cart.length>0
-             ?<div>
-               <h2 className="mgb1">Shipping & taxes calculated at checkout</h2>
-                <CheckOutBtn />
-             </div>
-             :'no cart items'
-         }
-        </div>
-    </div>
-    }
-    
+
+
     return (
         <div>
             <ModalBackground  ref={pageShdowCover} onClick={slideOutOut} />
-            <Modal ref={cartContainer} right={-400} from="cart" >
-                 <Top />
-                 <Body />
+            <Modal   ref={cartContainer} right={-400} from="cart" >
+                 <div css={styles.cart__top}>
+                      <h1>Cart</h1>
+                      <i className="far fa-times-circle Close" onClick={slideOutOut}></i>  
+                 </div>
+                 <div css={styles.cart__body}>  
+                <ImagesProvder>
+                    {cart.length>0
+                        ? cart.map((item,index)=><CartItem key={index} cartItem={item}/>) 
+                        :<div css={styles.cart__empty}><div> Your cart is empty</div></div>
+                     }
+                </ImagesProvder>
+                <div css={styles.cart__bottom}>  
+                     {cart.length>0
+                         ?<div>
+                           <h2 className="mgb1">Shipping & taxes calculated at checkout</h2>
+                            <CheckOutBtn />
+                         </div>
+                         :'no cart items'
+                     }
+                 </div>
+             </div>
             </Modal>
         </div>
     )

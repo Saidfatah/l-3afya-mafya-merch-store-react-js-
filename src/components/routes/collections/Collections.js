@@ -63,7 +63,6 @@ const styles ={
     position: relative;
     margin-right: 2rem;
     margin-bottom:2rem;
-    background-image: linear-gradient(to top, rgba(4,4,4,0.65), rgba(54,54,54,0.2));
     :after{
         position: absolute;
         content: '';

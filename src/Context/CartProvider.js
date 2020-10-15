@@ -1,15 +1,12 @@
 import React ,{createContext,useState,useEffect} from 'react'
-import axios from 'axios'
 export const CartContext =createContext()
 
-function CartProvider(props) {
+const CartProvider=(props)=> {
     let [cart,setCart]=useState([])
     const apiurl='http://localhost:4000/'
-    const errhandler =err=>console.log(err)
-   
-    useEffect(()=>{
 
-    },[cart])
+   
+ 
      const removeItem=(itemId)=> setCart(cart.filter(item=>item.itemId != itemId))
      const addItem=(item)=>{
           const itemChek = cart.filter(cartItem=> cartItem.itemName == item.itemName )
@@ -32,6 +29,7 @@ function CartProvider(props) {
              }
           ))
      }
+     
      return (
       <CartContext.Provider value={{ cart, setCart,removeItem,addItem,updateQuantityContext}}>
            {props.children}

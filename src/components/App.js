@@ -25,7 +25,10 @@ import CartProvider from '../Context/CartProvider'
 import CollectionsProvider from '../Context/CollectionsProvider'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
+import {Elements} from '@stripe/react-stripe-js'
+import {loadStripe} from '@stripe/stripe-js'
 
+const stripePromise = loadStripe('pk_test_51HCsVhLkAIHmcekiVfb5aSOF75eJPLKwn7MhbxmQKMVtJrworoCsyNL8Otxs0cdcFYjKMpjejHzChey00DlIkW8b007nxn9KYC')
 
 const App=()=> {
   const SideBarRef = useRef();
@@ -43,6 +46,7 @@ const App=()=> {
 
   return (
     <div className="App">
+      <Elements stripe={stripePromise} >
        <Provider>
           <CartProvider>
             <CollectionsProvider>
@@ -71,7 +75,7 @@ const App=()=> {
                    <Route path="/contact/register"><Contact register={true} /></Route>
                    <Route path="/shop"><Shop /></Route>
                    <Route path="/product/create"><CreateProduct /></Route>
-                   <Route path="/product/:id"><ProductPage /></Route>
+                   <Route path="/product/:id"><ProductPage    setSlideNow={setSlideNowFun} /></Route>
                    <Route exact path="/search"><Search  hasPram={true}/></Route>
                    <Route path="/search/:query"><Search hasPram={false}/></Route>
                    <Route  path="/checkout"><CheckOut /></Route>
@@ -87,6 +91,7 @@ const App=()=> {
             </CollectionsProvider> 
           </CartProvider>
        </Provider>
+      </Elements>
     </div>
   );
 }

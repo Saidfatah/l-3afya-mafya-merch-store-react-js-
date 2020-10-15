@@ -8,52 +8,83 @@ import {H1} from '../../Style/global'
 
 const Slider=(props)=> {
     const {items} = props 
-    const recentlyViewdRef= useRef()
+    const sliderParentRef= useRef()
     const btn_leftRef= useRef()
     const btn_rightRef= useRef()
-    const recentlyViewd__ContainerRef= useRef()
-    const productItemWidth =parseInt(window.innerWidth) > 460 ? 300 : 200
+    const sliderRef= useRef()
+    const productItemWidth= 200
     const [windowWidth, setwindowWidth] = useState(0)
+    const [currentProductsOnTheRightSide, setcurrentProductsOnTheRightSide] = useState(0)
+    const [currentProductsOnTheLeftSide, setcurrentProductsOnTheLeftSide] = useState(0)
  
+
     useEffect(() => {
         setwindowWidth(parseInt(window.innerWidth))
-
-        if( recentlyViewd__ContainerRef.current && windowWidth <= 460)
-           recentlyViewd__ContainerRef.current.style.left=60+'px'
+            
+        if( sliderRef.current && parseInt(window.innerWidth) <= 460)
+           sliderRef.current.style.left=60+'px'
 
         const listner =  window.addEventListener('resize', e=>{
             const docWidth =parseInt(window.innerWidth)
             setwindowWidth(docWidth)
-            console.log(docWidth)
         });
         return () => {
             window.removeEventListener('resize',listner)
         }
-    }, [recentlyViewd__ContainerRef.current])
+    }, [sliderRef.current])
 
     const countProducts=(dir)=>{
-        const productsContainerWidth=parseInt(recentlyViewd__ContainerRef.current.offsetWidth) ;
-        const recentlyVistedWidth=parseInt(recentlyViewdRef.current.offsetWidth) ;
-        const productsContainerX= Math.abs(parseInt(recentlyViewd__ContainerRef.current.offsetLeft))-16 ;
+        let count = 0 ;
+        const countProductsVisible= Math.round((parseInt(sliderParentRef.current.offsetWidth)-128)/productItemWidth );
+        const rightThreshehold = items.length - countProductsVisible
 
-        const overFlowProductsLeft=Math.round(productsContainerX/(productItemWidth+16))
-        const overFlowedProductsRight=Math.round((productsContainerWidth - (productsContainerX+16+recentlyVistedWidth))/(productItemWidth+16))
+        if(dir>0)
+        {
+            if(windowWidth > 460 && currentProductsOnTheRightSide >= rightThreshehold) return 0 ; 
 
-        return dir>0 ? overFlowedProductsRight : overFlowProductsLeft ;
+            if(currentProductsOnTheRightSide < (items.length -1) )
+            {
+                 setcurrentProductsOnTheRightSide(currentProductsOnTheRightSide + 1 )
+
+                if(currentProductsOnTheLeftSide <= 0)
+                     setcurrentProductsOnTheLeftSide(0)
+                else
+                     setcurrentProductsOnTheLeftSide(currentProductsOnTheLeftSide - 1 )
+
+                 count=Math.abs(currentProductsOnTheRightSide + 1)
+            }
+        }else
+        {
+            if(currentProductsOnTheRightSide <= 0) return 0;
+            if(currentProductsOnTheLeftSide < (items.length -1))
+            {
+                 setcurrentProductsOnTheLeftSide(currentProductsOnTheLeftSide + 1 )
+
+                 if(currentProductsOnTheRightSide <= 0)
+                      setcurrentProductsOnTheRightSide(0)
+                 else
+                      setcurrentProductsOnTheRightSide(currentProductsOnTheRightSide - 1 )
+
+                 count=Math.abs(currentProductsOnTheLeftSide + 1)
+            }
+        }
+
+        return count;
     }
+
     const slide = (dir)=>{
           const overflowProducts = countProducts(-dir);
           let Slide_amount = 0
-          console.log({overflowProducts})
+          console.log(overflowProducts)
           if(overflowProducts<= 0)return ;
+
           if(windowWidth > 460)
-            Slide_amount = dir *( productItemWidth+16 )*(overflowProducts >=3 ? 3:overflowProducts)
+            Slide_amount = dir *(productItemWidth+16 )
           else Slide_amount= ( dir * productItemWidth )
 
-          const X= parseInt(recentlyViewd__ContainerRef.current.offsetLeft)
-          const easer_calb=(value)=> recentlyViewd__ContainerRef.current.style.left=(value )+'px'
+          const X= parseInt(sliderRef.current.offsetLeft)
+          const easer_calb=(value)=> sliderRef.current.style.left=(value )+'px'
           easer(X, X + Slide_amount,easer_calb,100)
-          countProducts(-dir)
     }
     const slideStoriesLeft = (e)=>{e.preventDefault(); slide(1)}
     const slideStoriesRight = (e)=>{e.preventDefault();  slide(-1)}
@@ -84,10 +115,10 @@ const Slider=(props)=> {
 
 
     return (
-            <div css={styles.recentlyViewd} ref={recentlyViewdRef}>
+            <div css={styles.recentlyViewd} ref={sliderParentRef}>
                 <div>
                    <SliderButtons />
-                   <div css={styles.recentlyViewd__Container} ref={recentlyViewd__ContainerRef}>
+                   <div css={styles.recentlyViewd__Container} ref={sliderRef}>
                       {  items.map((product,index)=><ProductItem  key={index}   product={product} cardSize="small" />)}
                    </div>
                 </div>
@@ -100,12 +131,10 @@ const styles ={
     width:100%;
     padding:2rem 4rem;
     margin-bottom: 3rem;
-
     >div{
         position: relative;
         width:100%;
         height: 420px;
-        overflow: hidden;
     }
     `,
     stories__btn :css`

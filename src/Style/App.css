@@ -1,5 +1,10 @@
 
 
+  @font-face {
+      font-family: 'Century Gothic'; /*a name to be used later*/
+      src: url('../Fonts//Century\ Gothic.ttf'); /*URL to font*/
+  }
+
   *{
     margin:0 ;
     padding:0;
@@ -17,9 +22,7 @@
      --colorShadow:#4646462c;
      --colorShadowDarker:#2b2b2b2c;
   }
-  .App {
-    font-family: "Century Gothic",sans-serif;
-  }
+  
   body{
     font-family: "Century Gothic",sans-serif;
     overflow-x: hidden;

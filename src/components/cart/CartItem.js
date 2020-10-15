@@ -1,9 +1,9 @@
 import React,{useEffect,useState,useContext} from 'react'
 import {CartContext} from '../../Context/CartProvider'
-import Quantity from '../layout/Quanitity'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 import {Underlined,FlexRow} from '../../Style/global'
+
 
 const CartItem=(props)=> {
     const {itemName,itemPrice,quantity,itemId,images}= props.cartItem
@@ -14,12 +14,13 @@ const CartItem=(props)=> {
 
     useEffect(() => {
         setimageSrc('/images/products/'+itemName+'/'+images[0]) ;                                                                                                                                                                                               setQuantity(quantity)
-     }, [quantity])
+     }, [])
 
     const updateQuantity=e=>{
+        e.preventDefault()  
         const inc = e.target.innerHTML =="+"?1 : (quantityCounter <= 1 ? 0 : -1 );
         setQuantity(quantityCounter +inc )
-        updateQuantityContext(itemId,quantityCounter)
+        updateQuantityContext(itemId,quantityCounter +inc)
     }
 
     return (
@@ -32,8 +33,14 @@ const CartItem=(props)=> {
                  <div>{itemPrice}</div>
                  <div css={styles.cartItem__action}>
                  <FlexRow justify="space-between">
-                     <Quantity {...{updateQuantity,quantity,small:true}}/>
-                     <Underlined onClick={e=>removeItem(itemId)}>remove</Underlined>
+
+                 <div css={css`${styles.quantity};${ `height:40px; width: 90px;`}`}>
+                      <span css={styles.quantityIcon} onClick={updateQuantity}>-</span>
+                      <input type="text" onChange={e=>e.preventDefault()} value={quantity}/>
+                      <span css={styles.quantityIcon} onClick={updateQuantity}>+</span>
+                 </div>
+
+                 <Underlined onClick={e=>removeItem(itemId)}>remove</Underlined>
                  </FlexRow>
                  </div>
             </div>
@@ -59,17 +66,31 @@ const styles ={
     display: flex;
     align-items: center;
     `,
-    quantity :css` 
+   quantity:css`
+    border: 1px solid var(--colorGreyLight);
     display: flex;
+    padding: 0 .5rem;
     justify-content: space-between;
     align-items: center;
+    color:var(--colorGreyLight);
     line-height: 1.65;
-    height:40px;
-    width: 98px;
-    margin-right: 2rem;`,
-    quantity__icon :css`cursor: pointer;
-    font-size: 1.25rem;`,
-
+    span,input{
+        color:var(--colorGreyLight);
+    }
+    input{
+        border: none;
+        margin: 0;
+        text-align: center;
+        width: 35px;
+        padding: 0;
+    }
+    input:focus{
+        outline: none;
+     }
+    `,
+    quantityIcon:css`cursor: pointer;
+    font-size: 1.25rem;
+    `,
 }
 
 export default CartItem

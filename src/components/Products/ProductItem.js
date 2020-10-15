@@ -33,8 +33,8 @@ const ProductItem=(props)=> {
                  <div css={css`${styles.card__image};  
                       ${(()=>{
                                if(cardSize =="noSize")return ""
-                               if(cardSize =='small')return 'height:180px;' 
-                               if(cardSize =='noSize')return 'height:200px;' 
+                               if(cardSize =='small')return 'height:210px;' 
+                               if(cardSize =='medium')return 'height:200px;' 
                      })() }`}> 
                      <div css={styles.card__image1}> <img ref={img1}  src="" alt="loading ..."/> </div>
                      <div  css={styles.card__image2}> <img ref={img2}  src="" alt="loading ..."/> </div>

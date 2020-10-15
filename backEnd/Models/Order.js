@@ -17,7 +17,8 @@ const OrderSchema = new Schema(
             ref: 'User'
         },
         date:Date,
-        cost:Number
+        cost:Number,
+        billing_details:{}
 
     }
 )

@@ -1,7 +1,8 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import {ButtonLink,FlexRow,RawLink,Input,UnderlinedLink,LightParagraph} from '../../../Style/global'
 import AddressForm from '../Account/customer/AddressForm'
 import {jwtCheck,getUser} from '../../Auth/Auth'
+import {CheckOutAddressContext} from '../../../Context/CheckoutAddress'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 
@@ -19,24 +20,33 @@ const  InfoFrom=()=> {
         state:'',
         isDefault:false,
     })
-   
+    const {setbillingDetails} =useContext(CheckOutAddressContext)
+    const [email, setemail] = useState('')  
     useEffect(() => {
         if(jwtCheck())
-        {
-            setaddress(JSON.parse(getUser()).addresses[0])
-        }
+            setaddress( JSON.parse(getUser()).addresses[0])
     }, [])
+    
+    useEffect(() => {
+        // setbillingDetails({      
+        //     name:address.firstName +" " + address.lastName,
+        //     email:email,
+        //     address:{
+        //         city:address.city,
+        //         line1:address.address1,
+        //         country:address.country,
+        //         state:address.country,
+        //         postal_code:address.zipcode
+        //     }})
+    }, [address,email])
 
     return (
         <div>
             {
                 !jwtCheck()
                 ?<> 
-                <LightParagraph >
-                 Contact Informaton, Already have an account? 
-                 <UnderlinedLink to="/account" >Login</UnderlinedLink>
-                 </LightParagraph>
-                 <Input width="100%" placeholder="Email or mobile phone or number" />
+                      <LightParagraph > Contact Informaton, Already have an account?   <UnderlinedLink to="/account" >Login</UnderlinedLink> </LightParagraph>
+                      <Input type="text" width="100%" placeholder="Email or mobile phone or number"  value={email} onChange={e=>setemail(e.target.value)} />
                 </>
                 :<LightParagraph >We'll be using ur default shipping address</LightParagraph>
             }

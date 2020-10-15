@@ -9,7 +9,7 @@ const CollectionPage=()=> {
     const {collectionTitle}= useParams()
     return (
         <div style={{marginTop:96}}>
-            <H1>{collectionTitle} Collection</H1>
+            <H1 mgt={0}>{collectionTitle} Collection</H1>
             <Products collectionTitle={collectionTitle}/>
         </div>
     )
