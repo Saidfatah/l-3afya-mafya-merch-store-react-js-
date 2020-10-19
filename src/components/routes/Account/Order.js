@@ -7,6 +7,7 @@ const Order =(props)=> {
     const{order}=props
 
     if(order == undefined) return <div>no orders </div>
+   
     const OrderItem=({item})=>{
        return <div  css={styles.overview__item}>
           <div css={styles.item__identity}>
@@ -33,7 +34,7 @@ const Order =(props)=> {
                 </FlexWrap>
            
                <LightParagraph mgb={0.25}> client name :
-               <SmallText>{order.clientId.firstname +' ' + order.clientId.lastname  }</SmallText>
+               <SmallText>{order.billing_details.name  }</SmallText>
                 </LightParagraph>
                
                <LightParagraph mgb={0.25}>  total cost:

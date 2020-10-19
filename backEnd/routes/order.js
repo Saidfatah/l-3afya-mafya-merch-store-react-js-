@@ -34,8 +34,9 @@ router.get('/:userid',async (req,res)=>{
 
 
 router.post('/',async (req,res)=>{
+     console.log('api call made')
      try {
-          if(eq.body.order == undefined) throw new Error('UNDEFINED_DATA')
+          if(req.body.order == undefined) throw new Error('UNDEFINED_DATA')
           
           console.log(req.body.order)
           const order = new OrderModel(req.body.order)
@@ -43,9 +44,10 @@ router.post('/',async (req,res)=>{
           
           if(orderSaveResponse.id == undefined || orderSaveResponse==null)
               throw new Error('SOMETHNG_WENT_WRONG')
-
+        
           res.send('POSTED WITH SUCCES')
    } catch (error) {
+        console.log(error)
        if(error.message == "UNDEFINED_DATA") return  res.status(400).json('UNDEFINED_DATA')
        res.status(400).json('SAVE_FAILED')
    }

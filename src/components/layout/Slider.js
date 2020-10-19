@@ -4,7 +4,7 @@ import {easer} from '../utils/funcs1'
 
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
-import {H1} from '../../Style/global'
+
 
 const Slider=(props)=> {
     const {items} = props 

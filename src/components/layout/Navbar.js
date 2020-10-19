@@ -17,6 +17,7 @@ const  Navbar=forwardRef((props,ref)=> {
         if(linkPath.indexOf(path)!=-1)return styles.activeLink
         return ""
     }
+    
     return (
         <div css={styles.navBar} >
             <div css={styles.navBar__left}>
