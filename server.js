@@ -39,7 +39,7 @@ app.use('/stripe',stripe)
 
 
 if(process.env.NODE_ENV == 'production'){
-   app.use(express.static('dist'))
+   app.use(express.static('build'))
 }
 
 const Port = process.env.PORT || 4000
