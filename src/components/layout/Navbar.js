@@ -1,16 +1,25 @@
 import React ,{forwardRef,useState,useImperativeHandle,useContext}from 'react'
 import {CartContext} from '../../Context/CartProvider'
 import {jwtCheck,getUser} from "../Auth/Auth"
+import { eventsService} from '../../rxjs/modalServce';
 import {Link} from "react-router-dom";
 /** @jsx jsx */
 import { jsx, css} from '@emotion/core'
 
-const  Navbar=forwardRef((props,ref)=> {
-    const {setSlideNow,setDisplaySearchModal}=props
+const  Navbar=(props)=> {
     const {cart} =useContext(CartContext)
     const [path, setpath] = useState("rtyrty")
-    useImperativeHandle(ref, () => ({ }));
 
+
+    const slideInCart=e=> {
+        eventsService.sendEvent('SLIDE_CART',true);
+    }
+    const slideInSideBar=e=> {
+        eventsService.sendEvent('SLIDE_SIDEBAR',true);
+    }
+    const fadeInSearchModal=e=> {
+        eventsService.sendEvent('FADEIN_SEARCH_MODAL',true);
+    }
 
     const activeLink=(linkPath)=>{
         const windowHref=  window.location.href
@@ -21,7 +30,10 @@ const  Navbar=forwardRef((props,ref)=> {
     return (
         <div css={styles.navBar} >
             <div css={styles.navBar__left}>
-                <a  css={css`${styles.navBarLink};${styles.showOnMobile}`} onClick={e=>{document.body.style.overflowY="hidden" ; ref.current.slideSideBarIn() }}> <i className="fas fa-bars"></i> </a>
+                <a  css={css`${styles.navBarLink};${styles.showOnMobile}`} 
+                onClick={slideInSideBar}> 
+                <i className="fas fa-bars"></i> 
+                </a>
                  <Link 
                        css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo};${activeLink("/shop")}`} 
                       onClick={e=>setpath("/shop")} to="/shop">SHOP</Link>
@@ -40,11 +52,17 @@ const  Navbar=forwardRef((props,ref)=> {
             </div>
 
             <div css={styles.navBar__right}>
-                <a  css={css`${styles.navBarLink};${styles.showOnMobile}`} onClick={e=> {document.body.style.overflowY="hidden";setSlideNow(true)}}> <i className="fas fa-shopping-bag"></i> </a>
-               <Link 
+                <a  css={css`${styles.navBarLink};${styles.showOnMobile}`} 
+                     onClick={slideInCart}> 
+                    <i className="fas fa-shopping-bag"></i> 
+                </a>
+                <Link 
                      css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo};${activeLink("/account")}`} 
                      onClick={e=>setpath("/account")} to="/account">Account</Link>  
-               <a css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo}`} onClick={e=>{setDisplaySearchModal(true);document.body.style.overflowY="hidden"}}>Search</a>        
+                <a css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo}`} 
+                  onClick={fadeInSearchModal}>
+                   Search
+                </a>        
               {
                jwtCheck() && JSON.parse(getUser()).rule =="admin"
                ?<React.Fragment>
@@ -56,13 +74,16 @@ const  Navbar=forwardRef((props,ref)=> {
                          onClick={e=>setpath("/collectioncreation")} to="/collectioncreation" >Add  Collection</Link>
                </React.Fragment>
                :<React.Fragment> 
-                    <a css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo}`} onClick={e=> {setSlideNow(true);document.body.style.overflowY="hidden"}}>Cart(<span>{cart.length}</span>) </a>
+                    <a css={css`${styles.navBarLink};${styles.hideOnMobile};${styles.notLogo}`}
+                     onClick={slideInCart}>
+                     Cart(<span>{cart.length}</span>) 
+                    </a>
                </React.Fragment>
               }
             </div>
         </div>
     )
-})
+}
 
 
 const styles ={

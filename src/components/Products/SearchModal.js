@@ -1,24 +1,25 @@
 import React ,{useContext,useState,createRef,useEffect}from 'react'
-import {Link} from "react-router-dom";
 import {MyContext} from '../../Context/ProductsProvider'
 import Products from '../Products/Products'
 import {getParentRecursive} from '../utils/funcs1'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 import {Modal,Input,RawLink} from '../../Style/global'
+import {eventsService} from '../../rxjs/modalServce'
 
 const  SearchModal = (props)=> {
     const searchModalRef = createRef()
     const [searchQuery , setSearchQuery]=useState('')
     const [resultsCount , setResultsCount]=useState(0)
+    const [modalVisible, setmodalVisible] = useState(false)
     const [results , setResults]=useState([])
     const {getProducts,setSearchResult} =useContext(MyContext)
-    const {display,setDisplaySearchModal}=props
-
 
     const fadeIn=()=>{
         if(searchModalRef.current)
         { 
+          setmodalVisible(true)
+          document.body.style.overflowY="hidden"
           searchModalRef.current.style.transition="none"
           searchModalRef.current.style.display='block'
           searchModalRef.current.style.top=window.scrollY +'px'
@@ -30,29 +31,37 @@ const  SearchModal = (props)=> {
         }, 100);
         }
     }
-  
+    const fadeOut=e=>{
+        eventsService.clearEventNotification();
+        setmodalVisible(false)
+        searchModalRef.current.style.display='none'
+        searchModalRef.current.style.opacity='0'
+        document.body.style.overflowY="scroll" 
+        setResults([])
+        
+        if(results.length>0)
+              setSearchResult([...results])
+        else  setSearchResult([])
+ 
+        setResultsCount(0)
+    }
 
-    useEffect(()=>{
-        if(display == true)fadeIn()
-    },[display])
+    useEffect(() => {
+        let subscription = eventsService.getEventNotification().subscribe((eventNotification) => 
+        {
+            if(eventNotification && eventNotification.title=='FADEIN_SEARCH_MODAL')
+            {
+                document.body.style.overflowY="hidden"
+                fadeIn()
+            }
+        });
+      
+        return ()=>{ subscription.unsubscribe()}
+    }, [])
 
-   const fadeOut=e=>{
-       searchModalRef.current.style.display='none'
-       searchModalRef.current.style.opacity='0'
-       document.body.style.overflowY="scroll" 
-   }
 
-   const fadeOutFunc=e=>{
-       fadeOut();
-       setDisplaySearchModal(false)
-       setResults([])
-       
-       if(results.length>0)
-             setSearchResult([...results])
-       else  setSearchResult([])
 
-       setResultsCount(0)
-   }
+ 
     const search = e=>{
         setSearchQuery(e.target.value)
         getProducts().then(res=>{
@@ -69,7 +78,7 @@ const  SearchModal = (props)=> {
     height:"100%" ,
     width:"100%" ,
     left:0 ,
-    display:display?"flex":"none" ,
+    display:modalVisible?"flex":"none" ,
     opacity:0 ,
     overflowY:"scroll" ,
    }
@@ -86,21 +95,21 @@ const  SearchModal = (props)=> {
                       placeholder="Search..." 
                       onChange={search}
                       />
-                    <i className="far fa-times-circle Close" onClick={fadeOutFunc}></i>
+                    <i className="far fa-times-circle Close" onClick={fadeOut}></i>
             </div>
             <div  css={styles.resultsModal_results}>
                 <div  css={styles.results__info}>
                      <h2><span>{resultsCount||0}</span> results </h2>
                      {
                          resultsCount>5
-                         ? <RawLink to={"/search/"+searchQuery} onClick={fadeOutFunc} >View all</RawLink>
+                         ? <RawLink to={"/search/"+searchQuery} onClick={fadeOut} >View all</RawLink>
                          :null
                      }
                 </div>
-                <div  onClick={e=>{if(getParentRecursive(e.target,'card'))fadeOutFunc(e)}}>
+                <div  onClick={e=>{if(getParentRecursive(e.target,'card'))fadeOut(e)}}>
                     {
-                        display && resultsCount > 0 
-                        ?<Products productsFromSearch={results} productSize="medium" maxDisplay={resultsCount >= 5 ? 5:-1}/>
+                        modalVisible && resultsCount > 0 
+                        ?<Products productsFromSearch={results} productSize="small" maxDisplay={resultsCount >= 5 ? 5:-1}/>
                         :null
                     }
                 </div>

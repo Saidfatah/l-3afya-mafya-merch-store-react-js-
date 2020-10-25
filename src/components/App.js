@@ -31,19 +31,6 @@ import {loadStripe} from '@stripe/stripe-js'
 const stripePromise = loadStripe('pk_test_51HCsVhLkAIHmcekiVfb5aSOF75eJPLKwn7MhbxmQKMVtJrworoCsyNL8Otxs0cdcFYjKMpjejHzChey00DlIkW8b007nxn9KYC')
 
 const App=()=> {
-  const SideBarRef = useRef();
-  const NavbarRef = useRef();
-  const SearchModalRef = useRef();
-  const [slideNow,setSlideNow]=useState(false)
-  const [displaySearchModal,setDisplaySearchModal]=useState(false)
-
-  useEffect(() => {
-    if( NavbarRef.current != undefined) NavbarRef.current.slideSideBarIn = SideBarRef.current.slideIn
-  }, [ NavbarRef.current])
-
-  const setSlideNowFun=(slide)=>{setSlideNow(slide)}
-  const setDisplaySearchModalFun=(display)=>{setDisplaySearchModal(display)}
-
   return (
     <div className="App">
       <Elements stripe={stripePromise} >
@@ -55,11 +42,11 @@ const App=()=> {
               //in some pages I don't want the navbar to apper as in checkout page  
                 window.location.href.indexOf("/checkout") == -1
                 ?<React.Fragment>
-                      <Cart setSlideNow={setSlideNowFun} slideNow={slideNow} />
-                      <SideBar ref={SideBarRef} />
+                      <Cart />
+                      <SideBar />
                       <div css={css`margin-bottom:74px;`}></div>
-                      <Navbar ref={NavbarRef}  setSlideNow={setSlideNowFun}  setDisplaySearchModal={setDisplaySearchModalFun}/>
-                      <SearchModal  ref={SearchModalRef}  display={displaySearchModal}  setDisplaySearchModal={setDisplaySearchModalFun}/> 
+                      <Navbar />
+                      <SearchModal /> 
                   </React.Fragment>
                 :null
               }
@@ -75,7 +62,7 @@ const App=()=> {
                    <Route path="/contact/register"><Contact register={true} /></Route>
                    <Route path="/shop"><Shop /></Route>
                    <Route path="/product/create"><CreateProduct /></Route>
-                   <Route path="/product/:id"><ProductPage    setSlideNow={setSlideNowFun} /></Route>
+                   <Route path="/product/:id"><ProductPage  /></Route>
                    <Route exact path="/search"><Search  hasPram={true}/></Route>
                    <Route path="/search/:query"><Search hasPram={false}/></Route>
                    <Route  path="/checkout"><CheckOut /></Route>

@@ -4,19 +4,6 @@ const mongoose = require('mongoose')
 const ProductModel = require('../Models/Product') 
 const upload= require('../config/multer')
 
-const newProduct=({character,title,sizes,price})=>{
-     let hasSize = true
-     if(sizes.length<1)hasSize=false
-     return {
-        productId:products.length,
-        hasSize,
-        sizes,
-        character,
-        price,
-        images:["img1.png","img2.png"],
-        title,
-     }
- }
 
 const verifyToken = (req,res,next)=>{
     const bearerHeader = req.headers['authorization']

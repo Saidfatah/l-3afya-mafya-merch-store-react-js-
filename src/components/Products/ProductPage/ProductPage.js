@@ -12,7 +12,7 @@ import {H1} from '../../../Style/global'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 
-const ProductPage=({setSlideNow})=>{
+const ProductPage=()=>{
     const [quantity,setQuantity]=useState(1)
     const [selectedSize,setSize]=useState("M")
     const [product,setProduct]=useState({character:["dd"]})
@@ -89,7 +89,7 @@ const ProductPage=({setSlideNow})=>{
                          :''
                          }
                          <Quantity {...{updateQuantity,quantity}}/>
-                         <AddToCart  id={id}   setSlideNow={setSlideNow}  quantity={quantity} selectedSize={selectedSize}  />
+                         <AddToCart  id={id}   quantity={quantity} selectedSize={selectedSize}  />
                      </div>
                  </div>
             </div>

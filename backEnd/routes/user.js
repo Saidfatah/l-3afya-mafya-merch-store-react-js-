@@ -4,39 +4,33 @@ const bcrypt = require('bcrypt')
 const UserModel = require('../Models/User')
 const axios = require('axios')
 
-router.get('/',(req,res)=>{
-    res.json(users.filter(user=>user.rule!='admin'))
-})
 
-router.get('/:id',(req,res)=>{
-
-})
 
 router.post('/login',async (req,res)=>{
-    const email = req.body.email
-    const password = req.body.password
-  
     try {      
-        const userGetPromise = await  UserModel.findOne({email})
-        if(userGetPromise == undefined) throw new Error('no user with this email')
+        const email = req.body.email
+        const password = req.body.password
+      
+        const userGetResponse = await  UserModel.findOne({email})
+        if(userGetResponse == undefined) throw new Error('no user with this email')
 
-        const passCheck =await bcrypt.compare(password, userGetPromise.password)
+        const passCheck =await bcrypt.compare(password, userGetResponse.password)
         if(!passCheck) throw new Error('wrong password')
 
         jwt.sign(
-        {userGetPromise},
+        {userGetResponse},
         'secretKey',
         {expiresIn:'10h'},
         (err,token)=>res.json({
             token,
-            rule:userGetPromise.rule,
+            rule:userGetResponse.rule,
             user:{
-                id:userGetPromise._id,
-                firstname:userGetPromise.firstname,
-                lastname:userGetPromise.lastname,
-                email:userGetPromise.email,
-                rule:userGetPromise.rule,
-                addresses:userGetPromise.addresses,
+                id:userGetResponse._id,
+                firstname:userGetResponse.firstname,
+                lastname:userGetResponse.lastname,
+                email:userGetResponse.email,
+                rule:userGetResponse.rule,
+                addresses:userGetResponse.addresses,
             }
         }))
   

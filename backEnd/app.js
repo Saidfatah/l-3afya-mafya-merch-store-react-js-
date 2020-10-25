@@ -14,12 +14,10 @@ const orderRoute= require('./routes/order')
 const stripe= require('./routes/stripePaymentProccesing')
 
 
-const ProductModel = require('./Models/Product') 
 
-const bcrypt = require('bcrypt')
-const Order = require('./Models/Order')
+
+
 app.use(cors())
-
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 

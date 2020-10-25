@@ -1,50 +1,58 @@
-import React ,{createRef,useContext,useEffect}from 'react'
+import React ,{useRef,useContext,useEffect}from 'react'
 import CartItem from './CartItem'
 import {CartContext} from '../../Context/CartProvider'
 import ImagesProvder from '../../Context/ImagesProvder'
-import {Link} from "react-router-dom"
-import {Button,Modal,ModalBackground,ButtonLink} from '../../Style/global'
+import { eventsService} from '../../rxjs/modalServce';
+import {Modal,ModalBackground,ButtonLink,Input} from '../../Style/global'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 
 const SideBarCart=(props)=>{
     const {cart} =useContext(CartContext)
-    const {slideNow,setSlideNow}=props
-    const cartContainer  = createRef()
-    const pageShdowCover = createRef()
+    const cartContainer  = useRef()
+    const pageShdowCover = useRef()
 
     const  slideIn=()=>{
-        if(cartContainer.current == null ||   cartContainer.current == null) return
+        console.log('slide in')
+        console.log(cartContainer.current)
+        if(cartContainer.current == null ||   pageShdowCover.current == null) return
         pageShdowCover.current.style.display='block'
         cartContainer.current.style.transition="none"
         pageShdowCover.current.style.transition="none"
         cartContainer.current.style.top=window.scrollY +'px'
         pageShdowCover.current.style.top=window.scrollY +'px'
         setTimeout(() => {
-            if(cartContainer.current == null ||   cartContainer.current == null) return
+            if(cartContainer.current == null ||   pageShdowCover.current == null) return
             cartContainer.current.style.transition="all .2s ease-in"
             pageShdowCover.current.style.transition="all .2s ease-in"
             cartContainer.current.style.right='0'
             pageShdowCover.current.style.opacity='1'
         }, 400);
      }
+ 
     const slideOut=e=>{
+        eventsService.clearEventNotification();
         cartContainer.current.style.right='-400px'
         pageShdowCover.current.style.opacity='0'
         pageShdowCover.current.style.display='none'
-
-    }
-    const slideOutOut=e=>{
-        slideOut()
-        setSlideNow()
         document.body.style.overflowY="scroll" 
     }
 
-    useEffect(()=>{
-        if(slideNow == true)slideIn()
-    },[slideNow,cart])
 
-
+    useEffect(() => {
+        let subscription = eventsService.getEventNotification().subscribe((eventNotification) => 
+        {
+            if(eventNotification && eventNotification.title=='SLIDE_CART')
+            {
+                console.log(eventNotification.title)
+                document.body.style.overflowY="hidden"
+                slideIn()
+            }
+        });
+      
+        return ()=>{ subscription.unsubscribe()}
+    }, [])
+   
 
     const CheckOutBtn=()=>{
         return<ButtonLink width="100%" to="/checkout/information" onClick={slideOutOut} >
@@ -59,11 +67,11 @@ const SideBarCart=(props)=>{
 
     return (
         <div>
-            <ModalBackground  ref={pageShdowCover} onClick={slideOutOut} />
+            <ModalBackground  ref={pageShdowCover} onClick={slideOut} />
             <Modal   ref={cartContainer} right={-400} from="cart" >
                  <div css={styles.cart__top}>
                       <h1>Cart</h1>
-                      <i className="far fa-times-circle Close" onClick={slideOutOut}></i>  
+                      <i className="far fa-times-circle Close" onClick={slideOut}></i>  
                  </div>
                  <div css={styles.cart__body}>  
                 <ImagesProvder>
