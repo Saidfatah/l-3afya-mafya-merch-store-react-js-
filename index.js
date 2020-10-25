@@ -4,13 +4,13 @@ const app = express()
 const mongoose = require('mongoose')
 const cors =require('cors')
 const bodyParser = require('body-parser')
-const userRoute= require('./routes/user')
-const imageExtRoute= require('./routes/imageExt')
-const productRoute= require('./routes/product').router
-const collectionRoute= require('./routes/collection')
-const cartRoute= require('./routes/cart')
-const orderRoute= require('./routes/order')
-const stripe= require('./routes/stripePaymentProccesing')
+const userRoute= require('./backEnd/routes/user')
+const imageExtRoute= require('./backEnd/routes/imageExt')
+const productRoute= require('./backEnd/routes/product').router
+const collectionRoute= require('./backEnd/routes/collection')
+const cartRoute= require('./backEnd/routes/cart')
+const orderRoute= require('./backEnd/routes/order')
+const stripe= require('./backEnd/routes/stripePaymentProccesing')
 
 
 app.use(cors())
@@ -39,7 +39,7 @@ app.use('/stripe',stripe)
 
 
 if(process.env.NODE_ENV == 'production'){
-   app.use(express.static('../dist'))
+   app.use(express.static('/dist'))
    app.get('*',(req,res)=>{
        res.sendFile(path.resolve(__dirname,'dist','index.html'))
    })
