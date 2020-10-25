@@ -1,8 +1,14 @@
 const path = require('path')
 const HTMLPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin');
-
-module.exports ={
+const webpack = require('webpack')
+module.exports =(env)=>{
+  // create a nice object from the env variable
+  const envKeys = Object.keys(env).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+    return prev;
+  }, {});
+  return{
     entry :"./src/index.js",
     devServer:{historyApiFallback: true},
     output:{
@@ -11,6 +17,7 @@ module.exports ={
     },
     plugins:[
         new HTMLPlugin({template:'./src/index.html'}),
+        new webpack.DefinePlugin(envKeys),
         new CopyPlugin({
             patterns: [
               { from: './src/images', to: 'images' },
@@ -55,4 +62,4 @@ module.exports ={
             },
         ]
     }
-}
+}}
