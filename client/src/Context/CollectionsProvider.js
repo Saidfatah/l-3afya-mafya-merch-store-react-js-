@@ -25,7 +25,7 @@ const CollectionsProvider=(props)=>{
 
 
     const addCollection=()=>{}
-    const getCollections=() =>axios.get(apiurl+"collection")
+    const getCollections=() =>axios.get(apiurl+"/collection")
 
     return (<CollectionsContext.Provider value={{collections,addCollection ,getCollections }}>
       {props.children}
