@@ -68,7 +68,7 @@ const ProductForm=()=> {
              if(jwtCheck()){
                   const token =getToken()
                   const header= {headers:{"Authorization" : `Bearer ${token}`}}
-                  const apiUrl ='http://localhost:4000/product/uploadImages/'
+       
                   let constImageUploadPromise ;
                   let imagesNames=[];
 
@@ -82,7 +82,7 @@ const ProductForm=()=> {
                   }
                
                   if(formData != undefined)
-                     constImageUploadPromise = await fetch(apiUrl+values.title,{method:'POST',body:formData})
+                     constImageUploadPromise = await fetch(apiUrl+'/product/uploadImages/'+values.title,{method:'POST',body:formData})
 
 
                   if(constImageUploadPromise.status != 200) throw new Error('IMAGE_UPLOAD_FAIL')

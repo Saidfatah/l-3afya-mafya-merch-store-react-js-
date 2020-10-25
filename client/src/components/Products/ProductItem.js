@@ -20,7 +20,7 @@ const ProductItem=(props)=> {
      }
 
     return (
-        <Link  to={"/product/"+productId}>
+        <Link  to={"/productPage/"+productId}>
              <div  css={css`${styles.card};  ${cardSize && cardSize =='small'?styles.cardSmall:styles.cardMedium}` } >
                  <div css={css`${styles.card__image};  
                       ${(()=>{

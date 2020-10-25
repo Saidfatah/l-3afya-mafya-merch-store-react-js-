@@ -63,7 +63,7 @@ const App=()=> {
                    <Route path="/contact/register"><Contact register={true} /></Route>
                    <Route path="/shop"><Shop /></Route>
                    <Route path="/product/create"><CreateProduct /></Route>
-                   <Route path="/product/:id"><ProductPage  /></Route>
+                   <Route path="/productPage/:id"><ProductPage  /></Route>
                    <Route exact path="/search"><Search  hasPram={true}/></Route>
                    <Route path="/search/:query"><Search hasPram={false}/></Route>
                    <Route  path="/checkout"><CheckOut /></Route>
