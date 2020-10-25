@@ -28,10 +28,10 @@ import { jsx, css } from '@emotion/core'
 import {Elements} from '@stripe/react-stripe-js'
 import {loadStripe} from '@stripe/stripe-js'
 
-const stripePromise = loadStripe('pk_test_51HCsVhLkAIHmcekiVfb5aSOF75eJPLKwn7MhbxmQKMVtJrworoCsyNL8Otxs0cdcFYjKMpjejHzChey00DlIkW8b007nxn9KYC')
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISH_KEY)
 
 const App=()=> {
-  console.log(process.env.REACT_APP_PUBLIC_URL2)
+
   return (
     <div className="App">
       <Elements stripe={stripePromise} >

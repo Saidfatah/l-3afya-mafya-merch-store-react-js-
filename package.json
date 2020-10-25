@@ -38,7 +38,8 @@
     "nodemon": "nodemon ./backEnd/app.js",
     "start": "webpack-dev-server --env.ENVIRONMENT=development --mode development --open --hot -inline --progress --content-base ",
     "build": "webpack --mode  --env.ENVIRONMENT=production production",
-    "watch": "webpack-dev-server --progress"
+    "watch": "webpack-dev-server --progress",
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm i  && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
