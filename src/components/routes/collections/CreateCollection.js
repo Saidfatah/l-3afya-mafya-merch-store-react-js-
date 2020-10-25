@@ -16,6 +16,7 @@ const CreateCollection=()=> {
         somethingWrong:false,
     })
     const [succes, setsucces] = useState(false)
+    const apiurl=process.env.API_URL
 
     const resetValidaton = ()=>{
        setErr({
@@ -48,7 +49,7 @@ const CreateCollection=()=> {
         if(!validate()) return ; 
         resetValidaton();
         try {
-             const newCollectionPromise= await axios.post('http://localhost:4000/collection/create',{title:collectionTitle,products:productsIds})
+             const newCollectionPromise= await axios.post(apiurl+'/collection/create',{title:collectionTitle,products:productsIds})
             if(newCollectionPromise.status != 200) throw new Error('SOMETHING_WENT_WRONG')
             setsucces(true)
         } catch (error) {

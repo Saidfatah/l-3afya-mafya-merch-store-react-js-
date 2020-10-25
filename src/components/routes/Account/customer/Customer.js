@@ -11,13 +11,13 @@ import { jsx, css } from '@emotion/core'
 
 const Customer=({history})=> {
     let [orders,setOrders]=useState([])
-
+    const apiurl=process.env.API_URL
     useEffect(()=>{
         const sourse = axios.CancelToken.source();
         (async()=>{
              try {
                  const user =JSON.parse(getUser())
-                 axios.get("http://localhost:4000/order",{cancelToken:sourse.token,userId:user.id})
+                 axios.get(apiurl+"/order",{cancelToken:sourse.token,userId:user.id})
                  .then(res=>{
                      console.log(res.data)
                      setOrders(res.data)

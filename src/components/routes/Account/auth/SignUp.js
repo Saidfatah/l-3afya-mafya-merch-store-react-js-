@@ -25,7 +25,7 @@ const SignUp=({url})=> {
     const [registerSucces, setregisterSucces] = useState(false)
     const [canSubmit, setcanSubmit] = useState(true)
     const reRef= useRef()
-
+    const apiurl=process.env.API_URL
 
 
 
@@ -78,7 +78,7 @@ const SignUp=({url})=> {
             const token = tokenRespose
             reRef.current.reset()
           
-            const regsterUserPromise= await axios.post('http://localhost:4000/users/register',{...userInfo,token:token})
+            const regsterUserPromise= await axios.post(apiurl+'/users/register',{...userInfo,token:token})
             if(regsterUserPromise.data.user == undefined) throw new Error('REGISTER') ; 
             setregisterSucces(true)
             setcanSubmit(true)

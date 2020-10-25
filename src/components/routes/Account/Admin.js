@@ -6,12 +6,12 @@ import {H1,Container,LightParagraph,Border,Underlined,SmallText} from '../../../
 
 const Admin=()=> {
     let [orders,setOrders]=useState([])
-
+    const apiurl=process.env.API_URL
     useEffect(()=>{
         const sourse = axios.CancelToken.source();
         (async()=>{
              try {
-                 axios.get("http://localhost:4000/order",{cancelToken:sourse.token})
+                 axios.get(apiurl+"/order",{cancelToken:sourse.token})
                  .then(res=>{
                      setOrders(res.data)
                  })

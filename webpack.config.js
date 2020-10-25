@@ -2,12 +2,26 @@ const path = require('path')
 const HTMLPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack')
+const dotenv = require('dotenv')
+const fs = require('fs');
+
 module.exports =(env)=>{
-  // create a nice object from the env variable
-  const envKeys = Object.keys(env).reduce((prev, next) => {
-    prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  const currentPath = path.join(__dirname);
+  
+  const basePath = currentPath + '/.env';
+
+  const envPath = basePath + '.' + env.ENVIRONMENT;
+
+  const finalPath = fs.existsSync(envPath) ? envPath : basePath;
+
+  const fileEnv = dotenv.config({ path: finalPath }).parsed;
+ 
+  const envKeys = Object.keys(fileEnv).reduce((prev, next) => {
+    prev[`process.env.${next}`] = JSON.stringify(fileEnv[next]);
     return prev;
   }, {});
+  console.log(envKeys)
+
   return{
     entry :"./src/index.js",
     devServer:{historyApiFallback: true},

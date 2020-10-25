@@ -1,11 +1,9 @@
-import React ,{createContext,useState,useEffect} from 'react'
+import React ,{createContext,useState} from 'react'
 export const CartContext =createContext()
 
 const CartProvider=(props)=> {
     let [cart,setCart]=useState([])
-    const apiurl='http://localhost:4000/'
 
-   
  
      const removeItem=(itemId)=> setCart(cart.filter(item=>item.itemId != itemId))
      const addItem=(item)=>{

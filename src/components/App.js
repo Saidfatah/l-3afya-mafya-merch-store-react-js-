@@ -31,7 +31,7 @@ import {loadStripe} from '@stripe/stripe-js'
 const stripePromise = loadStripe('pk_test_51HCsVhLkAIHmcekiVfb5aSOF75eJPLKwn7MhbxmQKMVtJrworoCsyNL8Otxs0cdcFYjKMpjejHzChey00DlIkW8b007nxn9KYC')
 
 const App=()=> {
-  console.log(process.env.API_URL)
+  console.log(process.env.REACT_APP_PUBLIC_URL2)
   return (
     <div className="App">
       <Elements stripe={stripePromise} >

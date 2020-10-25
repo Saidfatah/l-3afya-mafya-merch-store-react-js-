@@ -5,7 +5,7 @@ export const MyContext =createContext()
 function ProductsProvider(props) {
     let [products,setProducts]=useState([])
     let [searchResult,setSearchResult]=useState([])
-    const apiurl='http://localhost:4000/'
+    const apiurl=process.env.API_URL
     const errhandler =err=>console.log(err)
    
     useEffect(()=>{
@@ -13,7 +13,7 @@ function ProductsProvider(props) {
         let cancel
         (async()=>{
             try {
-                axios.get(apiurl+'product',{cancelToken: new CancelToken((c)=>cancel = c )})
+                axios.get(apiurl+'/product',{cancelToken: new CancelToken((c)=>cancel = c )})
                 .then(res=> {
                     if(res.data != undefined)setProducts(res.data)
                 })
@@ -25,8 +25,8 @@ function ProductsProvider(props) {
         return ()=>{cancel && cancel()}
     },[])
     
-    const getProductById= (id)=> axios.get(apiurl+"product/"+id) 
-    const getProducts=()=> axios.get(apiurl+'product')
+    const getProductById= (id)=> axios.get(apiurl+"/product/"+id) 
+    const getProducts=()=> axios.get(apiurl+'/product')
 
 
     

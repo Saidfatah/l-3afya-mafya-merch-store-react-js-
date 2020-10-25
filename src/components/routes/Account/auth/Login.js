@@ -9,12 +9,13 @@ const Login=({url})=> {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
     const [err,setErr]=useState('')
+    const apiurl=process.env.API_URL
 
     const login = async e=>{
         e.preventDefault()
          if(email !== '' && password !==''){
                  try {
-                    const loginPromise = await axios.post('http://localhost:4000/users/login',{email,password})
+                    const loginPromise = await axios.post(apiurl+'/users/login',{email,password})
                     if(loginPromise.data.user == undefined) throw new Error('no user found ') ; 
                
                      if(loginPromise.data.user == undefined) throw new Error('no user found ') ; 

@@ -36,8 +36,8 @@
   },
   "scripts": {
     "nodemon": "nodemon ./backEnd/app.js",
-    "start": "webpack-dev-server --env.API_URL=http://localhost:8000 --mode development --open --hot -inline --progress --content-base ",
-    "build": "webpack --mode production",
+    "start": "webpack-dev-server --env.ENVIRONMENT=development --mode development --open --hot -inline --progress --content-base ",
+    "build": "webpack --mode  --env.ENVIRONMENT=production production",
     "watch": "webpack-dev-server --progress"
   },
   "eslintConfig": {

@@ -23,7 +23,7 @@ const AdressModal=({isCreate,displayAddressModal,setdisplayAddressModal,setaddre
             state:'',
             isDefault:false,
     })
-  
+    const apiurl=process.env.API_URL
     useEffect(() => {
         if(addresToModify != null) setaddress({...addresToModify})
         if(modalShadowref.current && displayAddressModal){
@@ -47,7 +47,7 @@ const AdressModal=({isCreate,displayAddressModal,setdisplayAddressModal,setaddre
     const updateUser=async (addresses)=>{
        try {
            const id =JSON.parse(getUser()).id
-          const updateRespose =await axios.post('http://localhost:4000/users/update',{id,addresses})
+          const updateRespose =await axios.post(apiurl+'/users/update',{id,addresses})
           localStorage.setItem('token',updateRespose.data.token)
           localStorage.setItem('rule',updateRespose.data.rule)
           localStorage.setItem('user',JSON.stringify(updateRespose.data.user))

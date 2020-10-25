@@ -4,13 +4,13 @@ import axios from 'axios'
 export const CollectionsContext =createContext()
 const CollectionsProvider=(props)=>{
     let [collections,setCollections]=useState([])
-    const apiurl='http://localhost:4000/'
+    const apiurl=process.env.API_URL
 
     useEffect(()=>{
         let source = axios.CancelToken.source();
         (async ()=>{
             try {
-                axios.get(apiurl+'collection',{cancelToken:source.token})
+                axios.get(apiurl+'/collection',{cancelToken:source.token})
                 .then(res=>setCollections(res.data))
                 .catch(err=>console.log(err))
             } catch (error) {

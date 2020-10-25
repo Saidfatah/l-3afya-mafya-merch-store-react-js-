@@ -5,10 +5,10 @@ export const ImagesContext =createContext()
 function ImagesProvder(props) {
     const [image1,setImage1]= useState('')
     const [image2,setImage2]= useState('')
-    const apiurl='http://localhost:4000/'
+    const apiurl=process.env.API_URL
 
 
-    const getImage = async(title)=> await axios.get(apiurl+'image/'+title)
+    const getImage = async(title)=> await axios.get(apiurl+'/image/'+title)
     
     return (
    <ImagesContext.Provider value={{getImage,setImage1,setImage2}}>

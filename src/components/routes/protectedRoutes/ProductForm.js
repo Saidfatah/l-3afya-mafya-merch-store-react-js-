@@ -28,6 +28,8 @@ const ProductForm=()=> {
         titleReq:false,
         priceLow:false
     })
+    const apiurl=process.env.API_URL
+
 
     useEffect(()=>{
         formik.setFieldValue('character', characteristics)
@@ -85,7 +87,7 @@ const ProductForm=()=> {
 
                   if(constImageUploadPromise.status != 200) throw new Error('IMAGE_UPLOAD_FAIL')
                   delete values.images
-                  const constProductUploadPromise = await axios.post('http://localhost:4000/product/create',
+                  const constProductUploadPromise = await axios.post(apiurl+'/product/create',
                                                                      {...values,images:imagesNames},header)
                   console.log(constProductUploadPromise)
              } 

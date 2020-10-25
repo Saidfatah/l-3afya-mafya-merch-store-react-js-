@@ -17,6 +17,7 @@ const CheckoutPayment=()=> {
     const [success, setsuccess] = useState(false)
     const elements=useElements()
     const stripe=useStripe()
+    const apiurl=process.env.API_URL
 
     const [errs,setErr]=useState({
         cardError:false ,
@@ -35,7 +36,7 @@ const CheckoutPayment=()=> {
                 setisproccessing(true)
   
                 const amount =productsToProcces.map(item=>item.price * item.quantity).reduce((a, b)=> a + b , 0) 
-                const paymentIntentResponse=await  axios.post('http://localhost:4000/stripe/payment_intent',{amount:amount*100})
+                const paymentIntentResponse=await  axios.post(apiurl+'/stripe/payment_intent',{amount:amount*100})
               
                 const cardElement = elements.getElement(CardElement)
                 const paymentMethodReq=await stripe.createPaymentMethod({
