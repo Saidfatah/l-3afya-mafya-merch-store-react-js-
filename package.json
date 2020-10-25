@@ -38,11 +38,11 @@
     "stripe": "^8.84.0"
   },
   "scripts": {
-    "nodemon": "nodemon ./index.js",
-    "start": "webpack-dev-server --env.ENVIRONMENT=development --mode development --open --hot -inline --progress --content-base ",
+    "nodemon": "nodemon ./server.js",
+    "start": "node server.js",
     "build": "webpack  --env.ENVIRONMENT=production --mode  production",
-    "watch": "webpack-dev-server --progress",
-    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm i  && npm run build"
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm i  && npm run build",
+    "watch": "webpack-dev-server --progress"
   },
   "eslintConfig": {
     "extends": "react-app"

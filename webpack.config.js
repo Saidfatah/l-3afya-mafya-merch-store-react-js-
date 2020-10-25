@@ -23,18 +23,18 @@ module.exports =(env)=>{
   console.log(envKeys)
 
   return{
-    entry :"./src/index.js",
+    entry :"./client/src/index.js",
     devServer:{historyApiFallback: true},
     output:{
-        path:path.resolve(__dirname,"./dist"),
+        path:path.resolve(__dirname,"./build"),
         filename:'index.js',
     },
     plugins:[
-        new HTMLPlugin({template:'./src/index.html'}),
+        new HTMLPlugin({template:'./client/src/index.html'}),
         new webpack.DefinePlugin(envKeys),
         new CopyPlugin({
             patterns: [
-              { from: './src/images', to: 'images' },
+              { from: './client/src/images', to: 'images' },
             ],
           }),
     ],
@@ -50,7 +50,7 @@ module.exports =(env)=>{
             {
                 test: /\.(png|gif|jpg)$/,
                 include: [
-                  path.join(__dirname, './src/images')
+                  path.join(__dirname, './client/src/images')
                 ],
                 loader: 'file-loader',
              },

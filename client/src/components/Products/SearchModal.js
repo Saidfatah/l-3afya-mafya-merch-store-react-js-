@@ -1,6 +1,6 @@
-import React ,{useContext,useState,createRef,useEffect}from 'react'
+import React ,{useContext,useState,useRef,useEffect}from 'react'
 import {MyContext} from '../../Context/ProductsProvider'
-import Products from '../Products/Products'
+import Products from './Products'
 import {getParentRecursive} from '../utils/funcs1'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
@@ -8,7 +8,7 @@ import {Modal,Input,RawLink} from '../../Style/global'
 import {eventsService} from '../../rxjs/modalServce'
 
 const  SearchModal = (props)=> {
-    const searchModalRef = createRef()
+    const searchModalRef = useRef()
     const [searchQuery , setSearchQuery]=useState('')
     const [resultsCount , setResultsCount]=useState(0)
     const [modalVisible, setmodalVisible] = useState(false)
