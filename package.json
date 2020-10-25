@@ -38,7 +38,7 @@
     "stripe": "^8.84.0"
   },
   "scripts": {
-    "nodemon": "nodemon ./backEnd/index.js",
+    "nodemon": "nodemon ./index.js",
     "start": "webpack-dev-server --env.ENVIRONMENT=development --mode development --open --hot -inline --progress --content-base ",
     "build": "webpack  --env.ENVIRONMENT=production --mode  production",
     "watch": "webpack-dev-server --progress",
