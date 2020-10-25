@@ -82,7 +82,7 @@ const ProductForm=()=> {
                   }
                
                   if(formData != undefined)
-                     constImageUploadPromise = await fetch(apiUrl+'/product/uploadImages/'+values.title,{method:'POST',body:formData})
+                     constImageUploadPromise = await fetch(apiurl+'/product/uploadImages/'+values.title,{method:'POST',body:formData})
 
 
                   if(constImageUploadPromise.status != 200) throw new Error('IMAGE_UPLOAD_FAIL')

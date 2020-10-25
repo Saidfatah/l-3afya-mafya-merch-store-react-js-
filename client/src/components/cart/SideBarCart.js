@@ -3,7 +3,7 @@ import CartItem from './CartItem'
 import {CartContext} from '../../Context/CartProvider'
 import ImagesProvder from '../../Context/ImagesProvder'
 import { eventsService} from '../../rxjs/modalServce';
-import {Modal,ModalBackground,ButtonLink,Input} from '../../Style/global'
+import {Modal,ModalBackground,ButtonLink} from '../../Style/global'
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core'
 
@@ -55,7 +55,7 @@ const SideBarCart=(props)=>{
    
 
     const CheckOutBtn=()=>{
-        return<ButtonLink width="100%" to="/checkout/information" onClick={slideOutOut} >
+        return<ButtonLink width="100%" to="/checkout/information" onClick={slideOut} >
                 CHECKOUT .$
                 {
                 cart.map(item=>item.itemPrice * item.quantity).reduce((a, b)=> a + b , 0)
