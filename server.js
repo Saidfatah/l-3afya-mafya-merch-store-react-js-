@@ -39,10 +39,11 @@ app.use('/stripe',stripe)
 
 
 if(process.env.NODE_ENV == 'production'){
+    console.log('production')
    app.use(express.static('build'))
 }
 
 const Port = process.env.PORT || 4000
 app.listen(Port,  ()=> {
-    console.log('Listening now');
+    console.log('Listening now on' +Port);
 });

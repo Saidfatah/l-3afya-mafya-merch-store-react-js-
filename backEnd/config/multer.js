@@ -6,11 +6,12 @@ const fs = require('fs')
 
 
 
-
+const imagesplaodDirector=process.env.NODE_ENV == 'production' ?'build/images/products/' :'./src/images/products/'
+ 
 const storage = multer.diskStorage({
                      destination:(req, file, cb)=>{
                           console.log()
-                          var dir = 'build/images/products/'+req.params.title;
+                          var dir = imagesplaodDirector+req.params.title;
                           if (!fs.existsSync(dir)){
                               fs.mkdir(dir,()=>{
                                    cb(null, dir)

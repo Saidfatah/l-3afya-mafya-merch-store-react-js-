@@ -28,6 +28,7 @@ module.exports =(env)=>{
     output:{
         path:path.resolve(__dirname,"./build"),
         filename:'index.js',
+        publicPath: '/'
     },
     plugins:[
         new HTMLPlugin({template:'./client/src/index.html'}),

@@ -40,6 +40,7 @@
   "scripts": {
     "nodemon": "nodemon ./server.js",
     "start": "node server.js",
+    "start-dev": "webpack-dev-server --env.ENVIRONMENT=development --mode development --open --hot -inline --progress --content-base ",
     "build": "webpack  --env.ENVIRONMENT=production --mode  production",
     "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm i  && npm run build",
     "watch": "webpack-dev-server --progress"
