@@ -5,10 +5,12 @@ const fs = require('fs')
 //create directory 
 
 
+
+
 const storage = multer.diskStorage({
                      destination:(req, file, cb)=>{
                           console.log()
-                          var dir = './build/images/products/'+req.params.title;
+                          var dir = 'build/images/products/'+req.params.title;
                           if (!fs.existsSync(dir)){
                               fs.mkdir(dir,()=>{
                                    cb(null, dir)
@@ -20,7 +22,8 @@ const storage = multer.diskStorage({
                      filename:(req,file,cb)=>{
                           cb(null,file.fieldname +path.extname(file.originalname) )
                      }
-                })
+})
+
 const upload = multer({
     storage:storage,
 }).any()
