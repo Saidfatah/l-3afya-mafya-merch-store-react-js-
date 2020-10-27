@@ -43,6 +43,10 @@ if(process.env.NODE_ENV == 'production'){
    app.use(express.static('build'))
 }
 
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/build/index.html'));
+});
+
 const Port = process.env.PORT || 4000
 app.listen(Port,  ()=> {
     console.log('Listening now on' +Port);
