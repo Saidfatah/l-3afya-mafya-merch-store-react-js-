@@ -9,6 +9,8 @@ const Order =(props)=> {
     if(order == undefined) return <div>no orders </div>
    
     const OrderItem=({item})=>{
+      if(item.images == undefined)return <div >product fecthing error </div> 
+
        return <div  css={styles.overview__item}>
           <div css={styles.item__identity}>
                <div  css={styles.item__image}>

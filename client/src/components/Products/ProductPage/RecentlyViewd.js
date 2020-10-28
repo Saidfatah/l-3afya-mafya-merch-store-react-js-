@@ -10,12 +10,17 @@ const RecentlyViewd=()=> {
      const [RecentlyViewd, setRecentlyViewd] = useState([])
   
      useEffect(() => {
+         let mounted = true;
         let  recentlyViewIds =cookie.get('recentlyViewd')
-        recentlyViewIds=JSON.parse(recentlyViewIds)
-        getProducts().then(res=>{
-            const recentlyVisted =  res.data.filter(p => recentlyViewIds.indexOf(p.productId) > -1)
-            setRecentlyViewd(recentlyVisted)
-        })
+        if(recentlyViewIds != null &  recentlyViewIds != undefined)
+        {
+            recentlyViewIds=JSON.parse(recentlyViewIds)
+            getProducts().then(res=>{
+                const recentlyVisted =  res.data.filter(p => recentlyViewIds.indexOf(p.productId) > -1)
+                if(mounted)  setRecentlyViewd(recentlyVisted)
+            })
+        }
+        return ()=>{mounted=false}
      }, [])
 
 
