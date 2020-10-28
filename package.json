@@ -26,6 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.7",
     "multer": "^1.4.2",
+    "newrelic": "^6.13.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-google-recaptcha": "^2.1.0",
@@ -42,7 +43,7 @@
     "start": "node server.js",
     "start-dev": "webpack-dev-server --env.ENVIRONMENT=development --mode development --open --hot -inline --progress --content-base ",
     "build": "webpack  --env.ENVIRONMENT=production --mode  production",
-    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm i  && npm run build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm i  && npm run build",
     "watch": "webpack-dev-server --progress"
   },
   "eslintConfig": {
