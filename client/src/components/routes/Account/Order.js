@@ -5,7 +5,7 @@ import {FlexCol,FlexWrap,LightParagraph,SmallText} from '../../../Style/global'
 
 const Order =(props)=> {
     const{order}=props
-
+     console.log(order)
     if(order == undefined) return <div>no orders </div>
    
     const OrderItem=({item})=>{

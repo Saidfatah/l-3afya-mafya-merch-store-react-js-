@@ -8,21 +8,26 @@ const OrderModel = require('../Models/Order')
 
 router.get('/',async (req,res)=>{
      try {
-          const ordersGet =await OrderModel.find({}).populate('orders.product').exec()
+          const ordersGet =await OrderModel.find({}).populate('orders')
+            .exec(function(err, docs) { 
+                 if(err)return  console.log(err) 
+                 console.log(docs[0].orders) 
+          });
 
           if(ordersGet[0] == undefined) throw new Error('no orders')
           res.json(ordersGet)
-
      } catch (error) {
        res.sendStatus(400).send('no orders')
      }
 })
+
 router.get('/:userid',async (req,res)=>{
-     console.log(req.params.userId)
+    
      try {
           const ref = OrderModel.find({clientId:req.params.userId})
           const clientId =await ref
           if(clientId == undefined) throw new Error('no orders for you ')
+
           const order =await ref.populate('orders.product').exec()
    
           if(order[0] == undefined) throw new Error('no orders')
@@ -34,7 +39,6 @@ router.get('/:userid',async (req,res)=>{
 
 
 router.post('/',async (req,res)=>{
-     console.log('api call made')
      try {
           if(req.body.order == undefined) throw new Error('UNDEFINED_DATA')
           

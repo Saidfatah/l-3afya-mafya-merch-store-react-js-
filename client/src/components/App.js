@@ -39,13 +39,14 @@ const App=()=> {
           <CartProvider>
             <CollectionsProvider>
             <Router>
+            <Cart />
               {
               //in some pages I don't want the navbar to apper as in checkout page  
                 window.location.href.indexOf("/checkout") == -1
                 ?<React.Fragment>
-                      <Cart />
+                      
                       <SideBar />
-                      <div css={css`margin-bottom:74px;`}></div>
+                      <div css={css`margin-bottom:74px;width:100%`}></div>
                       <Navbar />
                       <SearchModal /> 
                   </React.Fragment>

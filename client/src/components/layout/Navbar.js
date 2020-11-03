@@ -1,4 +1,4 @@
-import React ,{forwardRef,useState,useImperativeHandle,useContext}from 'react'
+import React ,{useState,useContext}from 'react'
 import {CartContext} from '../../Context/CartProvider'
 import {jwtCheck,getUser} from "../Auth/Auth"
 import { eventsService} from '../../rxjs/modalServce';
@@ -138,6 +138,7 @@ const styles ={
     top: 0;
     left: 0;
     z-index: 99;
+    position:absolute;
     width: 100%;
     `,
     navBar__left :css`

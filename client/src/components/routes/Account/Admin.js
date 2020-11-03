@@ -35,7 +35,7 @@ const Admin=()=> {
    
          <SmallText>Latest orders</SmallText>
          <Border />
-         {   orders.length>0 
+         { orders.length>0 
              ?orders.map((order,index)=><Order key={index} order={order} />)
              :<LightParagraph>No orders for the moment</LightParagraph>
          }

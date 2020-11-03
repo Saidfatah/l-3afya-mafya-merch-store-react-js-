@@ -4,14 +4,12 @@ const Schema = mongoose.Schema;
 const OrderSchema = new Schema(
     {
         orders:[
-           {
-               product :{
+           {      
                 type: Schema.Types.ObjectId, 
                 ref: 'Product'
-               },
-               quantity:Number,
            }
         ],
+        orders_quantity:[],
         clientId : {
             type: Schema.Types.ObjectId, 
             ref: 'User'

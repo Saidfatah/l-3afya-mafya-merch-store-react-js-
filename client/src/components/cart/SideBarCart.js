@@ -66,7 +66,7 @@ const SideBarCart=(props)=>{
 
 
     return (
-        <div>
+        <>
             <ModalBackground  ref={pageShdowCover} onClick={slideOut} />
             <Modal   ref={cartContainer} right={-400} from="cart" >
                  <div css={styles.cart__top}>
@@ -91,7 +91,7 @@ const SideBarCart=(props)=>{
                  </div>
              </div>
             </Modal>
-        </div>
+        </>
     )
 }
 

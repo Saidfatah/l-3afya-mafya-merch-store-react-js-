@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
-import {Link} from "react-router-dom";
 import axios from 'axios'
+import Error from '../../../layout/Error'
 import {Button,Container,H1,LightParagraph,FlexCol,Input,UnderlinedLink} from '../../../../Style/global'
 /** @jsx jsx */
 import { jsx ,css} from '@emotion/core'
@@ -42,7 +42,7 @@ const Login=({url})=> {
                      <H1>Login</H1>
                      <LightParagraph center mgb={1} mgt={2}>Please enter your e-mail and password:</LightParagraph>
                      <p></p>
-                     <div className="error">{err}</div>
+                     <Error trigger={err!=''} msg={err} />
                      <FlexCol mgb={2} >
                           <Input 
                                type="email"

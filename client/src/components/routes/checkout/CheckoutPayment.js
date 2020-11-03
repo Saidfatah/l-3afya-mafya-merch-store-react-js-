@@ -65,6 +65,7 @@ const CheckoutPayment=()=> {
 
                 const order ={
                      orders:[cart.map(item=>({product:item.itemId,quantity:item.quantity}))],
+                     orders_quantity:[cart.map(item=>item.quantity)],
                      clientId : jwtCheck() ? JSON.parse(getUser()).id : "5f79084aaf9a11223877eafb" ,
                      date:new Date(Date.now()),
                      cost:amount,
