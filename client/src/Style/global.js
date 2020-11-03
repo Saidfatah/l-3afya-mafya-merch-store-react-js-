@@ -319,6 +319,11 @@ export const Modal=styled.div(props=>{
    width:${props.width?props.width :'400px'} ;
    height: ${props.height?props.height : '100vh'};
    top: ${props.top?props.top:0}px;
+
+   @media all and (max-width :920px){
+      width:100%;
+   }
+   
    ${
       props.padding
       ?"padding:"+(props.padding)+"rem;"
