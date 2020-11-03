@@ -48,8 +48,8 @@ const CheckOut=()=> {
     return (
     <CheckoutAddressProvider>
          <div css={styles.checkout}>
-                 <CheckOutRouter />
                  <CheckoutOverview />
+                 <CheckOutRouter />
          </div>
     </CheckoutAddressProvider>
     )

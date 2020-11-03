@@ -63,6 +63,9 @@ const styles ={
     position: relative;
     margin-right: 2rem;
     margin-bottom:2rem;
+    @media all and (max-width :920px){
+        margin-right: 0;
+    }
     :after{
         position: absolute;
         content: '';
