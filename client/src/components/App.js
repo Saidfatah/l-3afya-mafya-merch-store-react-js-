@@ -44,9 +44,7 @@ const App=()=> {
               //in some pages I don't want the navbar to apper as in checkout page  
                 window.location.href.indexOf("/checkout") == -1
                 ?<React.Fragment>
-                      
                       <SideBar />
-                      <div css={css`margin-bottom:74px;width:100%`}></div>
                       <Navbar />
                       <SearchModal /> 
                   </React.Fragment>

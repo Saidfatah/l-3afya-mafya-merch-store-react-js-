@@ -138,7 +138,7 @@ const styles ={
     top: 0;
     left: 0;
     z-index: 99;
-    position:absolute;
+    position:sticky;
     width: 100%;
     `,
     navBar__left :css`
