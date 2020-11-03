@@ -46,12 +46,12 @@ const CheckOut=()=> {
     }
 
     return (
-    <div css={styles.checkout}>
-        <CheckoutAddressProvider>
-             <CheckOutRouter />
-             <CheckoutOverview />
-        </CheckoutAddressProvider>
-     </div>
+    <CheckoutAddressProvider>
+         <div css={styles.checkout}>
+                 <CheckOutRouter />
+                 <CheckoutOverview />
+         </div>
+    </CheckoutAddressProvider>
     )
 }
 
@@ -59,8 +59,12 @@ const styles ={
     checkout :css` 
     display: flex;
     position: relative;
+    flex-direction: row-reverse;
     width: 100%;
     height: fit-content;
+    @media all and (max-width :920px){
+        display: block;
+     }
     `,
     checkout__gateways :css` 
     flex: 4;
