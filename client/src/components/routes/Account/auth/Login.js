@@ -38,7 +38,7 @@ const Login=({url})=> {
 
     return (
          <Container verticalCenter>
-                <FlexCol width="500px">
+                <FlexCol width="500px" css={css`@media all and (max-width :920px){width: 100%;padding: 1rem; }`}>
                      <H1>Login</H1>
                      <LightParagraph center mgb={1} mgt={2}>Please enter your e-mail and password:</LightParagraph>
                      <p></p>

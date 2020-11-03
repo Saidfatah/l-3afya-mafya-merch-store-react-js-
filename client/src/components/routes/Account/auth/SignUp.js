@@ -125,7 +125,7 @@ const SignUp=({url})=> {
 
     return (
         <Container verticalCenter>
-            <FlexCol width="600px">
+            <FlexCol width="600px" css={css`@media all and (max-width :920px){width: 100%;padding: 1rem; }`}>
                  <ReCAPTCHA  
                  sitekey="6Leex9QZAAAAAJnjaE1JuH-L6owOoGarmEd9qHTz" 
                  ref={reRef}  
